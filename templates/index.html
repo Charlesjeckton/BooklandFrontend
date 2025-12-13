@@ -6,54 +6,42 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Index - Bookland</title>
 
-    {% load static %}
-
-    <!-- Favicons -->
-    <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
-    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-
-    <!-- Fonts -->
+    <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto&family=Poppins&family=Raleway&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Poppins&family=Raleway&display=swap" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
 
-    <!-- Vendor CSS -->
-    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-
-    <!-- Main CSS -->
-    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+    <!-- ✅ GLOBAL API BASE URL -->
+    <script>
+        const API_BASE_URL = "https://booklandbackend.onrender.com";
+    </script>
 </head>
 
 <body class="index-page">
 
-<!-- ✅ GLOBAL API BASE URL -->
-<script>
-    const API_BASE_URL = "https://booklandbackend.onrender.com";
-</script>
-
 <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
-            <img src="{% static 'assets/img/school_logo.png' %}" alt="">
+        <a href="/" class="logo d-flex align-items-center">
+            <img src="assets/img/school_logo.png" alt="">
             <h1 class="sitename">Bookland <br>Schools</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="{% url 'index' %}" class="active">Home</a></li>
-                <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'admissions' %}">Admission</a></li>
-                <li><a href="{% url 'fees' %}">Fees</a></li>
-                <li><a href="{% url 'alumni' %}">Alumni</a></li>
-                <li><a href="{% url 'events' %}">Events</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li><a href="{% url 'faqs' %}">FAQs</a></li>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/admissions">Admission</a></li>
+                <li><a href="/fees">Fees</a></li>
+                <li><a href="/alumni">Alumni</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/faqs">FAQs</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -65,7 +53,7 @@
 <!-- ================= HERO ================= -->
 <section id="hero" class="hero section dark-background">
     <video autoplay muted loop playsinline class="video-background">
-        <source src="{% static 'assets/img/education/video-2.mp4' %}" type="video/mp4">
+        <source src="assets/img/education/video-2.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
 </section>
@@ -89,30 +77,8 @@
     </div>
 
     <div class="container">
-        <div class="testimonial-masonry">
-            {% for testimonial in testimonials %}
-            <div class="testimonial-item highlight" data-aos="fade-up">
-                <div class="testimonial-content">
-                    <div class="quote-pattern">
-                        <i class="bi bi-quote"></i>
-                    </div>
-
-                    <p>{{ testimonial.testimonial }}</p>
-
-                    <div class="client-info">
-                        <div class="client-image">
-                            <!-- ✅ FIXED MEDIA URL -->
-                            <img src="https://booklandbackend.onrender.com{{ testimonial.image.url }}"
-                                 alt="{{ testimonial.name }}">
-                        </div>
-                        <div class="client-details">
-                            <h3>{{ testimonial.name }}</h3>
-                            <span class="position">{{ testimonial.title }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+        <div class="testimonial-masonry" id="testimonials-container">
+            <!-- Testimonials will be loaded dynamically here -->
         </div>
     </div>
 </section>
@@ -125,18 +91,8 @@
     </div>
 
     <div class="container">
-        <div class="row g-4">
-            {% for event in events %}
-            <div class="col-lg-6">
-                <div class="event-card">
-                    <h3>{{ event.title }}</h3>
-                    <p>{{ event.description }}</p>
-                    <p><i class="bi bi-geo-alt"></i> {{ event.location }}</p>
-                </div>
-            </div>
-            {% empty %}
-            <p>No events available.</p>
-            {% endfor %}
+        <div class="row g-4" id="events-container">
+            <!-- Events will be loaded dynamically here -->
         </div>
     </div>
 </section>
@@ -151,14 +107,71 @@
 </footer>
 
 <!-- Vendor JS -->
-<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 
 <!-- Main JS -->
-<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="assets/js/main.js"></script>
+
+<!-- ✅ API FETCH LOGIC -->
+<script>
+    // Fetch Testimonials
+    fetch(`${API_BASE_URL}/api/testimonials/`)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('testimonials-container');
+            data.forEach(t => {
+                const div = document.createElement('div');
+                div.className = "testimonial-item highlight";
+                div.setAttribute('data-aos', 'fade-up');
+                div.innerHTML = `
+                    <div class="testimonial-content">
+                        <div class="quote-pattern">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <p>${t.testimonial}</p>
+                        <div class="client-info">
+                            <div class="client-image">
+                                <img src="${API_BASE_URL}${t.image}" alt="${t.name}">
+                            </div>
+                            <div class="client-details">
+                                <h3>${t.name}</h3>
+                                <span class="position">${t.title}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        })
+        .catch(err => console.error('Error loading testimonials:', err));
+
+    // Fetch Events
+    fetch(`${API_BASE_URL}/api/events/`)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('events-container');
+            if (data.length === 0) {
+                container.innerHTML = `<p>No events available.</p>`;
+            }
+            data.forEach(e => {
+                const div = document.createElement('div');
+                div.className = "col-lg-6";
+                div.innerHTML = `
+                    <div class="event-card">
+                        <h3>${e.title}</h3>
+                        <p>${e.description}</p>
+                        <p><i class="bi bi-geo-alt"></i> ${e.location}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        })
+        .catch(err => console.error('Error loading events:', err));
+</script>
 
 </body>
 </html>

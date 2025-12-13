@@ -1,17 +1,13 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admissions - Bookland Schools</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
-  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <link href="assets/img/school_logo.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -19,36 +15,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS -->
-  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
   <!-- Main CSS -->
-  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
-</head>
+  <link href="assets/css/main.css" rel="stylesheet">
 
+  <!-- ✅ Global API URL -->
+  <script>
+      const API_BASE_URL = "https://booklandbackend.onrender.com";
+  </script>
+</head>
 <body class="admissions-page">
 
   <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
-        <img src="{% static 'assets/img/school_logo.png' %}" alt="Logo">
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="assets/img/school_logo.png" alt="Logo">
         <h1 class="sitename">Bookland <br>Schools</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About Us</a></li>
-          <li><a href="{% url 'admissions' %}" class="active">Admission</a></li>
-          <li><a href="{% url 'fees' %}">Fees</a></li>
-          <li><a href="{% url 'alumni' %}">Alumni</a></li>
-          <li><a href="{% url 'events' %}">Events</a></li>
-          <li><a href="{% url 'contact' %}">Contact</a></li>
-          <li><a href="{% url 'faqs' %}">FAQs</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/admissions" class="active">Admission</a></li>
+          <li><a href="/fees">Fees</a></li>
+          <li><a href="/alumni">Alumni</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/faqs">FAQs</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -59,15 +59,14 @@
   <main class="main">
 
     <!-- Page Title -->
-    <div class="page-title dark-background" style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+    <div class="page-title dark-background" style="background-image: url('assets/img/education/showcase-1.webp');">
       <div class="container position-relative">
         <h1>Admissions</h1>
         <p>We welcome learners into a nurturing environment that prioritizes academic growth,
-          character development, and holistic learning. Our admissions process is simple, transparent,
-          and designed to help every child begin a successful educational journey with confidence.</p>
+          character development, and holistic learning.</p>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li class="current">Admissions</li>
           </ol>
         </nav>
@@ -79,45 +78,27 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-5 g-lg-5">
 
-          <!-- Left Column: Info and Steps -->
+          <!-- Left Column: Info, Steps, Deadlines -->
           <div class="col-lg-6">
             <div class="admissions-info" data-aos="fade-up">
               <h2>Begin Your Academic Journey Today</h2>
-              <p>Join a vibrant community where learning, growth, and values go hand in hand. At Bookland
-                Schools, we’re committed to helping each student thrive academically and personally from the very
-                start.</p>
+              <p>Join a vibrant community where learning, growth, and values go hand in hand.</p>
 
               <!-- How to Apply -->
               <div class="admissions-steps mt-5">
                 <h3>How to Apply</h3>
-                <div class="steps-wrapper mt-4">
-                  {% for step in steps %}
-                  <div class="step-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'0' }}00">
-                    <div class="step-number">{{ forloop.counter }}</div>
-                    <div class="step-content">
-                      <h4>{{ step.title }}</h4>
-                      <p>{{ step.description }}</p>
-                    </div>
-                  </div>
-                  {% endfor %}
+                <div class="steps-wrapper mt-4" id="admission-steps">
+                  <!-- Steps will load dynamically via JS -->
                 </div>
               </div>
 
               <!-- Key Deadlines -->
               <div class="deadlines mt-5" data-aos="fade-up">
                 <h3>Key Admission Deadlines</h3>
-                <div class="deadline-grid mt-4">
-                  {% for deadline in deadlines %}
-                  <div class="deadline-item">
-                    <h4>{{ deadline.name }}</h4>
-                    <div class="date">{{ deadline.deadline_date|date:"F d, Y" }}</div>
-                  </div>
-                  {% empty %}
-                  <p>No deadlines have been set yet.</p>
-                  {% endfor %}
+                <div class="deadline-grid mt-4" id="admission-deadlines">
+                  <!-- Deadlines will load dynamically via JS -->
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -127,18 +108,8 @@
             <!-- Admission Requirements -->
             <div class="admissions-requirements" data-aos="fade-up">
               <h3>Admission Requirements</h3>
-              <div class="requirements-list mt-4">
-                {% for req in requirements %}
-                <div class="requirement-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'0' }}00">
-                  <div class="icon-box">
-                    <i class="{{ req.icon }}"></i>
-                  </div>
-                  <div>
-                    <h4>{{ req.title }}</h4>
-                    <p>{{ req.description }}</p>
-                  </div>
-                </div>
-                {% endfor %}
+              <div class="requirements-list mt-4" id="admission-requirements">
+                <!-- Requirements will load dynamically via JS -->
               </div>
             </div>
 
@@ -147,10 +118,7 @@
               <div class="card">
                 <div class="card-body">
                   <h3 class="card-title">Request Information</h3>
-                  <p>Interested in learning more about Bookland Schools? Fill out the form below and we’ll
-                    be happy to assist you.</p>
-
-                  <form class="contact-form mt-4" action="{% url 'admissions' %}" method="post">
+                  <form class="contact-form mt-4" action="/admissions/" method="post">
                     {% csrf_token %}
                     <div class="mb-3">
                       <label for="name" class="form-label">Full Name</label>
@@ -168,45 +136,6 @@
                       <label for="message" class="form-label">Questions or Comments</label>
                       <textarea id="message" name="message" class="form-control" rows="3" placeholder="Questions or Comments" required></textarea>
                     </div>
-
-                    <!-- Success Modal -->
-                    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content bg-success text-white">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="successModalLabel">Success</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            {% for message in messages %}
-                            {% if message.tags == 'success' %}
-                              {{ message }}
-                            {% endif %}
-                            {% endfor %}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Error Modal -->
-                    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content bg-danger text-white">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            {% for message in messages %}
-                            {% if message.tags == 'error' %}
-                              {{ message }}
-                            {% endif %}
-                            {% endfor %}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Submit Request</button>
                     </div>
@@ -219,102 +148,84 @@
         </div>
       </div>
     </section>
-    <!-- /Admissions Section -->
 
   </main>
 
   <!-- Footer -->
   <footer id="footer" class="footer position-relative dark-background">
-    <div class="container footer-top">
-      <div class="row gy-64">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="{% url 'index' %}" class="logo d-flex align-items-center">
-            <span class="sitename">Bookland Schools</span>
-          </a>
-          <div class="footer-contact pt-3 mb-4">
-            <p>Rasta Stage</p>
-            <p>Embakasi, Nairobi</p>
-            <p class="mt-3"><strong>Phone:</strong> +254 725 473 829</p>
-            <p><strong>Email:</strong> booklandschoolskayole@gmail.com</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About Us</a></li>
-            <li><a href="{% url 'admissions' %}">Admission</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
-            <li><a href="{% url 'faqs' %}">FAQs</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Play Group</a></li>
-            <li><a href="#">PP1 - PP2</a></li>
-            <li><a href="#">Grade 1 - 3</a></li>
-            <li><a href="#">Grade 4 - 6</a></li>
-            <li><a href="#">Junior Secondary</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 social-links">
-          <h4>Social Links</h4>
-          <ul>
-            <li><a href="#"><i class="bi bi-twitter-x"></i> Twitter</a></li>
-            <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
-            <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
-            <li><a href="#"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
-            <li><a href="#"><i class="bi bi-tiktok"></i> TikTok</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <div class="container text-center mt-4">
-      <p>© <strong class="sitename">Dreamchaser</strong> All Rights Reserved</p>
-      <div>Designed by <a href="#">Charles Jeckton</a></div>
+      <p>© <span id="current-year"></span> Bookland Schools. All rights reserved.</p>
+      <div>Designed by <strong>Charles Jeckton</strong></div>
     </div>
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-  </a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Messages Modal Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      {% if messages %}
-        {% for message in messages %}
-          {% if message.tags == 'success' %}
-            new bootstrap.Modal(document.getElementById('successModal')).show();
-          {% elif message.tags == 'error' %}
-            new bootstrap.Modal(document.getElementById('errorModal')).show();
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    });
-  </script>
-
   <!-- Vendor JS -->
-  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
-  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
 
   <!-- Main JS -->
-  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="assets/js/main.js"></script>
 
+  <!-- ========================= -->
+  <!-- API FETCH LOGIC -->
+  <!-- ========================= -->
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Fetch admission steps
+    fetch(`${API_BASE_URL}/api/admission-steps/`)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('admission-steps');
+        data.forEach((step, idx) => {
+          const div = document.createElement('div');
+          div.className = 'step-item';
+          div.dataset.aos = 'fade-up';
+          div.dataset.aosDelay = `${idx}00`;
+          div.innerHTML = `
+            <div class="step-number">${idx + 1}</div>
+            <div class="step-content">
+              <h4>${step.title}</h4>
+              <p>${step.description}</p>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      });
+
+    // Fetch key admission deadlines
+    fetch(`${API_BASE_URL}/api/admission-deadlines/`)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('admission-deadlines');
+        data.forEach(deadline => {
+          const div = document.createElement('div');
+          div.className = 'deadline-item';
+          div.innerHTML = `
+            <h4>${deadline.name}</h4>
+            <div class="date">${new Date(deadline.deadline_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+          `;
+          container.appendChild(div);
+        });
+      });
+
+    // Fetch admission requirements (optional)
+    fetch(`${API_BASE_URL}/api/admission-requirements/`)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('admission-requirements');
+        data.forEach((req, idx) => {
+          const div = document.createElement('div');
+          div.className = 'requirement-item';
+          div.dataset.aos = 'fade-up';
+          div.dataset.aosDelay = `${idx}00`;
+          div.innerHTML = `
+            <div class="icon-box"><i class="${req.icon}"></i></div>
+            <div><h4>${req.title}</h4><p>${req.description}</p></div>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
 </body>
 </html>

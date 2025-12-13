@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +8,18 @@
     <!-- ========================= -->
     <!-- VENDOR CSS -->
     <!-- ========================= -->
-    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/vendor/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
 
     <!-- ========================= -->
     <!-- CUSTOM CSS -->
     <!-- ========================= -->
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- ✅ GLOBAL API BASE URL -->
+    <script>
+        const API_BASE_URL = "https://booklandbackend.onrender.com";
+    </script>
 </head>
 <body>
     <!-- ========================= -->
@@ -23,16 +27,16 @@
     <!-- ========================= -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'index' %}">Bookland</a>
+            <a class="navbar-brand" href="/">Bookland</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'admissions' %}">Admissions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'events' %}">Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admissions">Admissions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events">Events</a></li>
                 </ul>
             </div>
         </div>
@@ -45,7 +49,7 @@
         <div class="container">
             <h1 class="display-4">About Bookland</h1>
             <p class="lead">Empowering students with knowledge and resources for academic excellence.</p>
-            <img src="{% static 'assets/img/about-hero.jpg' %}" class="img-fluid rounded" alt="Bookland Hero">
+            <img src="assets/img/about-hero.jpg" class="img-fluid rounded" alt="Bookland Hero">
         </div>
     </section>
 
@@ -65,22 +69,8 @@
             </ul>
 
             <h2>Our Team</h2>
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <img src="{% static 'assets/img/team1.jpg' %}" class="img-fluid rounded-circle mb-2" alt="Team Member">
-                    <h5>Jane Doe</h5>
-                    <p>Founder & CEO</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="{% static 'assets/img/team2.jpg' %}" class="img-fluid rounded-circle mb-2" alt="Team Member">
-                    <h5>John Smith</h5>
-                    <p>Head of Academics</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="{% static 'assets/img/team3.jpg' %}" class="img-fluid rounded-circle mb-2" alt="Team Member">
-                    <h5>Emily Johnson</h5>
-                    <p>Operations Manager</p>
-                </div>
+            <div class="row" id="leadership-team">
+                <!-- Team members will be loaded dynamically -->
             </div>
         </div>
     </section>
@@ -90,19 +80,45 @@
     <!-- ========================= -->
     <footer class="bg-dark text-white py-4">
         <div class="container text-center">
-            <p>&copy; {{ now|date:"Y" }} Bookland. All rights reserved.</p>
+            <p>&copy; <span id="current-year"></span> Bookland. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- ========================= -->
     <!-- VENDOR JS -->
     <!-- ========================= -->
-    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'assets/vendor/fontawesome/js/all.min.js' %}"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/fontawesome/js/all.min.js"></script>
 
     <!-- ========================= -->
     <!-- CUSTOM JS -->
     <!-- ========================= -->
-    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- ========================= -->
+    <!-- API FETCH LOGIC -->
+    <!-- ========================= -->
+    <script>
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Fetch leadership team from API
+        fetch(`${API_BASE_URL}/api/leadership/`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('leadership-team');
+                data.forEach(member => {
+                    const div = document.createElement('div');
+                    div.className = "col-md-4 text-center mb-4";
+                    div.innerHTML = `
+                        <img src="${API_BASE_URL}${member.image}" class="img-fluid rounded-circle mb-2" alt="${member.name}">
+                        <h5>${member.name}</h5>
+                        <p>${member.position}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => console.error('Error loading leadership team:', err));
+    </script>
 </body>
 </html>

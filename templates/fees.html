@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +7,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Fees - Bookland</title>
 
-    {% load static %}
-    {% load humanize %}
-
     <!-- Favicons -->
     <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
     <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
@@ -16,8 +14,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Poppins&family=Raleway&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto&family=Poppins&family=Raleway&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS -->
     <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -28,14 +27,14 @@
 
     <!-- Main CSS -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+    <!-- ✅ API Base URL -->
+    <script>
+        const API_BASE_URL = "https://booklandbackend.onrender.com"; // Replace with your API endpoint
+    </script>
 </head>
 
-<body class="admissions-page">
-
-<!-- ✅ GLOBAL API BASE URL -->
-<script>
-    const API_BASE_URL = "https://booklandbackend.onrender.com";
-</script>
+<body class="fees-page">
 
 <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -86,13 +85,11 @@
 
         <div class="section-header text-center mb-5">
             <h2>Our Fee Structure</h2>
-            <p class="text-muted">
-                Affordable and transparent fees for every learning level.
-            </p>
+            <p class="text-muted">Affordable and transparent fees for every learning level.</p>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-bordered table-striped text-center align-middle">
+            <table class="table table-bordered table-striped text-center align-middle" id="fees-table">
                 <thead class="table-primary">
                 <tr>
                     <th>Level</th>
@@ -103,28 +100,10 @@
                     <th>Fee Structure</th>
                 </tr>
                 </thead>
-
-                <tbody class="table-info">
-                {% for fee in fees %}
-                    <tr>
-                        <td>{{ fee.level }}</td>
-                        <td>KES {{ fee.tuition_per_term|floatformat:0|intcomma }}</td>
-                        <td>KES {{ fee.meals_fee|floatformat:0|intcomma }}</td>
-                        <td>KES {{ fee.transport_fee|floatformat:0|intcomma }}</td>
-                        <td>KES {{ fee.total_fee|floatformat:0|intcomma }}</td>
-                        <td>
-                            {% if fee.fee_structure_file %}
-                                <!-- ✅ FIXED MEDIA FILE URL -->
-                                <a href="https://booklandbackend.onrender.com{{ fee.fee_structure_file.url }}"
-                                   class="btn btn-primary" download>
-                                    <i class="bi bi-file-earmark-arrow-down"></i> Download (PDF)
-                                </a>
-                            {% else %}
-                                <span class="text-muted">N/A</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
+                <tbody>
+                <tr id="fees-loading">
+                    <td colspan="6">Loading fees...</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -132,10 +111,7 @@
         <!-- ================= PAYMENT INFO ================= -->
         <div class="mt-5">
             <h3>Payment Instructions</h3>
-            <p>
-                All payments should be made using the details below.
-                Please include the student’s full name and admission number as reference.
-            </p>
+            <p>All payments should be made using the details below. Please include the student’s full name and admission number as reference.</p>
 
             <ul class="list-group">
                 <li class="list-group-item"><strong>Account Name:</strong> Bookland Schools</li>
@@ -148,8 +124,7 @@
         </div>
 
         <p class="text-muted mt-4">
-            Note: Fees are payable at the beginning of each term.
-            Additional costs may apply for uniforms and extracurricular activities.
+            Note: Fees are payable at the beginning of each term. Additional costs may apply for uniforms and extracurricular activities.
         </p>
     </div>
 </section>
@@ -172,6 +147,47 @@
 
 <!-- Main JS -->
 <script src="{% static 'assets/js/main.js' %}"></script>
+
+<!-- ✅ Dynamic Fees Fetch -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const feesTableBody = document.querySelector("#fees-table tbody");
+    const loadingRow = document.getElementById("fees-loading");
+
+    fetch(`${API_BASE_URL}/fees/`)
+        .then(res => res.json())
+        .then(data => {
+            loadingRow.style.display = 'none';
+            if (!data.length) {
+                feesTableBody.innerHTML = `<tr><td colspan="6">No fee data available at the moment.</td></tr>`;
+                return;
+            }
+
+            data.forEach(fee => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${fee.level}</td>
+                    <td>KES ${Number(fee.tuition_per_term).toLocaleString()}</td>
+                    <td>KES ${Number(fee.meals_fee).toLocaleString()}</td>
+                    <td>KES ${Number(fee.transport_fee).toLocaleString()}</td>
+                    <td>KES ${Number(fee.total_fee).toLocaleString()}</td>
+                    <td>
+                        ${fee.fee_structure_file
+                            ? `<a href="${API_BASE_URL}${fee.fee_structure_file}" class="btn btn-primary" download>
+                                    <i class="bi bi-file-earmark-arrow-down"></i> Download (PDF)
+                               </a>`
+                            : `<span class="text-muted">N/A</span>`}
+                    </td>
+                `;
+                feesTableBody.appendChild(row);
+            });
+        })
+        .catch(err => {
+            console.error("Error fetching fees:", err);
+            loadingRow.innerHTML = `<td colspan="6" class="text-danger">Failed to load fee data.</td>`;
+        });
+});
+</script>
 
 </body>
 </html>

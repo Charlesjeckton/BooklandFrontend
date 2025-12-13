@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,8 +9,6 @@
     <meta name="description" content="Frequently asked questions about Bookland Schools admissions, fees, and programs.">
     <meta name="keywords" content="Bookland Schools, FAQs, Admissions, Fees, Curriculum">
 
-    {% load static %}
-
     <!-- Favicons -->
     <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
     <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
@@ -17,7 +16,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS -->
     <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -28,9 +29,14 @@
 
     <!-- Main CSS -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+    <!-- ✅ API Base URL -->
+    <script>
+        const API_BASE_URL = "https://booklandbackend.onrender.com/api"; // replace with your API endpoint
+    </script>
 </head>
 
-<body class="admissions-page">
+<body class="faqs-page">
 
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -60,7 +66,8 @@
 <main class="main">
 
     <!-- Page Title -->
-    <div class="page-title dark-background" style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+    <div class="page-title dark-background"
+        style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
         <div class="container position-relative">
             <h1>Frequently Asked Questions (FAQs)</h1>
             <p>Answers to common questions from parents, students, and guardians about Bookland Schools’ programs, admissions, and school life.</p>
@@ -82,78 +89,7 @@
             </div>
 
             <div class="accordion" id="faqAccordion">
-
-                <!-- FAQ Item -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="faq1-heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
-                            What are the admission requirements for new students?
-                        </button>
-                    </h2>
-                    <div id="faq1" class="accordion-collapse collapse" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Prospective students must provide a birth certificate, two passport-sized photos, past academic reports (if applicable), and complete an application form. An interview or assessment may also be required.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="faq2-heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                            Do you offer transport services?
-                        </button>
-                    </h2>
-                    <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Yes. We provide safe and reliable school transport within designated routes in Embakasi and nearby areas. Fees vary depending on location.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="faq3-heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                            What curriculum does Bookland School follow?
-                        </button>
-                    </h2>
-                    <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Bookland follows the Competency-Based Curriculum (CBC) approved by the Kenyan Ministry of Education, from Playgroup to Junior Secondary School.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="faq4-heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                            How can I pay school fees?
-                        </button>
-                    </h2>
-                    <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Fees can be paid via bank deposit, MPesa Paybill, or at the school office. Visit our <a href="{% url 'fees' %}">Fees Page</a> for full details.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="faq5-heading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
-                            What extracurricular activities do you offer?
-                        </button>
-                    </h2>
-                    <div id="faq5" class="accordion-collapse collapse" aria-labelledby="faq5-heading" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Activities include music, drama, soccer, athletics, chess, art, and debate club to support holistic student development.
-                        </div>
-                    </div>
-                </div>
-
+                <p class="text-center" id="faq-loading">Loading FAQs...</p>
             </div>
         </div>
     </section>
@@ -236,6 +172,48 @@
 
 <!-- Main JS -->
 <script src="{% static 'assets/js/main.js' %}"></script>
+
+<!-- ✅ FAQs API Fetch -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const faqAccordion = document.getElementById('faqAccordion');
+    const loadingText = document.getElementById('faq-loading');
+
+    fetch(`${API_BASE_URL}/faqs/`)
+        .then(response => response.json())
+        .then(data => {
+            loadingText.style.display = 'none';
+            faqAccordion.innerHTML = '';
+            if (data.length === 0) {
+                faqAccordion.innerHTML = '<p class="text-center">No FAQs available at the moment.</p>';
+            } else {
+                data.forEach((faq, index) => {
+                    const faqItem = `
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq${index}-heading">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq${index}" aria-expanded="false" aria-controls="faq${index}">
+                                    ${faq.question}
+                                </button>
+                            </h2>
+                            <div id="faq${index}" class="accordion-collapse collapse" aria-labelledby="faq${index}-heading"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    ${faq.answer}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    faqAccordion.innerHTML += faqItem;
+                });
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching FAQs:', err);
+            loadingText.innerHTML = '<p class="text-center text-danger">Failed to load FAQs.</p>';
+        });
+});
+</script>
 
 </body>
 </html>

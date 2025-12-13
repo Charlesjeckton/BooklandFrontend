@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,13 +9,11 @@
     <meta name="description" content="Meet the notable alumni of Bookland Schools and learn about their achievements.">
     <meta name="keywords" content="Bookland Schools, Alumni, Success Stories, Education">
 
-    {% load static %}
-
     <!-- Favicons -->
     <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
     <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-    <!-- Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -32,9 +31,9 @@
 
 <body class="alumni-page">
 
+<!-- Header -->
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
         <a href="{% url 'index' %}" class="logo d-flex align-items-center">
             <img src="{% static 'assets/img/school_logo.png' %}" alt="Bookland Logo">
             <h1 class="sitename">Bookland <br>Schools</h1>
@@ -53,7 +52,6 @@
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-
     </div>
 </header>
 
@@ -63,8 +61,8 @@
     <div class="page-title dark-background" style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
         <div class="container position-relative">
             <h1>Alumni</h1>
-            <p>We take pride in the achievements of our alumni who continue to make a difference in various fields. <br>
-                Their success stories reflect the strength of our academic foundation and values.</p>
+            <p>We take pride in the achievements of our alumni who continue to make a difference in various fields. 
+               Their success stories reflect the strength of our academic foundation and values.</p>
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="{% url 'index' %}">Home</a></li>
@@ -90,7 +88,7 @@
                         <div class="alumni-profile">
                             <div class="profile-header">
                                 <div class="profile-img">
-                                    <img src="{{ alumni.image.url }}" alt="{{ alumni.name }}" class="img-fluid">
+                                    <img src="{{ alumni.image.url }}" alt="{{ alumni.name }}" class="img-fluid rounded">
                                 </div>
                                 <div class="profile-year">{{ alumni.year_of_completion }}</div>
                             </div>
@@ -101,6 +99,8 @@
                             </div>
                         </div>
                     </div>
+                {% empty %}
+                    <p class="text-center">No alumni records available at the moment.</p>
                 {% endfor %}
             </div>
 
@@ -113,7 +113,6 @@
 <footer id="footer" class="footer position-relative dark-background">
     <div class="container footer-top">
         <div class="row gy-64">
-
             <div class="col-lg-4 col-md-6 footer-about">
                 <a href="{% url 'index' %}" class="logo d-flex align-items-center">
                     <span class="sitename">Bookland Schools</span>
@@ -154,11 +153,10 @@
                     <li><a href="#"><i class="bi bi-twitter-x"></i> Twitter</a></li>
                     <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
                     <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
-                    <li><a href="#"><i class="bi bi-linkedin"></i> Linkedin</a></li>
-                    <li><a href="#"><i class="bi bi-tiktok"></i> Tiktok</a></li>
+                    <li><a href="#"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="#"><i class="bi bi-tiktok"></i> TikTok</a></li>
                 </ul>
             </div>
-
         </div>
     </div>
 

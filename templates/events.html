@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,10 +6,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Events - Bookland Schools</title>
-    <meta name="description" content="Explore upcoming and past events at Bookland Schools including academic, cultural, and sporting activities.">
+    <meta name="description"
+        content="Explore upcoming and past events at Bookland Schools including academic, cultural, and sporting activities.">
     <meta name="keywords" content="Bookland Schools, Events, Calendar, Activities">
-
-    {% load static %}
 
     <!-- Favicons -->
     <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
@@ -17,7 +17,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS -->
     <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -28,6 +30,11 @@
 
     <!-- Main CSS -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+    <!-- ✅ API Base URL -->
+    <script>
+        const API_BASE_URL = "https://booklandbackend.onrender.com/api"; // replace with your API endpoint
+    </script>
 </head>
 
 <body class="events-page">
@@ -60,10 +67,12 @@
 <main class="main">
 
     <!-- Page Title -->
-    <div class="page-title dark-background" style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+    <div class="page-title dark-background"
+        style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
         <div class="container position-relative">
             <h1>Events</h1>
-            <p>We actively participate in academic, cultural, and sporting events organized by our community and partner institutions, providing our learners with opportunities to grow, showcase talent, and connect beyond the classroom.</p>
+            <p>We actively participate in academic, cultural, and sporting events providing our learners with
+                opportunities to grow, showcase talent, and connect beyond the classroom.</p>
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="{% url 'index' %}">Home</a></li>
@@ -75,111 +84,26 @@
 
     <!-- Events Section -->
     <section id="events-2" class="events-2 section">
-        {% block content %}
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-
             <div class="row g-4">
+
                 <!-- Events List -->
                 <div class="col-lg-8">
-                    <div class="events-list">
-                        {% for event in events %}
-                        <div class="event-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0|stringformat:'d' }}00">
-                            <div class="event-date">
-                                <span class="day">{{ event.day }}</span>
-                                <span class="month">{{ event.month|slice:":3"|upper }}</span>
-                                <span class="year">{{ event.year }}</span>
-                            </div>
-                            <div class="event-content">
-                                <h3>{{ event.title }}</h3>
-                                <div class="event-meta">
-                                    <p><i class="bi bi-clock"></i> {{ event.start_time|time:"h:i A" }} - {{ event.end_time|time:"h:i A" }}</p>
-                                    <p><i class="bi bi-geo-alt"></i> {{ event.location }}</p>
-                                </div>
-                                <p>{{ event.description }}</p>
-                            </div>
-                        </div>
-                        {% empty %}
-                        <p>No events at the moment.</p>
-                        {% endfor %}
+                    <div class="events-list" id="events-container">
+                        <p class="text-center">Loading events...</p>
                     </div>
                 </div>
 
                 <!-- Sidebar -->
                 <div class="col-lg-4">
-                    <div class="sidebar">
-
-                        <!-- Calendar -->
-                        <div class="sidebar-item" data-aos="fade-up" data-aos-delay="100" id="cal">
-                            <h3 class="sidebar-title">Upcoming Events</h3>
-                            <div class="event-calendar">
-                                <div class="calendar-header d-flex justify-content-between align-items-center mb-2">
-                                    <form method="get" action="#cal" class="d-inline">
-                                        <input type="hidden" name="month" value="{{ prev_month }}">
-                                        <input type="hidden" name="year" value="{{ prev_year }}">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary">&laquo;</button>
-                                    </form>
-                                    <h4 class="mb-0">{{ month_name }} {{ year }}</h4>
-                                    <form method="get" action="#cal" class="d-inline">
-                                        <input type="hidden" name="month" value="{{ next_month }}">
-                                        <input type="hidden" name="year" value="{{ next_year }}">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary">&raquo;</button>
-                                    </form>
-                                </div>
-
-                                <div class="calendar-body">
-                                    <div class="weekdays d-flex justify-content-between">
-                                        <div>Su</div>
-                                        <div>Mo</div>
-                                        <div>Tu</div>
-                                        <div>We</div>
-                                        <div>Th</div>
-                                        <div>Fr</div>
-                                        <div>Sa</div>
-                                    </div>
-                                    <div class="days d-flex flex-wrap">
-                                        {% for week in month_days %}
-                                            {% for day in week %}
-                                                {% if day == 0 %}
-                                                    <div class="day other-month"></div>
-                                                {% else %}
-                                                    <div class="day {% if day in event_days %}has-event{% endif %}">{{ day }}</div>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Featured Events -->
-                        {% for featured_event in featured_events %}
-                        <div class="sidebar-item featured-event" data-aos="fade-up" data-aos-delay="200">
-                            <h3 class="sidebar-title">Featured Event</h3>
-                            <div class="featured-event-content">
-                                <img src="{{ featured_event.image.url }}" alt="{{ featured_event.title }}" class="img-fluid">
-                                <h4>{{ featured_event.title }}</h4>
-                                <p><i class="bi bi-calendar-event"></i> {{ featured_event.get_date_range_display }}</p>
-                                <p>{{ featured_event.description }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-
-                        <!-- Event Categories -->
-                        <div class="sidebar-item" data-aos="fade-up" data-aos-delay="300">
-                            <h3 class="sidebar-title">Event Categories</h3>
-                            <ul class="categories">
-                                {% for category, count in category_counts.items %}
-                                <li><a>{{ category }} <span>({{ count }})</span></a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-
+                    <div class="sidebar" id="sidebar-container">
+                        <!-- Sidebar items like featured events and categories will be dynamically injected -->
+                        <p class="text-center">Loading sidebar...</p>
                     </div>
                 </div>
 
-            </div> <!-- end row -->
+            </div>
         </div>
-        {% endblock %}
     </section>
 
 </main>
@@ -262,6 +186,82 @@
 
 <!-- Main JS -->
 <script src="{% static 'assets/js/main.js' %}"></script>
+
+<!-- ✅ Events API Fetch -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const eventsContainer = document.getElementById('events-container');
+    const sidebarContainer = document.getElementById('sidebar-container');
+
+    fetch(`${API_BASE_URL}/events/`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate Events List
+            eventsContainer.innerHTML = '';
+            if (data.events.length === 0) {
+                eventsContainer.innerHTML = '<p class="text-center">No events at the moment.</p>';
+            } else {
+                data.events.forEach((event, index) => {
+                    const card = `
+                        <div class="event-item" data-aos="fade-up" data-aos-delay="${index*200}">
+                            <div class="event-date">
+                                <span class="day">${event.day}</span>
+                                <span class="month">${event.month.slice(0,3).toUpperCase()}</span>
+                                <span class="year">${event.year}</span>
+                            </div>
+                            <div class="event-content">
+                                <h3>${event.title}</h3>
+                                <div class="event-meta">
+                                    <p><i class="bi bi-clock"></i> ${event.start_time} - ${event.end_time}</p>
+                                    <p><i class="bi bi-geo-alt"></i> ${event.location}</p>
+                                </div>
+                                <p>${event.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    eventsContainer.innerHTML += card;
+                });
+            }
+
+            // Populate Sidebar
+            sidebarContainer.innerHTML = '';
+
+            // Featured Events
+            if (data.featured.length > 0) {
+                data.featured.forEach((fe) => {
+                    const feCard = `
+                        <div class="sidebar-item featured-event" data-aos="fade-up">
+                            <h3 class="sidebar-title">Featured Event</h3>
+                            <div class="featured-event-content">
+                                <img src="${fe.image}" alt="${fe.title}" class="img-fluid">
+                                <h4>${fe.title}</h4>
+                                <p>${fe.date_range}</p>
+                                <p>${fe.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    sidebarContainer.innerHTML += feCard;
+                });
+            }
+
+            // Event Categories
+            if (data.categories) {
+                let catHTML = '<div class="sidebar-item" data-aos="fade-up"><h3 class="sidebar-title">Event Categories</h3><ul class="categories">';
+                Object.entries(data.categories).forEach(([cat, count]) => {
+                    catHTML += `<li><a>${cat} <span>(${count})</span></a></li>`;
+                });
+                catHTML += '</ul></div>';
+                sidebarContainer.innerHTML += catHTML;
+            }
+
+        })
+        .catch(err => {
+            console.error('Error fetching events:', err);
+            eventsContainer.innerHTML = '<p class="text-center text-danger">Failed to load events.</p>';
+            sidebarContainer.innerHTML = '';
+        });
+});
+</script>
 
 </body>
 </html>
