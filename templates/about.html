@@ -1,124 +1,418 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Bookland</title>
-
-    <!-- ========================= -->
-    <!-- VENDOR CSS -->
-    <!-- ========================= -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-
-    <!-- ========================= -->
-    <!-- CUSTOM CSS -->
-    <!-- ========================= -->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- ✅ GLOBAL API BASE URL -->
-    <script>
-        const API_BASE_URL = "https://booklandbackend.onrender.com";
-    </script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>About - Bookland</title>
+    <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
 </head>
-<body>
-    <!-- ========================= -->
-    <!-- NAVBAR -->
-    <!-- ========================= -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">Bookland</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admissions">Admissions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/events">Events</a></li>
+
+<body class="about-page">
+
+<!-- Preloader -->
+<div id="preloader"></div>
+
+<!-- Header -->
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+            <img src="{% static 'assets/img/school_logo.png' %}" alt="">
+            <h1 class="sitename">Bookland <br>Schools</h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}" class="active">About Us</a></li>
+                <li><a href="{% url 'admissions' %}">Admission</a></li>
+                <li><a href="{% url 'fees' %}">Fees</a></li>
+                <li><a href="{% url 'alumni' %}">Alumni</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'faqs' %}">FAQs</a></li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+
+    <!-- Page Title Section -->
+    <div class="page-title dark-background"
+         style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+        <div class="container position-relative">
+            <h1>About Us</h1>
+            <p>We are committed to nurturing well-rounded learners through academics, character development, and
+                creativity.</p>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li class="current">About Us</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+   <!-- History Section -->
+    <section id="history" class="history section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="about-content" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Our Story</h3>
+                        <h2>Educating Minds, Inspiring Hearts</h2>
+                        <p>Bookland Schools began with a simple yet powerful vision
+                            to create a nurturing space where young minds are empowered
+                            to dream, learn, and lead. From play group to junior secondary,
+                            we’ve grown into a vibrant learning community that values curiosity, character, and academic
+                            excellence.</p>
+
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>2014</h4>
+                                    <p>Since opening our doors in 2014, Bookland Schools has
+                                        remained committed to providing a supportive, engaging,
+                                        and values-driven education. We continue to grow as a trusted institution
+                                        where students thrive academically and personally from early years to junior
+                                        secondary.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>2016</h4>
+                                    <p>Donec dignissim, odio ac imperdiet luctus, ante nisl accumsan justo, nec tempus
+                                        augue mi in nulla.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>2018</h4>
+                                    <p>Suspendisse potenti. Nullam lacinia dictum auctor. Phasellus euismod sem at dui
+                                        imperdiet, ac tincidunt mi placerat.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>2024</h4>
+                                    <p>Vestibulum ultrices magna ut faucibus sollicitudin. Sed eget venenatis enim, nec
+                                        imperdiet ex.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="about-image" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="{% static 'assets/img/education/campus-5.webp' %} " alt="Campus"
+                             class="img-fluid rounded">
+
+                        <div class="mission-vision" data-aos="fade-up" data-aos-delay="400">
+                            <div class="mission">
+                                <h3>Our Mission</h3>
+                                <p>To nurture every learner through quality education,
+                                    creativity, and values-based learning, laying a strong foundation for a brighter
+                                    future.</p>
+                            </div>
+
+                            <div class="vision">
+                                <h3>Our Vision</h3>
+                                <p>To be a leading center of excellence, empowering young minds to become confident,
+                                    responsible, and lifelong learners.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <div class="core-values" data-aos="fade-up" data-aos-delay="500">
+                        <h3 class="text-center mb-4">Core Values</h3>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                            <div class="col">
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="bi bi-book"></i>
+                                    </div>
+                                    <h4>Academic Excellence</h4>
+                                    <p>We pursue the highest standards in teaching, learning, and personal
+                                        achievement.</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <h4>Community Engagement</h4>
+                                    <p>We foster strong partnerships with families and the wider community to support
+                                        student growth.</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="bi bi-lightbulb"></i>
+                                    </div>
+                                    <h4>Innovation</h4>
+                                    <p>We embrace creativity and modern approaches to inspire curiosity and
+                                        problem-solving.</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="value-card">
+                                    <div class="value-icon">
+                                        <i class="bi bi-globe"></i>
+                                    </div>
+                                    <h4>Global Perspective</h4>
+                                    <p>We prepare learners to thrive in a diverse, interconnected world with
+                                        open-mindedness and respect.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- /History Section -->
+
+    
+    <!-- Leadership Section -->
+<section id="leadership" class="leadership section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Section Header + Stats -->
+        <div class="row mb-5">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+                <h3 class="section-subtitle">Meet Our Leadership</h3>
+                <h2 class="section-heading">Dedicated Administration Guiding Our Educational Excellence</h2>
+                <p class="section-description">
+                    At Bookland Schools, our leadership team is committed to nurturing a supportive and inspiring environment. 
+                    With a passion for education and student success, they guide our mission of academic excellence, character 
+                    development, and lifelong learning.
+                </p>
+                <div class="stats-container mt-4">
+                    <div class="row">
+                        <div class="col-md-4 col-6">
+                            <div class="stat-item">
+                                <h3>10+</h3>
+                                <p>Years of Excellence</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="stat-item">
+                                <h3>25+</h3>
+                                <p>Teachers</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="stat-item">
+                                <h3>98%</h3>
+                                <p>Parents Satisfaction</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leadership Image -->
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+                <div class="about-image">
+                    <img src="{% static 'assets/img/education/teacher-1.webp' %}" alt="Our Leadership Team" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+
+        <!-- Leadership Team via API -->
+        <div class="leadership-team">
+            <div class="row" id="leadership-team">
+                <!-- API-loaded leader cards will be inserted here -->
+            </div>
+        </div>
+
+    </div>
+</section>
+    
+
+   <!-- Gallery Section -->
+<section id="gallery" class="gallery section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="section-title text-center mb-5">
+            <h3 class="section-subtitle">Our Gallery</h3>
+            <h2 class="section-heading">Moments from Our School Life</h2>
+            <p class="section-description">
+                Explore snapshots of our vibrant community—from classrooms and co-curricular activities to school events and celebrations.
+            </p>
+        </div>
+
+        <div class="row gy-4" id="gallery-images">
+            <!-- Images will be loaded here via API -->
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="footer position-relative dark-background">
+    <div class="container footer-top">
+        <div class="row gy-64">
+            <div class="col-lg-4 col-md-6 footer-about">
+                <a href="{% url 'index' %}" class="logo d-flex align-items-center"><span class="sitename">Bookland Schools</span></a>
+                <div class="footer-contact pt-3 mb-4">
+                    <p>Rasta Stage</p>
+                    <p>Embakasi, Nairobi</p>
+                    <p class="mt-3"><strong>Phone:</strong> <span>+254 725 473 829</span></p>
+                    <p><strong>Email:</strong> <span>booklandschoolskayole@gmail.com</span></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 footer-links">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About us</a></li>
+                    <li><a href="{% url 'admissions' %}">Admission</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'faqs' %}">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 footer-links">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a>Play Group</a></li>
+                    <li><a>PP1 - PP2</a></li>
+                    <li><a>Grade 1 - 3</a></li>
+                    <li><a>Grade 4 - 6</a></li>
+                    <li><a>Junior Secondary</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-3 social-links">
+                <h4>Social Links</h4>
+                <ul>
+                    <li><a href="#"><i class="bi bi-twitter-x"></i> Twitter</a></li>
+                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="bi bi-linkedin"></i> Linkedin</a></li>
+                    <li><a href="#"><i class="bi bi-tiktok"></i> Tiktok</a></li>
                 </ul>
             </div>
         </div>
-    </nav>
+    </div>
+    <div class="container copyright text-center mt-4">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Dreamchaser</strong> <span>All Rights Reserved</span>
+        </p>
+        <div class="credits">Designed by <a>Charles Jeckton</a></div>
+    </div>
+</footer>
 
-    <!-- ========================= -->
-    <!-- HERO SECTION -->
-    <!-- ========================= -->
-    <section class="hero py-5 text-center bg-light">
-        <div class="container">
-            <h1 class="display-4">About Bookland</h1>
-            <p class="lead">Empowering students with knowledge and resources for academic excellence.</p>
-            <img src="assets/img/about-hero.jpg" class="img-fluid rounded" alt="Bookland Hero">
-        </div>
-    </section>
+<!-- Vendor JS -->
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
 
-    <!-- ========================= -->
-    <!-- MAIN CONTENT -->
-    <!-- ========================= -->
-    <section class="about-content py-5">
-        <div class="container">
-            <h2>Our Mission</h2>
-            <p>Bookland is dedicated to providing quality educational resources and opportunities to students worldwide. We believe in fostering a culture of learning and innovation.</p>
+<!-- Main JS -->
+<script src="{% static 'assets/js/main.js' %}"></script>
 
-            <h2>Our Values</h2>
-            <ul>
-                <li>Integrity and honesty in all endeavors.</li>
-                <li>Excellence in education and learning.</li>
-                <li>Community support and collaboration.</li>
-            </ul>
+<!-- Combined API Loader for Leadership and Gallery -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
 
-            <h2>Our Team</h2>
-            <div class="row" id="leadership-team">
-                <!-- Team members will be loaded dynamically -->
-            </div>
-        </div>
-    </section>
+    // -----------------------
+    // Load Leadership Team
+    // -----------------------
+    fetch("{% url 'api_leadership' %}")
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('leadership-team');
+            data.forEach((leader, index) => {
+                const col = document.createElement('div');
+                col.className = 'col-lg-3 col-md-6 mb-4';
+                col.setAttribute('data-aos', 'fade-up');
+                col.setAttribute('data-aos-delay', 100 + (index * 100)); // stagger animation
+                col.innerHTML = `
+                    <div class="leader-card">
+                        <div class="leader-image">
+                            <img src="${leader.image}" alt="${leader.title}" class="img-fluid">
+                        </div>
+                        <div class="leader-info">
+                            <h4>${leader.salutation}. ${leader.name}</h4>
+                            <p class="position">${leader.designation}</p>
+                            <p class="bio"><i>${leader.message}</i></p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+            AOS.refresh(); // ensure AOS detects dynamically added elements
+        })
+        .catch(err => console.error("Error loading leadership team:", err));
 
-    <!-- ========================= -->
-    <!-- FOOTER -->
-    <!-- ========================= -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; <span id="current-year"></span> Bookland. All rights reserved.</p>
-        </div>
-    </footer>
+    // -----------------------
+    // Load Gallery Images
+    // -----------------------
+    fetch("{% url 'api_gallery' %}")
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('gallery-images');
+            data.forEach((img, i) => {
+                const col = document.createElement('div');
+                col.className = 'col-lg-4 col-md-6';
+                col.setAttribute('data-aos', 'fade-up');
+                col.setAttribute('data-aos-delay', 100 + (i * 100)); // staggered animation
+                col.innerHTML = `
+                    <div class="gallery-card">
+                        <a href="${img.image}" class="glightbox" data-gallery="gallery-set" data-title="${img.caption}">
+                            <img src="${img.image}" class="gallery-img img-fluid rounded" alt="${img.caption}">
+                            <div class="overlay-content"><h5 class="overlay-title">${img.caption}</h5></div>
+                        </a>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+            GLightbox({ selector: '.glightbox' });
+            AOS.refresh(); // refresh AOS after gallery load
+        })
+        .catch(err => console.error("Error loading gallery images:", err));
 
-    <!-- ========================= -->
-    <!-- VENDOR JS -->
-    <!-- ========================= -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/fontawesome/js/all.min.js"></script>
+});
+</script>
 
-    <!-- ========================= -->
-    <!-- CUSTOM JS -->
-    <!-- ========================= -->
-    <script src="assets/js/main.js"></script>
+<!-- Initialize AOS -->
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>
 
-    <!-- ========================= -->
-    <!-- API FETCH LOGIC -->
-    <!-- ========================= -->
-    <script>
-        // Update current year
-        document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Fetch leadership team from API
-        fetch(`${API_BASE_URL}/api/leadership/`)
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('leadership-team');
-                data.forEach(member => {
-                    const div = document.createElement('div');
-                    div.className = "col-md-4 text-center mb-4";
-                    div.innerHTML = `
-                        <img src="${API_BASE_URL}${member.image}" class="img-fluid rounded-circle mb-2" alt="${member.name}">
-                        <h5>${member.name}</h5>
-                        <p>${member.position}</p>
-                    `;
-                    container.appendChild(div);
-                });
-            })
-            .catch(err => console.error('Error loading leadership team:', err));
-    </script>
 </body>
 </html>

@@ -1,14 +1,14 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alumni - Bookland Schools</title>
-    <meta name="description" content="Meet the notable alumni of Bookland Schools and learn about their achievements.">
-    <meta name="keywords" content="Bookland Schools, Alumni, Success Stories, Education">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Index - Bookland</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
+    {% load static %}
     <!-- Favicons -->
     <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
     <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
@@ -17,32 +17,28 @@
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
 
-    <!-- Vendor CSS -->
+    <!-- Vendor CSS Files -->
     <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 
-    <!-- Main CSS -->
+    <!-- Main CSS File -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
 
-    <!-- ✅ API Base URL -->
-    <script>
-        const API_BASE_URL = "https://booklandbackend.onrender.com/api"; // replace with your API endpoint
-    </script>
 </head>
 
-<body class="alumni-page">
+<body class="contact-page">
 
 <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
-            <img src="{% static 'assets/img/school_logo.png' %}" alt="Bookland Logo">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="{% static 'assets/img/school_logo.png' %}" alt="">
             <h1 class="sitename">Bookland <br>Schools</h1>
         </a>
 
@@ -52,9 +48,9 @@
                 <li><a href="{% url 'about' %}">About Us</a></li>
                 <li><a href="{% url 'admissions' %}">Admission</a></li>
                 <li><a href="{% url 'fees' %}">Fees</a></li>
-                <li><a href="{% url 'alumni' %}" class="active">Alumni</a></li>
+                <li><a href="{% url 'alumni' %}">Alumni</a></li>
                 <li><a href="{% url 'events' %}">Events</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'contact' %}" class="active">Contact</a></li>
                 <li><a href="{% url 'faqs' %}">FAQs</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -67,57 +63,196 @@
 
     <!-- Page Title -->
     <div class="page-title dark-background"
-        style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+         style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
         <div class="container position-relative">
-            <h1>Alumni</h1>
-            <p>We take pride in the achievements of our alumni who continue to make a difference in various fields.<br>
-                Their success stories reflect the strength of our academic foundation and values.</p>
+            <h1>Contact</h1>
+            <p>Have questions or need assistance? We're here to help.
+                Whether you're a prospective parent, student, or <br>
+                community member, feel free to reach out to us.</p>
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="{% url 'index' %}">Home</a></li>
-                    <li class="current">Alumni</li>
+                    <li class="current">Contact</li>
                 </ol>
             </nav>
         </div>
-    </div>
+    </div><!-- End Page Title -->
 
-    <!-- Alumni Section -->
-    <section id="alumni" class="alumni section">
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="section-header text-center" data-aos="fade-up" data-aos-delay="200">
-                <h3>Notable Alumni Spotlights</h3>
-                <p>Our alumni continue to excel in top institutions, demonstrating leadership, innovation, and
-                    academic excellence.</p>
-            </div>
+            <!-- Contact Info Boxes -->
+            <div class="row gy-4 mb-5">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-info-box">
+                        <div class="icon-box">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Our Address</h4>
+                            <p>Rasta Stage, <br> Embakasi, Nairobi</p>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="row" id="alumni-container">
-                <!-- Alumni cards will be injected here dynamically -->
-                <p class="text-center">Loading alumni...</p>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-info-box">
+                        <div class="icon-box">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Email Address</h4>
+                            <p>info@booklandschools.com</p>
+                            <p>booklandschoolskayole@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-info-box">
+                        <div class="icon-box">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Hours of Operation</h4>
+                            <p>Monday-Friday: 8 AM - 6 PM</p>
+                            <p>Saturday: 9 AM - 1 PM</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
-    </section>
+
+        <!-- Google Maps (Full Width) -->
+        <div class="map-section" data-aos="fade-up" data-aos-delay="200">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8329384530834!2d36.914352324965556!3d-1.2734218487144673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f15a5faa13917%3A0xda359ebf86365648!2sBookland%20Preparatory%20Schools!5e0!3m2!1sen!2ske!4v1750503566749!5m2!1sen!2ske"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <!-- Contact Form Section (Overlapping) -->
+        <div class="container form-container-overlap">
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-10">
+                    <div class="contact-form-wrapper">
+                        <h2 class="text-center mb-4">Get in Touch</h2>
+
+                        <form class="contact-form mt-4" action="/contact/" method="post">
+                            {% csrf_token %}
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label visually-hidden">Full Name</label>
+                                        <div class="input-with-icon position-relative">
+                                            <i class="bi bi-person position-absolute top-50 translate-middle-y ms-2"></i>
+                                            <input
+                                                    type="text"
+                                                    class="form-control ps-5"
+                                                    id="name"
+                                                    name="name"
+                                                    placeholder="Full Name"
+                                                    required
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label visually-hidden">Email Address</label>
+                                        <div class="input-with-icon position-relative">
+                                            <i class="bi bi-envelope position-absolute top-50 translate-middle-y ms-2"></i>
+                                            <input
+                                                    type="email"
+                                                    class="form-control ps-5"
+                                                    id="email"
+                                                    name="email"
+                                                    placeholder="Email Address"
+                                                    required
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="subject" class="form-label visually-hidden">Subject</label>
+                                        <div class="input-with-icon position-relative">
+                                            <i class="bi bi-text-left position-absolute top-50 translate-middle-y ms-2"></i>
+                                            <input
+                                                    type="text"
+                                                    class="form-control ps-5"
+                                                    id="subject"
+                                                    name="subject"
+                                                    placeholder="Subject"
+                                                    required
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="message" class="form-label visually-hidden">Message</label>
+                                        <div class="input-with-icon">
+                                            <i class="bi bi-chat-dots message-icon "></i>
+                                            <textarea
+                                                    class="form-control ps-5"
+                                                    id="message"
+                                                    name="message"
+                                                    placeholder="Write Message..."
+                                                    style="height: 180px;"
+                                                    required
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-12">
+                                <div class="loading-message">Loading...</div>
+                                <div class="error-message">There was an error submitting your message.</div>
+                                <div class="success-message">Your message has been sent. Thank you!</div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-submit">SEND MESSAGE</button>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- /Contact Section -->
 
 </main>
 
-<!-- Footer -->
 <footer id="footer" class="footer position-relative dark-background">
+
     <div class="container footer-top">
         <div class="row gy-64">
-
             <div class="col-lg-4 col-md-6 footer-about">
-                <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+                <a href="index.html" class="logo d-flex align-items-center">
                     <span class="sitename">Bookland Schools</span>
                 </a>
                 <div class="footer-contact pt-3 mb-4">
                     <p>Rasta Stage</p>
                     <p>Embakasi, Nairobi</p>
-                    <p class="mt-3"><strong>Phone:</strong> +254 725 473 829</p>
-                    <p><strong>Email:</strong> booklandschoolskayole@gmail.com</p>
+                    <p class="mt-3"><strong>Phone:</strong> <span>+254 725 473 829</span></p>
+                    <p><strong>Email:</strong> <span>booklandschoolskayole@gmail.com</span></p>
                 </div>
-            </div>
 
+            </div>
             <div class="col-lg-3 col-md-3 footer-links">
                 <h4>Useful Links</h4>
                 <ul>
@@ -132,43 +267,47 @@
             <div class="col-lg-3 col-md-3 footer-links">
                 <h4>Our Services</h4>
                 <ul>
-                    <li>Play Group</li>
-                    <li>PP1 - PP2</li>
-                    <li>Grade 1 - 3</li>
-                    <li>Grade 4 - 6</li>
-                    <li>Junior Secondary</li>
+                    <li><a>Play Group</a></li>
+                    <li><a>PP1 - PP2</a></li>
+                    <li><a>Grade 1 - 3</a></li>
+                    <li><a>Grade 4 - 6</a></li>
+                    <li><a>Junior Secondary</a></li>
                 </ul>
             </div>
-
-            <div class="col-lg-2 col-md-3 social-links">
+            <div class=" col-lg-2 col-md-3 social-links">
                 <h4>Social Links</h4>
                 <ul>
-                    <li><a href="#"><i class="bi bi-twitter-x"></i> Twitter</a></li>
-                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
-                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
-                    <li><a href="#"><i class="bi bi-linkedin"></i> Linkedin</a></li>
-                    <li><a href="#"><i class="bi bi-tiktok"></i> Tiktok</a></li>
+                    <li><a href=""><i class="bi bi-twitter-x"></i> Twitter</a></li>
+                    <li><a href=""><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href=""><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href=""><i class="bi bi-linkedin"></i> Linkedin</a></li>
+                    <li><a href=""><i class="bi bi-tiktok"></i> Tiktok</a></li>
                 </ul>
+
             </div>
 
         </div>
     </div>
 
-    <div class="container text-center mt-4">
-        <p>© <strong class="sitename">Dreamchaser</strong> All Rights Reserved</p>
-        <div>Designed by <a>Charles Jeckton</a></div>
+    <div class="container copyright text-center mt-4">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Dreamchaser</strong> <span>All Rights Reserved</span>
+        </p>
+        <div class="credits">
+
+            Designed by <a>Charles Jeckton</a>
+        </div>
     </div>
+
 </footer>
 
 <!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-</a>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
 
 <!-- Preloader -->
 <div id="preloader"></div>
 
-<!-- Vendor JS -->
+<!-- Vendor JS Files -->
 <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
 <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
@@ -178,48 +317,9 @@
 <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
 <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
 
-<!-- Main JS -->
+<!-- Main JS File -->
 <script src="{% static 'assets/js/main.js' %}"></script>
 
-<!-- ✅ Alumni API Fetch -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const container = document.getElementById('alumni-container');
-    fetch(`${API_BASE_URL}/alumni/`)
-        .then(response => response.json())
-        .then(data => {
-            container.innerHTML = ''; // Clear loading text
-            if (data.length === 0) {
-                container.innerHTML = '<p class="text-center">No alumni records available.</p>';
-            } else {
-                data.forEach((alumni, index) => {
-                    const card = `
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="${index*200}">
-                            <div class="alumni-profile">
-                                <div class="profile-header">
-                                    <div class="profile-img">
-                                        <img src="${alumni.image}" alt="${alumni.name}" class="img-fluid rounded">
-                                    </div>
-                                    <div class="profile-year">${alumni.year_of_completion}</div>
-                                </div>
-                                <div class="profile-body">
-                                    <h4>${alumni.name}</h4>
-                                    <span class="profile-title">${alumni.title}</span>
-                                    <p><i>${alumni.message}</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.innerHTML += card;
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching alumni:', error);
-            container.innerHTML = '<p class="text-center text-danger">Failed to load alumni data.</p>';
-        });
-});
-</script>
-
 </body>
+
 </html>
