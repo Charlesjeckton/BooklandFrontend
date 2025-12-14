@@ -79,82 +79,67 @@
         </div>
     </div><!-- End Page Title -->
 
-    <!-- Fees Section -->
-    <section class="fees-section py-5">
-        <div class="container" data-aos="fade-up">
-            <div class="section-header text-center mb-5">
-                <h2 class="mb-3">Our Fee Structure</h2>
-                <p class="text-muted">Our affordable and transparent fee structure supports quality education at every
-                    level.
-                </p>
-            </div>
+<!-- Fees Section -->
+<section class="fees-section py-5">
+    <div class="container" data-aos="fade-up">
 
-            {% load humanize %}
-
-<div class="table-responsive">
-    <table class="table table-bordered table-striped text-center align-middle">
-        <thead class="table-primary">
-        <tr>
-            <th>Level</th>
-            <th>Tuition (Per Term)</th>
-            <th>Meals</th>
-            <th>Transport (Optional)</th>
-            <th>Total (Approx.)</th>
-            <th>Fee Structure</th>
-        </tr>
-        </thead>
-        <tbody class="table-info">
-        {% for fee in fees %}
-            <tr>
-                <td>{{ fee.level }}</td>
-                <td>KES {{ fee.tuition_per_term|floatformat:0|intcomma }}</td>
-                <td>KES {{ fee.meals_fee|floatformat:0|intcomma }}</td>
-                <td>KES {{ fee.transport_fee|floatformat:0|intcomma }}</td>
-                <td>KES {{ fee.total_fee|floatformat:0|intcomma }}</td>
-                <td>
-                    {% if fee.fee_structure_file %}
-                        <a href="{{ fee.fee_structure_file.url }}" class="btn btn-primary" download>
-                            <i class="bi bi-file-earmark-arrow-down"></i> Download (PDF)
-                        </a>
-                    {% else %}
-                        <span class="text-muted">N/A</span>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-
-
-            <div class="mt-5">
-                <h3 class="mb-3">Payment Instructions</h3>
-                <p>All payments should be made through the bank details provided below. Please ensure that you include
-                    the
-                    student's full name and admission number as reference when making payments.</p>
-
-                <ul class="list-group">
-                    <li class="list-group-item"><strong>Account Name:</strong> Bookland Schools</li>
-                    <li class="list-group-item"><strong>Bank Name:</strong> Equity Bank</li>
-                    <li class="list-group-item"><strong>Branch:</strong> Kayole Branch</li>
-                    <li class="list-group-item"><strong>Account Number:</strong> 1234567890123</li>
-                    <li class="list-group-item"><strong>Payment Reference:</strong> Student's Name + Admission Number
-                    </li>
-                    <li class="list-group-item"><strong>MPesa Paybill:</strong> 247247 <br> <strong>Account:</strong>
-                        Admission
-                        Number
-                    </li>
-                </ul>
-            </div>
-
-
-            <p class="text-muted mt-4">Note: Fees are payable at the beginning of each term. Additional costs may apply
-                for
-                uniforms, textbooks, and extracurricular activities.</p>
+        <div class="section-header text-center mb-5">
+            <h2 class="mb-3">Our Fee Structure</h2>
+            <p class="text-muted">
+                Our affordable and transparent fee structure supports quality education at every level.
+            </p>
         </div>
-    </section>
-    <!-- End Fees Section -->
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Level</th>
+                        <th>Tuition (Per Term)</th>
+                        <th>Meals</th>
+                        <th>Transport (Optional)</th>
+                        <th>Total (Approx.)</th>
+                        <th>Fee Structure</th>
+                    </tr>
+                </thead>
+                <tbody class="table-info" id="feesTableBody">
+                    <tr>
+                        <td colspan="6">Loading fee structure...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Payment Instructions -->
+        <div class="mt-5">
+            <h3 class="mb-3">Payment Instructions</h3>
+            <p>
+                All payments should be made through the bank details provided below. Please ensure that you include
+                the student's full name and admission number as reference when making payments.
+            </p>
+
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Account Name:</strong> Bookland Schools</li>
+                <li class="list-group-item"><strong>Bank Name:</strong> Equity Bank</li>
+                <li class="list-group-item"><strong>Branch:</strong> Kayole Branch</li>
+                <li class="list-group-item"><strong>Account Number:</strong> 1234567890123</li>
+                <li class="list-group-item"><strong>Payment Reference:</strong> Student's Name + Admission Number</li>
+                <li class="list-group-item">
+                    <strong>MPesa Paybill:</strong> 247247 <br>
+                    <strong>Account:</strong> Admission Number
+                </li>
+            </ul>
+        </div>
+
+        <p class="text-muted mt-4">
+            Note: Fees are payable at the beginning of each term. Additional costs may apply for
+            uniforms, textbooks, and extracurricular activities.
+        </p>
+
+    </div>
+</section>
+<!-- End Fees Section -->
+
 
 
 </main>
@@ -231,7 +216,6 @@
 
 <!-- Vendor JS Files -->
 <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
 <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
 <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
 <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
@@ -241,6 +225,70 @@
 
 <!-- Main JS File -->
 <script src="{% static 'assets/js/main.js' %}"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const tableBody = document.getElementById("feesTableBody");
+
+    function formatKES(amount) {
+        return "KES " + Number(amount).toLocaleString("en-KE");
+    }
+
+    fetch("{% url 'api_fees' %}")
+        .then(response => response.json())
+        .then(data => {
+            tableBody.innerHTML = "";
+
+            if (!data.length) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center">No fee structure available.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.forEach((fee, index) => {
+                const row = document.createElement("tr");
+                row.setAttribute("data-aos", "fade-up");
+                row.setAttribute("data-aos-delay", index * 100);
+
+                row.innerHTML = `
+                    <td>${fee.level}</td>
+                    <td>${formatKES(fee.tuition_per_term)}</td>
+                    <td>${formatKES(fee.meals_fee)}</td>
+                    <td>${formatKES(fee.transport_fee)}</td>
+                    <td><strong>${formatKES(fee.total_fee)}</strong></td>
+                    <td>
+                        ${
+                            fee.file
+                                ? `<a href="${fee.file}" class="btn btn-primary" download>
+                                       <i class="bi bi-file-earmark-arrow-down"></i> Download (PDF)
+                                   </a>`
+                                : `<span class="text-muted">N/A</span>`
+                        }
+                    </td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+
+            AOS.refresh();
+        })
+        .catch(error => {
+            console.error("Error loading fees:", error);
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-danger text-center">
+                        Failed to load fee structure.
+                    </td>
+                </tr>
+            `;
+        });
+});
+</script>
+
 
 </body>
 

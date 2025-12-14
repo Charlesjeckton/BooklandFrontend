@@ -389,9 +389,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 col.setAttribute('data-aos-delay', 100 + (i * 100)); // staggered animation
                 col.innerHTML = `
                     <div class="gallery-card">
-                        <a href="${img.image}" class="glightbox" data-gallery="gallery-set" data-title="${img.caption}">
-                            <img src="${img.image}" class="gallery-img img-fluid rounded" alt="${img.caption}">
-                            <div class="overlay-content"><h5 class="overlay-title">${img.caption}</h5></div>
+                        <a href="${img.image}" class="glightbox" data-gallery="gallery-set" data-title="${img.title}">
+                            <img src="${img.image}" class="gallery-img img-fluid rounded" alt="${img.title}">
+                            <div class="overlay-content"><h5 class="overlay-title">${img.title}</h5></div>
                         </a>
                     </div>
                 `;
