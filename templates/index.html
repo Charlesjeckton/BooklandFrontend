@@ -272,7 +272,8 @@
 
         </div>
 
-    </section><!-- /Students Life Block Section -->
+    </section>
+    <!-- /Students Life Block Section -->
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
@@ -281,13 +282,24 @@
             <p>We value the voices of our community, each story reflects our dedication to quality education and
                 character development.</p>
         </div>
-        <div class="container">
-            <div id="testimonial-container" class="testimonial-masonry">
-                <!-- Testimonials will be loaded here via API -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div class="col-12">
+                    <div class="testimonials-container">
+                        <div class="swiper testimonials-slider" data-aos="fade-up" data-aos-delay="400">
+                            <div class="swiper-wrapper" id="testimonial-container">
+                                <!-- Slides injected via API -->
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    
+
+
     <!-- Stats Section -->
     <section id="stats" class="stats section">
 
@@ -371,68 +383,68 @@
     </section><!-- /Stats Section -->
 
     <!-- Events Section -->
-<section id="events" class="events section">
+    <section id="events" class="events section">
 
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Events</h2>
-        <p>
-            Our students actively participate in local and regional academic, cultural,
-            and sports events, gaining exposure, building confidence, and showcasing
-            their talents beyond the classroom.
-        </p>
-    </div>
-    <!-- End Section Title -->
-
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <!-- Filters -->
-        <div class="event-filters mb-4">
-            <form id="eventFilterForm" class="mb-4">
-                <div class="row justify-content-center g-3">
-
-                    <div class="col-md-4">
-                        <label class="form-label visually-hidden">Month</label>
-                        <select id="monthSelect" class="form-select">
-                            <option value="">All Months</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label visually-hidden">Category</label>
-                        <select id="categorySelect" class="form-select">
-                            <option value="">All Categories</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4 d-flex align-items-end">
-                        <button type="submit" class="btn btn-filter">
-                            Filter
-                        </button>
-                    </div>
-
-                </div>
-            </form>
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Events</h2>
+            <p>
+                Our students actively participate in local and regional academic, cultural,
+                and sports events, gaining exposure, building confidence, and showcasing
+                their talents beyond the classroom.
+            </p>
         </div>
+        <!-- End Section Title -->
 
-        <!-- Events Container -->
-        <div class="row g-4" id="eventsContainer">
-            <p class="text-center">Loading events...</p>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <!-- Filters -->
+            <div class="event-filters mb-4">
+                <form id="eventFilterForm" class="mb-4">
+                    <div class="row justify-content-center g-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label visually-hidden">Month</label>
+                            <select id="monthSelect" class="form-select">
+                                <option value="">All Months</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label visually-hidden">Category</label>
+                            <select id="categorySelect" class="form-select">
+                                <option value="">All Categories</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-filter">
+                                Filter
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- Events Container -->
+            <div class="row g-4" id="eventsContainer">
+                <p class="text-center">Loading events...</p>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{% url 'events' %}" class="btn-view-all">View All Events</a>
+            </div>
+
         </div>
-
-        <div class="text-center mt-5">
-            <a href="{% url 'events' %}" class="btn-view-all">View All Events</a>
-        </div>
-
-    </div>
-</section>
-<!-- /Events Section -->
+    </section>
+    <!-- /Events Section -->
 
 
 </main>
 
-  <!-- Footer -->
- {% include 'includes/footer.html' %}
+<!-- Footer -->
+{% include 'includes/footer.html' %}
 
 
 <!-- Scroll Top -->
@@ -454,80 +466,98 @@
 <!-- Main JS -->
 <script src="{% static 'assets/js/main.js' %}"></script>
 
-<!-- Custom JS to load testimonials and events via API -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", async function () {
+        const container = document.getElementById("testimonial-container");
 
-        /* =========================
-           LOAD TESTIMONIALS
-        ========================== */
-        fetch("{% url 'api_testimonials' %}")
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById("testimonial-container");
-                container.innerHTML = "";
+        try {
+            const response = await fetch("{% url 'api_testimonials' %}");
+            if (!response.ok) throw new Error("Failed to fetch testimonials");
 
-                data.forEach((t, i) => {
-                    const html = `
-                <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="${100 + i * 100}">
-                    <div class="testimonial-content">
-                        <div class="quote-pattern"><i class="bi bi-quote"></i></div>
-                        <p>${t.testimonial}</p>
-                        <div class="client-info">
-                            <div class="client-image">
-                                <img src="${t.image}" alt="${t.name}">
-                            </div>
-                            <div class="client-details">
-                                <h3>${t.name}</h3>
-                                <span class="position">${t.title}</span>
-                            </div>
+            const data = await response.json();
+
+            if (!data.length) {
+                container.innerHTML = `<div class="swiper-slide">No testimonials found.</div>`;
+                return;
+            }
+
+            // Inject slides
+            data.forEach(t => {
+                const slide = document.createElement("div");
+                slide.classList.add("swiper-slide");
+                slide.innerHTML = `
+                <div class="testimonial-item">
+                    <p>${t.testimonial}</p>
+                    <div class="testimonial-profile">
+                        <img src="${t.image}" alt="${t.name}" class="img-fluid rounded-circle">
+                        <div>
+                            <h3>${t.name}</h3>
+                            <h4>${t.title}</h4>
                         </div>
                     </div>
                 </div>`;
-                    container.insertAdjacentHTML("beforeend", html);
-                });
+                container.appendChild(slide);
+            });
 
-                AOS.refresh();
-            })
-            .catch(err => console.error("Testimonials API error:", err));
+            // Initialize Swiper AFTER slides are added
+            new Swiper('.testimonials-slider', {
+                loop: true,
+                speed: 600,
+                autoplay: {delay: 5000},
+                slidesPerView: 1,
+                spaceBetween: 30,
+                pagination: {el: ".swiper-pagination", clickable: true},
+                breakpoints: {768: {slidesPerView: 2}, 992: {slidesPerView: 3}}
+            });
+
+            if (window.AOS) AOS.refresh();
+
+        } catch (err) {
+            console.error("Testimonials API error:", err);
+            container.innerHTML = `<div class="swiper-slide">Failed to load testimonials.</div>`;
+        }
     });
 </script>
+
+
+<!-- Custom JS to load testimonials and events via API -->
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const eventsContainer = document.getElementById("eventsContainer");
-    const monthSelect = document.getElementById("monthSelect");
-    const categorySelect = document.getElementById("categorySelect");
-    const filterForm = document.getElementById("eventFilterForm");
+        const eventsContainer = document.getElementById("eventsContainer");
+        const monthSelect = document.getElementById("monthSelect");
+        const categorySelect = document.getElementById("categorySelect");
+        const filterForm = document.getElementById("eventFilterForm");
 
-    function fetchEvents(filters = {}) {
-        let url = "{% url 'api_events' %}";
-        const params = new URLSearchParams(filters);
+        function fetchEvents(filters = {}) {
+            let url = "{% url 'api_events' %}";
+            const params = new URLSearchParams(filters);
 
-        if (params.toString()) {
-            url += "?" + params.toString();
-        }
+            if (params.toString()) {
+                url += "?" + params.toString();
+            }
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                eventsContainer.innerHTML = "";
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    eventsContainer.innerHTML = "";
 
-                if (!data.length) {
-                    eventsContainer.innerHTML = "<p class='text-center'>No events available at the moment.</p>";
-                    return;
-                }
+                    if (!data.length) {
+                        eventsContainer.innerHTML = "<p class='text-center'>No events available at the moment.</p>";
+                        return;
+                    }
 
-                data.forEach((event, index) => {
-                    const col = document.createElement("div");
-                    col.className = "col-lg-6";
-                    col.setAttribute("data-aos", "fade-up");
-                    col.setAttribute("data-aos-delay", index * 100);
+                    data.forEach((event, index) => {
+                        const col = document.createElement("div");
+                        col.className = "col-lg-6";
+                        col.setAttribute("data-aos", "fade-up");
+                        col.setAttribute("data-aos-delay", index * 100);
 
-                    col.innerHTML = `
+                        col.innerHTML = `
                         <div class="event-card">
                             <div class="event-date">
-                                <span class="month">${event.month.slice(0,3).toUpperCase()}</span>
+                                <span class="month">${event.month.slice(0, 3).toUpperCase()}</span>
                                 <span class="day">${event.day}</span>
                                 <span class="year">${event.year}</span>
                             </div>
@@ -554,45 +584,45 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     `;
 
-                    eventsContainer.appendChild(col);
-                });
+                        eventsContainer.appendChild(col);
+                    });
 
-                AOS.refresh();
-            })
-            .catch(err => {
-                console.error("Error loading events:", err);
-                eventsContainer.innerHTML = "<p class='text-center text-danger'>Failed to load events.</p>";
+                    AOS.refresh();
+                })
+                .catch(err => {
+                    console.error("Error loading events:", err);
+                    eventsContainer.innerHTML = "<p class='text-center text-danger'>Failed to load events.</p>";
+                });
+        }
+
+        function loadFilters() {
+            fetch("{% url 'api_events' %}")
+                .then(res => res.json())
+                .then(data => {
+                    const months = [...new Set(data.map(e => e.month))];
+                    const categories = [...new Set(data.map(e => e.category))];
+
+                    months.forEach(m => {
+                        monthSelect.innerHTML += `<option value="${m}">${m}</option>`;
+                    });
+
+                    categories.forEach(c => {
+                        categorySelect.innerHTML += `<option value="${c}">${c}</option>`;
+                    });
+                });
+        }
+
+        filterForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            fetchEvents({
+                month: monthSelect.value,
+                category: categorySelect.value
             });
-    }
-
-    function loadFilters() {
-        fetch("{% url 'api_events' %}")
-            .then(res => res.json())
-            .then(data => {
-                const months = [...new Set(data.map(e => e.month))];
-                const categories = [...new Set(data.map(e => e.category))];
-
-                months.forEach(m => {
-                    monthSelect.innerHTML += `<option value="${m}">${m}</option>`;
-                });
-
-                categories.forEach(c => {
-                    categorySelect.innerHTML += `<option value="${c}">${c}</option>`;
-                });
-            });
-    }
-
-    filterForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        fetchEvents({
-            month: monthSelect.value,
-            category: categorySelect.value
         });
-    });
 
-    loadFilters();
-    fetchEvents();
-});
+        loadFilters();
+        fetchEvents();
+    });
 </script>
 
 
