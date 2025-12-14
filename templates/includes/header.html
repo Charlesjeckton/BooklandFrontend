@@ -1,0 +1,35 @@
+{% load static %}
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+        <!-- Logo -->
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+            <img src="{% static 'assets/img/school_logo.png' %}" alt="">
+            <h1 class="sitename">Bookland <br>Schools</h1>
+        </a>
+
+        <!-- Navigation Menu -->
+        {% with request.resolver_match.url_name as current_url %}
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="{% url 'index' %}" class="{% if current_url == 'index' %}active{% endif %}">Home</a>
+                    </li>
+                    <li><a href="{% url 'about' %}" class="{% if current_url == 'about' %}active{% endif %}">About
+                        Us</a></li>
+                    <li><a href="{% url 'admissions' %}" class="{% if current_url == 'admissions' %}active{% endif %}">Admission</a>
+                    </li>
+                    <li><a href="{% url 'fees' %}" class="{% if current_url == 'fees' %}active{% endif %}">Fees</a></li>
+                    <li><a href="{% url 'alumni' %}"
+                           class="{% if current_url == 'alumni' %}active{% endif %}">Alumni</a></li>
+                    <li><a href="{% url 'events' %}"
+                           class="{% if current_url == 'events' %}active{% endif %}">Events</a></li>
+                    <li><a href="{% url 'contact' %}"
+                           class="{% if current_url == 'contact' %}active{% endif %}">Contact</a></li>
+                    <li><a href="{% url 'faqs' %}" class="{% if current_url == 'faqs' %}active{% endif %}">FAQs</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+        {% endwith %}
+
+    </div>
+</header>
