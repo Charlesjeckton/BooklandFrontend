@@ -2,13 +2,22 @@
    CONFIG
 ===================================================== */
 const BACKEND_URL = "https://booklandbackend.onrender.com";
-const FALLBACK_IMAGE = "/static/images/default-fallback.jpg";
+const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // Set your fallback image here
 
 /* =====================================================
    HELPERS
 ===================================================== */
 function qs(id) {
   return document.getElementById(id);
+}
+
+function getFullImageUrl(path) {
+  // Ensure image URL is valid, fallback if missing
+  if (!path) return FALLBACK_IMAGE;
+  // If path already starts with http/https, return as-is
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  // Otherwise prepend backend URL
+  return `${BACKEND_URL}${path}`;
 }
 
 /* =====================================================
@@ -20,27 +29,27 @@ async function loadTestimonials() {
 
   try {
     const res = await fetch(`${BACKEND_URL}/api/testimonials/`);
-    if (!res.ok) throw new Error("Failed to fetch testimonials");
     const data = await res.json();
 
     container.innerHTML = data.length
-      ? data.map(t => {
-          const imageUrl = t.image ? `${BACKEND_URL}${t.image}` : FALLBACK_IMAGE;
-          return `
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>${t.testimonial}</p>
-                <div class="testimonial-profile">
-                  <img src="${imageUrl}" alt="${t.name}" class="img-fluid rounded-circle">
-                  <div>
-                    <h3>${t.name}</h3>
-                    <h4>${t.title}</h4>
-                  </div>
-                </div>
+      ? data
+          .map(
+            (t) => `
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <p>${t.testimonial}</p>
+            <div class="testimonial-profile">
+              <img src="${getFullImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle">
+              <div>
+                <h3>${t.name}</h3>
+                <h4>${t.title}</h4>
               </div>
             </div>
-          `;
-        }).join("")
+          </div>
+        </div>
+      `
+          )
+          .join("")
       : `<div class="swiper-slide">No testimonials found.</div>`;
 
     // Initialize Swiper
@@ -51,11 +60,14 @@ async function loadTestimonials() {
         autoplay: { delay: 5000 },
         slidesPerView: 1,
         spaceBetween: 30,
-        pagination: { el: ".swiper-pagination", clickable: true },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
         breakpoints: {
           768: { slidesPerView: 2 },
-          992: { slidesPerView: 3 }
-        }
+          992: { slidesPerView: 3 },
+        },
       });
     }
 
@@ -80,38 +92,37 @@ async function fetchEvents(filters = {}) {
     });
 
     const res = await fetch(url);
-    if (!res.ok) throw new Error("Failed to fetch events");
     const data = await res.json();
 
     container.innerHTML = data.length
-      ? data.map((e, i) => {
-          const imageUrl = e.image ? `${BACKEND_URL}${e.image}` : FALLBACK_IMAGE;
-          return `
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="${i * 100}">
-              <div class="event-card">
-                <img src="${imageUrl}" alt="${e.title}" class="event-image img-fluid mb-3">
-                <div class="event-date">
-                  <span class="month">${e.month.slice(0, 3).toUpperCase()}</span>
-                  <span class="day">${e.day}</span>
-                  <span class="year">${e.year}</span>
+      ? data
+          .map(
+            (e, i) => `
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="${i * 100}">
+          <div class="event-card">
+            <div class="event-date">
+              <span class="month">${e.month.slice(0, 3).toUpperCase()}</span>
+              <span class="day">${e.day}</span>
+              <span class="year">${e.year}</span>
+            </div>
+            <div class="event-content">
+              <div class="event-tag ${e.category.toLowerCase()}">${e.category}</div>
+              <h3>${e.title}</h3>
+              <p>${e.description}</p>
+              <div class="event-meta">
+                <div class="meta-item">
+                  <i class="bi bi-clock"></i> ${e.start_time} - ${e.end_time}
                 </div>
-                <div class="event-content">
-                  <div class="event-tag ${e.category.toLowerCase()}">${e.category}</div>
-                  <h3>${e.title}</h3>
-                  <p>${e.description}</p>
-                  <div class="event-meta">
-                    <div class="meta-item">
-                      <i class="bi bi-clock"></i> ${e.start_time} - ${e.end_time}
-                    </div>
-                    <div class="meta-item">
-                      <i class="bi bi-geo-alt"></i> ${e.location}
-                    </div>
-                  </div>
+                <div class="meta-item">
+                  <i class="bi bi-geo-alt"></i> ${e.location}
                 </div>
               </div>
             </div>
-          `;
-        }).join("")
+          </div>
+        </div>
+      `
+          )
+          .join("")
       : `<p class="text-center">No events available.</p>`;
 
     if (window.AOS) AOS.refresh();
@@ -121,9 +132,6 @@ async function fetchEvents(filters = {}) {
   }
 }
 
-/* =====================================================
-   LOAD EVENT FILTERS
-===================================================== */
 async function loadEventFilters() {
   const monthSelect = qs("monthSelect");
   const categorySelect = qs("categorySelect");
@@ -131,16 +139,15 @@ async function loadEventFilters() {
 
   try {
     const res = await fetch(`${BACKEND_URL}/api/events/`);
-    if (!res.ok) throw new Error("Failed to fetch events for filters");
     const data = await res.json();
 
     // Populate unique months
-    [...new Set(data.map(e => e.month))].forEach(month => {
+    [...new Set(data.map((e) => e.month))].forEach((month) => {
       monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
     });
 
     // Populate unique categories
-    [...new Set(data.map(e => e.category))].forEach(category => {
+    [...new Set(data.map((e) => e.category))].forEach((category) => {
       categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
     });
   } catch (err) {
@@ -158,11 +165,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const filterForm = qs("eventFilterForm");
   if (filterForm) {
-    filterForm.addEventListener("submit", e => {
+    filterForm.addEventListener("submit", (e) => {
       e.preventDefault();
       fetchEvents({
         month: qs("monthSelect")?.value,
-        category: qs("categorySelect")?.value
+        category: qs("categorySelect")?.value,
       });
     });
   }
