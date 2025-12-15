@@ -32,13 +32,14 @@
 
 <body class="admissions-page">
 
-{% include 'includes/includes/header.html' %}
+<!-- Header -->
+<div id="header-placeholder"></div>
 
   <main class="main">
 
     <!-- Page Title -->
     <div class="page-title dark-background"
-      style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+      style="background-image: url('/assets/img/education/showcase-1.webp');">
       <div class="container position-relative">
         <h1>Admissions</h1>
         <p>We welcome learners into a nurturing environment that prioritizes academic growth,
@@ -46,7 +47,7 @@
           and designed <br> to help every child begin a successful educational journey with confidence.</p>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="/index.html">Home</a></li>
             <li class="current">Admissions</li>
           </ol>
         </nav>
