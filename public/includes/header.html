@@ -21,11 +21,16 @@
 </header>
 
 <script>
-    const currentPath = window.location.pathname.replace(/\/$/, '');
-    const currentPage = currentPath === "" ? "home" : currentPath.split("/").pop().replace('.html','');
-    document.querySelectorAll("#navmenu a").forEach(link => {
-        if (link.dataset.page === currentPage) {
-            link.classList.add("active");
-        }
-    });
+  const currentPath = window.location.pathname.replace(/\/$/, ''); // remove trailing slash
+  const currentPage = currentPath === "" ? "home" : currentPath.split("/").pop().replace('.html','');
+
+  document.querySelectorAll("#navmenu a").forEach(link => {
+    const linkPage = link.dataset.page;
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
 </script>
+
