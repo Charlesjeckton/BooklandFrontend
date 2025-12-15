@@ -21,8 +21,16 @@
 </header>
 
 <script>
-  const currentPath = window.location.pathname.replace(/\/$/, ''); // remove trailing slash
-  const currentPage = currentPath === "" ? "home" : currentPath.split("/").pop().replace('.html','');
+  const path = window.location.pathname; // e.g., "/about.html" or "/"
+
+  // Map pathname to data-page value
+  let currentPage = "home"; // default
+  if (path === "/" || path === "/index.html") {
+    currentPage = "home";
+  } else {
+    const page = path.split("/").pop().replace(".html", "");
+    currentPage = page || "home";
+  }
 
   document.querySelectorAll("#navmenu a").forEach(link => {
     const linkPage = link.dataset.page;
@@ -33,4 +41,5 @@
     }
   });
 </script>
+
 
