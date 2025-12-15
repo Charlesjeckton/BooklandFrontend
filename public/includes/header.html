@@ -21,21 +21,26 @@
 </header>
 
 <script>
-  // Get the current page filename from URL
-  let path = window.location.pathname.split("/").pop(); // e.g., "about.html"
+  // Get the current path, remove trailing slash
+  let path = window.location.pathname.replace(/\/$/, ''); // e.g., "/about" or "/about.html"
 
-  // Default to index if empty
-  if (!path || path === "") path = "index.html";
+  // If empty (root), default to index
+  if (!path || path === "") path = "/index.html";
 
-  // Remove ".html" for data-page comparison
-  const currentPage = path.replace(".html","");
+  // Extract filename or last segment
+  let lastSegment = path.split("/").pop(); // "about.html" or "about"
 
-  // Add "active" class
+  // Remove .html if exists
+  const currentPage = lastSegment.replace(".html", "").toLowerCase();
+
+  // Apply active class
   document.querySelectorAll("#navmenu a").forEach(link => {
-    if (link.dataset.page === currentPage) {
+    const linkPage = link.dataset.page.toLowerCase();
+    if (linkPage === currentPage) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
     }
   });
 </script>
+
