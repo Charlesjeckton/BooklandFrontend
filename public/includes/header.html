@@ -6,7 +6,7 @@
     </a>
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="/index.html" data-page="home">Home</a></li>
+        <li><a href="/index.html" data-page="index">Home</a></li>
         <li><a href="/about.html" data-page="about">About Us</a></li>
         <li><a href="/admissions.html" data-page="admissions">Admissions</a></li>
         <li><a href="/fees.html" data-page="fees">Fees</a></li>
@@ -21,13 +21,16 @@
 </header>
 
 <script>
-  // Get the current filename (without extension)
-  const currentPath = window.location.pathname.split("/").pop().replace(".html", "");
+  // Get the current page filename from URL
+  let path = window.location.pathname.split("/").pop(); // e.g., "about.html"
 
-  // Map empty path or index.html to "home"
-  const currentPage = currentPath === "" || currentPath === "index" ? "home" : currentPath;
+  // Default to index if empty
+  if (!path || path === "") path = "index.html";
 
-  // Highlight the active link
+  // Remove ".html" for data-page comparison
+  const currentPage = path.replace(".html","");
+
+  // Add "active" class
   document.querySelectorAll("#navmenu a").forEach(link => {
     if (link.dataset.page === currentPage) {
       link.classList.add("active");
