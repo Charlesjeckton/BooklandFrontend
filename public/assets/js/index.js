@@ -22,26 +22,23 @@ async function loadTestimonials() {
     const data = await res.json();
 
     container.innerHTML = data.length
-      ? data.map(t => {
-          const imageUrl = t.image ? `${BACKEND_URL}${t.image}` : "assets/img/default-avatar.png";
-          return `
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>${t.testimonial}</p>
-                <div class="testimonial-profile">
-                  <img src="${imageUrl}" alt="${t.name}" class="img-fluid rounded-circle">
-                  <div>
-                    <h3>${t.name}</h3>
-                    <h4>${t.title}</h4>
-                  </div>
-                </div>
+      ? data.map(t => `
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <p>${t.testimonial}</p>
+            <div class="testimonial-profile">
+              <img src="${BACKEND_URL}${t.image}" alt="${t.name}" class="img-fluid rounded-circle">
+              <div>
+                <h3>${t.name}</h3>
+                <h4>${t.title}</h4>
               </div>
             </div>
-          `;
-        }).join("")
+          </div>
+        </div>
+      `).join("")
       : `<div class="swiper-slide">No testimonials found.</div>`;
 
-    // Initialize Swiper after slides are injected
+    // Initialize Swiper
     if (window.Swiper) {
       new Swiper(".testimonials-slider", {
         loop: true,
@@ -61,9 +58,8 @@ async function loadTestimonials() {
     }
 
     if (window.AOS) AOS.refresh();
-
   } catch (err) {
-    console.error("Failed to load testimonials:", err);
+    console.error(err);
     container.innerHTML = `<div class="swiper-slide">Failed to load testimonials.</div>`;
   }
 }
@@ -71,7 +67,7 @@ async function loadTestimonials() {
 /* =====================================================
    EVENTS
 ===================================================== */
-async function loadEvents(filters = {}) {
+async function fetchEvents(filters = {}) {
   const container = qs("eventsContainer");
   if (!container) return;
 
@@ -86,42 +82,38 @@ async function loadEvents(filters = {}) {
 
     container.innerHTML = data.length
       ? data.map((e, i) => `
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="${i * 100}">
-            <div class="event-card">
-              <div class="event-date">
-                <span class="month">${e.month.slice(0, 3).toUpperCase()}</span>
-                <span class="day">${e.day}</span>
-                <span class="year">${e.year}</span>
-              </div>
-              <div class="event-content">
-                <div class="event-tag ${e.category.toLowerCase()}">${e.category}</div>
-                <h3>${e.title}</h3>
-                <p>${e.description}</p>
-                <div class="event-meta">
-                  <div class="meta-item">
-                    <i class="bi bi-clock"></i> ${e.start_time} - ${e.end_time}
-                  </div>
-                  <div class="meta-item">
-                    <i class="bi bi-geo-alt"></i> ${e.location}
-                  </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="${i * 100}">
+          <div class="event-card">
+            <div class="event-date">
+              <span class="month">${e.month.slice(0, 3).toUpperCase()}</span>
+              <span class="day">${e.day}</span>
+              <span class="year">${e.year}</span>
+            </div>
+            <div class="event-content">
+              <div class="event-tag ${e.category.toLowerCase()}">${e.category}</div>
+              <h3>${e.title}</h3>
+              <p>${e.description}</p>
+              <div class="event-meta">
+                <div class="meta-item">
+                  <i class="bi bi-clock"></i> ${e.start_time} - ${e.end_time}
+                </div>
+                <div class="meta-item">
+                  <i class="bi bi-geo-alt"></i> ${e.location}
                 </div>
               </div>
             </div>
           </div>
-        `).join("")
+        </div>
+      `).join("")
       : `<p class="text-center">No events available.</p>`;
 
     if (window.AOS) AOS.refresh();
-
   } catch (err) {
-    console.error("Failed to load events:", err);
+    console.error(err);
     container.innerHTML = `<p class="text-center text-danger">Failed to load events.</p>`;
   }
 }
 
-/* =====================================================
-   EVENT FILTERS
-===================================================== */
 async function loadEventFilters() {
   const monthSelect = qs("monthSelect");
   const categorySelect = qs("categorySelect");
@@ -131,22 +123,17 @@ async function loadEventFilters() {
     const res = await fetch(`${BACKEND_URL}/api/events/`);
     const data = await res.json();
 
-    // Populate month options
+    // Populate unique months
     [...new Set(data.map(e => e.month))].forEach(month => {
-      if (!monthSelect.querySelector(`option[value="${month}"]`)) {
-        monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
-      }
+      monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
     });
 
-    // Populate category options
+    // Populate unique categories
     [...new Set(data.map(e => e.category))].forEach(category => {
-      if (!categorySelect.querySelector(`option[value="${category}"]`)) {
-        categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
-      }
+      categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
     });
-
   } catch (err) {
-    console.error("Failed to load event filters:", err);
+    console.error(err);
   }
 }
 
@@ -156,17 +143,16 @@ async function loadEventFilters() {
 document.addEventListener("DOMContentLoaded", () => {
   loadTestimonials();
   loadEventFilters();
-  loadEvents();
+  fetchEvents();
 
   const filterForm = qs("eventFilterForm");
   if (filterForm) {
     filterForm.addEventListener("submit", e => {
       e.preventDefault();
-      loadEvents({
+      fetchEvents({
         month: qs("monthSelect")?.value,
         category: qs("categorySelect")?.value
       });
     });
   }
 });
-
