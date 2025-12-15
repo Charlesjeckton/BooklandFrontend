@@ -1,9 +1,12 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
   <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+    <!-- Logo -->
     <a href="/index.html" class="logo d-flex align-items-center">
       <img src="/assets/img/school_logo.png" alt="Bookland Schools Logo">
       <h1 class="sitename">Bookland <br>Schools</h1>
     </a>
+
+    <!-- Navigation Menu -->
     <nav id="navmenu" class="navmenu">
       <ul>
         <li><a href="/index.html" data-page="index">Home</a></li>
@@ -15,32 +18,45 @@
         <li><a href="/contact.html" data-page="contact">Contact</a></li>
         <li><a href="/faqs.html" data-page="faqs">FAQs</a></li>
       </ul>
+      <!-- Mobile toggle button -->
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
   </div>
 </header>
 
 <script>
-  // Get the current path, remove trailing slash
-  let path = window.location.pathname.replace(/\/$/, ''); // e.g., "/about" or "/about.html"
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const navMenu = document.getElementById("navmenu");
+  const toggle = document.querySelector(".mobile-nav-toggle");
 
-  // If empty (root), default to index
-  if (!path || path === "") path = "/index.html";
+  // Mobile toggle
+  toggle.addEventListener("click", () => {
+    navMenu.classList.toggle("mobile-nav-active");
+    body.classList.toggle("mobile-nav-active");
+    toggle.classList.toggle("bi-list");
+    toggle.classList.toggle("bi-x");
+  });
 
-  // Extract filename or last segment
-  let lastSegment = path.split("/").pop(); // "about.html" or "about"
+  // Close mobile menu on link click
+  document.querySelectorAll("#navmenu a").forEach(link => {
+    link.addEventListener("click", () => {
+      if (navMenu.classList.contains("mobile-nav-active")) {
+        navMenu.classList.remove("mobile-nav-active");
+        body.classList.remove("mobile-nav-active");
+        toggle.classList.add("bi-list");
+        toggle.classList.remove("bi-x");
+      }
+    });
+  });
 
-  // Remove .html if exists
-  const currentPage = lastSegment.replace(".html", "").toLowerCase();
+  // Highlight active page
+  let path = window.location.pathname.replace(/\/$/, '') || "/index.html";
+  const currentPage = path.split("/").pop().replace(".html", "").toLowerCase();
 
-  // Apply active class
   document.querySelectorAll("#navmenu a").forEach(link => {
     const linkPage = link.dataset.page.toLowerCase();
-    if (linkPage === currentPage) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
+    link.classList.toggle("active", linkPage === currentPage);
   });
+});
 </script>
-
