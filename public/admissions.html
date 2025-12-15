@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,208 +55,164 @@
     <!-- End Page Title -->
 
     <!-- Admissions Section -->
-    <section id="admissions" class="admissions section">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-5 g-lg-5">
+<section id="admissions" class="admissions section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-5 g-lg-5">
 
-          <div class="col-lg-6">
-            <div class="admissions-info" data-aos="fade-up">
-              <h2>Begin Your Academic Journey Today</h2>
-              <p>Join a vibrant community where learning, growth, and values go hand in hand. At Bookland
-                Schools, we’re committed to helping each student thrive academically and personally from the very
-                start.</p>
+      <!-- Admissions Info -->
+      <div class="col-lg-6">
+        <div class="admissions-info" data-aos="fade-up">
+          <h2>Begin Your Academic Journey Today</h2>
+          <p>Join a vibrant community where learning, growth, and values go hand in hand. At Bookland
+            Schools, we’re committed to helping each student thrive academically and personally from the very
+            start.</p>
 
-              <div class="admissions-steps mt-5">
-                <h3>How to Apply</h3>
-                <div class="steps-wrapper mt-4">
-
-                  <div class="step-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                      <h4>Submit Application</h4>
-                      <p>Complete our simple online or in-person application form to begin the
-                        process.</p>
-                    </div>
-                  </div>
-
-                  <div class="step-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                      <h4>Send Required Documents</h4>
-                      <p>Provide academic records, birth certificate, and other relevant documents.</p>
-                    </div>
-                  </div>
-
-                  <div class="step-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                      <h4>Attend an Interview</h4>
-                      <p>Meet with our admissions team for a brief student and parent interaction.</p>
-                    </div>
-                  </div>
-
-                  <div class="step-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                      <h4>Receive Admission Decision</h4>
-                      <p>We’ll notify you of your application status and next steps promptly.</p>
-                    </div>
-                  </div>
-
+          <!-- How to Apply -->
+          <div class="admissions-steps mt-5">
+            <h3>How to Apply</h3>
+            <div class="steps-wrapper mt-4">
+              <div class="step-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h4>Submit Application</h4>
+                  <p>Complete our simple online or in-person application form to begin the
+                    process.</p>
                 </div>
               </div>
-
-              <div class="deadlines mt-5" data-aos="fade-up">
-                <h3>Key Admission Deadlines</h3>
-                <div class="deadline-grid mt-4">
-                  {% for deadline in deadlines %}
-                    <div class="deadline-item">
-                      <h4>{{ deadline.name }}</h4>
-                      <div class="date">{{ deadline.deadline_date|date:"F d, Y" }}</div>
-                    </div>
-                  {% empty %}
-                    <p>No deadlines have been set yet.</p>
-                  {% endfor %}
+              <div class="step-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h4>Send Required Documents</h4>
+                  <p>Provide academic records, birth certificate, and other relevant documents.</p>
                 </div>
               </div>
-
+              <div class="step-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h4>Attend an Interview</h4>
+                  <p>Meet with our admissions team for a brief student and parent interaction.</p>
+                </div>
+              </div>
+              <div class="step-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                  <h4>Receive Admission Decision</h4>
+                  <p>We’ll notify you of your application status and next steps promptly.</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-6">
-            <div class="admissions-requirements" data-aos="fade-up">
-              <h3>Admission Requirements</h3>
-              <div class="requirements-list mt-4">
-                <div class="requirement-item" data-aos="fade-up" data-aos-delay="100">
-                  <div class="icon-box">
-                    <i class="bi bi-mortarboard-fill"></i>
-                  </div>
-                  <div>
-                    <h4>Academic Records</h4>
-                    <p>Applicants must provide recent report cards to assess academic readiness.</p>
-                  </div>
-                </div>
-
-                <div class="requirement-item" data-aos="fade-up" data-aos-delay="200">
-                  <div class="icon-box">
-                    <i class="bi bi-file-earmark-text"></i>
-                  </div>
-                  <div>
-                    <h4>Recommendation Letters</h4>
-                    <p>At least one letter from a teacher or school leader highlighting character and
-                      performance.</p>
-                  </div>
-                </div>
-
-                <div class="requirement-item" data-aos="fade-up" data-aos-delay="300">
-                  <div class="icon-box">
-                    <i class="bi bi-journal-richtext"></i>
-                  </div>
-                  <div>
-                    <h4>Personal Statement</h4>
-                    <p>A brief written statement by the student or parent expressing interest and
-                      goals.</p>
-                  </div>
-                </div>
-
-                <div class="requirement-item" data-aos="fade-up" data-aos-delay="400">
-                  <div class="icon-box">
-                    <i class="bi bi-graph-up"></i>
-                  </div>
-                  <div>
-                    <h4>Standardized Tests</h4>
-                    <p>Results from any relevant assessments may be requested, depending on the entry
-                      level.</p>
-                  </div>
-                </div>
-              </div>
+          <!-- Key Deadlines -->
+          <div class="deadlines mt-5" data-aos="fade-up">
+            <h3>Key Admission Deadlines</h3>
+            <div class="deadline-grid mt-4" id="admission-deadlines">
+              <p>Loading deadlines...</p>
             </div>
-
-            <div class="request-info mt-5" data-aos="fade-up">
-              <div class="card">
-                <div class="card-body">
-                  <h3 class="card-title">Request Information</h3>
-                  <p>Interested in learning more about Bookland Schools? Fill out the form below and we’ll
-                    be happy to assist you.</p>
-
-                  <form class="contact-form mt-4" action="{% url 'admissions' %}" method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                      <label for="name" class="form-label">Full Name</label>
-                      <input type="text" id="name" name="name" class="form-control"
-                        placeholder="Full Name" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email Address</label>
-                      <input type="email" id="email" name="email" class="form-control"
-                        placeholder="Email Address" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="phone" class="form-label">Phone Number</label>
-                      <input type="tel" id="phone" name="phone" class="form-control"
-                        placeholder="Phone Number">
-                    </div>
-                    <div class="mb-3">
-                      <label for="message" class="form-label">Questions or Comments</label>
-                      <textarea id="message" name="message" class="form-control" rows="3"
-                        placeholder="Questions or Comments" required></textarea>
-                    </div>
-
-                    <!-- Success Modal -->
-                    <div class="modal fade" id="successModal" tabindex="-1"
-                      aria-labelledby="successModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content bg-success text-white">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="successModalLabel">Success</h5>
-                            <button type="button" class="btn-close btn-close-white"
-                              data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            {% for message in messages %}
-                              {% if message.tags == 'success' %}
-                                {{ message }}
-                              {% endif %}
-                            {% endfor %}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Error Modal -->
-                    <div class="modal fade" id="errorModal" tabindex="-1"
-                      aria-labelledby="errorModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content bg-danger text-white">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                            <button type="button" class="btn-close btn-close-white"
-                              data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            {% for message in messages %}
-                              {% if message.tags == 'error' %}
-                                {{ message }}
-                              {% endif %}
-                            {% endfor %}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Submit Request</button>
-                    </div>
-                  </form>
-
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Admissions Requirements + Request Info -->
+      <div class="col-lg-6">
+        <div class="admissions-requirements" data-aos="fade-up">
+          <h3>Admission Requirements</h3>
+          <div class="requirements-list mt-4">
+            <div class="requirement-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box"><i class="bi bi-mortarboard-fill"></i></div>
+              <div>
+                <h4>Academic Records</h4>
+                <p>Applicants must provide recent report cards to assess academic readiness.</p>
+              </div>
+            </div>
+            <div class="requirement-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon-box"><i class="bi bi-file-earmark-text"></i></div>
+              <div>
+                <h4>Recommendation Letters</h4>
+                <p>At least one letter from a teacher or school leader highlighting character and performance.</p>
+              </div>
+            </div>
+            <div class="requirement-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon-box"><i class="bi bi-journal-richtext"></i></div>
+              <div>
+                <h4>Personal Statement</h4>
+                <p>A brief written statement by the student or parent expressing interest and goals.</p>
+              </div>
+            </div>
+            <div class="requirement-item" data-aos="fade-up" data-aos-delay="400">
+              <div class="icon-box"><i class="bi bi-graph-up"></i></div>
+              <div>
+                <h4>Standardized Tests</h4>
+                <p>Results from any relevant assessments may be requested, depending on the entry level.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Request Info Form -->
+        <div class="request-info mt-5" data-aos="fade-up">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Request Information</h3>
+              <p>Interested in learning more about Bookland Schools? Fill out the form below and we’ll be happy to assist you.</p>
+
+              <form id="requestInfoForm" class="contact-form mt-4">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone Number">
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Questions or Comments</label>
+                  <textarea id="message" name="message" class="form-control" rows="3" placeholder="Questions or Comments" required></textarea>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit Request</button>
+                </div>
+              </form>
+
+              <!-- Success Modal -->
+              <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content bg-success text-white">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="successModalLabel">Success</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="successMessage"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Error Modal -->
+              <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content bg-danger text-white">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="errorMessage"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
     <!-- /Admissions Section -->
 
   </main>
@@ -287,21 +242,6 @@
 <script src="/assets/js/includes.js" defer></script>
 <script src="/assets/js/admissions.js" defer></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      {% if messages %}
-        {% for message in messages %}
-          {% if message.tags == 'success' %}
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-          {% elif message.tags == 'error' %}
-            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-            errorModal.show();
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    });
-  </script>
 
 </body>
 
