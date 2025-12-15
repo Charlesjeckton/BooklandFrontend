@@ -8,39 +8,38 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    {% load static %}
-    <!-- Favicons -->
-    <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
-    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+   <!-- Favicons -->
+    <link href="/assets/img/school_logo.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <!-- Vendor CSS -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
-    <!-- Main CSS File -->
-    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet">
 
 </head>
 
 <body class="admissions-page">
 
-{% include 'includes/includes/header.html' %}
+<!-- Header -->
+<div id="header-placeholder"></div>
 
 <main class="main">
 
     <!-- Page Title -->
     <div class="page-title dark-background"
-         style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+         style="background-image: url('/assets/img/education/showcase-1.webp');">
         <div class="container position-relative">
             <h1>Fees</h1>
             <p>We are committed to providing quality education at an affordable cost. Our fee structure
@@ -121,8 +120,8 @@
 
 </main>
 
-  <!-- Footer -->
- {% include 'includes/includes/footer.html' %}
+<!-- Footer -->
+<div id="footer-placeholder"></div>
 
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
@@ -131,80 +130,21 @@
 <!-- Preloader -->
 <div id="preloader"></div>
 
-<!-- Vendor JS Files -->
-<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-<script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<!-- Vendor JS -->
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/aos/aos.js"></script>
+<script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
 
-<!-- Main JS File -->
-<script src="{% static 'assets/js/main.js' %}"></script>
+<!-- Main JS -->
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/includes.js" defer></script>
+<script src="/assets/js/fees.js" defer></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const tableBody = document.getElementById("feesTableBody");
-
-    function formatKES(amount) {
-        return "KES " + Number(amount).toLocaleString("en-KE");
-    }
-
-    fetch("{% url 'api_fees' %}")
-        .then(response => response.json())
-        .then(data => {
-            tableBody.innerHTML = "";
-
-            if (!data.length) {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="text-center">No fee structure available.</td>
-                    </tr>
-                `;
-                return;
-            }
-
-            data.forEach((fee, index) => {
-                const row = document.createElement("tr");
-                row.setAttribute("data-aos", "fade-up");
-                row.setAttribute("data-aos-delay", index * 100);
-
-                row.innerHTML = `
-                    <td>${fee.level}</td>
-                    <td>${formatKES(fee.tuition_per_term)}</td>
-                    <td>${formatKES(fee.meals_fee)}</td>
-                    <td>${formatKES(fee.transport_fee)}</td>
-                    <td><strong>${formatKES(fee.total_fee)}</strong></td>
-                    <td>
-                        ${
-                            fee.file
-                                ? `<a href="${fee.file}" class="btn btn-primary" download>
-                                       <i class="bi bi-file-earmark-arrow-down"></i> Download (PDF)
-                                   </a>`
-                                : `<span class="text-muted">N/A</span>`
-                        }
-                    </td>
-                `;
-
-                tableBody.appendChild(row);
-            });
-
-            AOS.refresh();
-        })
-        .catch(error => {
-            console.error("Error loading fees:", error);
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="text-danger text-center">
-                        Failed to load fee structure.
-                    </td>
-                </tr>
-            `;
-        });
-});
-</script>
 
 
 </body>

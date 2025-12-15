@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,46 +8,48 @@
     <meta name="keywords" content="">
 
     <!-- Favicons -->
-    <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
-    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+    <link href="/assets/img/school_logo.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <!-- Vendor CSS -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
-    <!-- Main CSS File -->
-    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet">
 </head>
 <body class="about-page">
 
-{% include 'includes/includes/header.html' %}
+<!-- Header -->
+<div id="header-placeholder"></div>
+
 <main class="main">
 
     <!-- Page Title Section -->
     <div class="page-title dark-background"
-         style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+         style="background-image: url('/assets/img/education/showcase-1.webp');">
         <div class="container position-relative">
             <h1>About Us</h1>
             <p>We are committed to nurturing well-rounded learners through academics, character development, and
                 creativity.</p>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li class="current">About Us</li>
                 </ol>
             </nav>
         </div>
     </div>
+
 
     <!-- History Section -->
     <section id="history" class="history section">
@@ -111,7 +112,7 @@
 
                 <div class="col-lg-6">
                     <div class="about-image" data-aos="zoom-in" data-aos-delay="300">
-                        <img src="{% static 'assets/img/education/campus-5.webp' %} " alt="Campus"
+                        <img src="/assets/img/education/campus-5.webp" alt="Campus"
                              class="img-fluid rounded">
 
                         <div class="mission-vision" data-aos="fade-up" data-aos-delay="400">
@@ -233,13 +234,12 @@
                 <!-- Leadership Image -->
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                     <div class="about-image">
-                        <img src="{% static 'assets/img/education/teacher-1.webp' %}" alt="Our Leadership Team"
+                        <img src="/assets/img/education/teacher-1.webp" alt="Our Leadership Team"
                              class="img-fluid rounded">
                     </div>
                 </div>
             </div>
-            
-            
+
 
             <!-- Leadership Team via API -->
             <div class="leadership-team">
@@ -272,91 +272,29 @@
 
 </main>
 
-{% include 'includes/includes/footer.html' %}
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Preloader -->
+<div id="preloader"></div>
 
 <!-- Vendor JS -->
-<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-<script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/aos/aos.js"></script>
+<script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
 
 <!-- Main JS -->
-<script src="{% static 'assets/js/main.js' %}"></script>
-
-<!-- Combined API Loader for Leadership and Gallery -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        // -----------------------
-        // Load Leadership Team
-        // -----------------------
-        fetch("{% url 'api_leadership' %}")
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('leadership-team');
-                data.forEach((leader, index) => {
-                    const col = document.createElement('div');
-                    col.className = 'col-lg-3 col-md-6 mb-4';
-                    col.setAttribute('data-aos', 'fade-up');
-                    col.setAttribute('data-aos-delay', 100 + (index * 100)); // stagger animation
-                    col.innerHTML = `
-                    <div class="leader-card">
-                        <div class="leader-image">
-                            <img src="${leader.image}" alt="${leader.title}" class="img-fluid">
-                        </div>
-                        <div class="leader-info">
-                            <h4>${leader.salutation}. ${leader.name}</h4>
-                            <p class="position">${leader.designation}</p>
-                            <p class="bio"><i>${leader.message}</i></p>
-                        </div>
-                    </div>
-                `;
-                    container.appendChild(col);
-                });
-                AOS.refresh(); // ensure AOS detects dynamically added elements
-            })
-            .catch(err => console.error("Error loading leadership team:", err));
-
-        // -----------------------
-        // Load Gallery Images
-        // -----------------------
-        fetch("{% url 'api_gallery' %}")
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('gallery-images');
-                data.forEach((img, i) => {
-                    const col = document.createElement('div');
-                    col.className = 'col-lg-4 col-md-6';
-                    col.setAttribute('data-aos', 'fade-up');
-                    col.setAttribute('data-aos-delay', 100 + (i * 100)); // staggered animation
-                    col.innerHTML = `
-                    <div class="gallery-card">
-                        <a href="${img.image}" class="glightbox" data-gallery="gallery-set" data-title="${img.title}">
-                            <img src="${img.image}" class="gallery-img img-fluid rounded" alt="${img.title}">
-                            <div class="overlay-content"><h5 class="overlay-title">${img.title}</h5></div>
-                        </a>
-                    </div>
-                `;
-                    container.appendChild(col);
-                });
-                GLightbox({selector: '.glightbox'});
-                AOS.refresh(); // refresh AOS after gallery load
-            })
-            .catch(err => console.error("Error loading gallery images:", err));
-
-    });
-</script>
-
-<!-- Initialize AOS -->
-<script>
-    AOS.init({
-        duration: 800,
-        once: true
-    });
-</script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/includes.js" defer></script>
+<script src="/assets/js/about.js" defer></script>
 
 
 </body>

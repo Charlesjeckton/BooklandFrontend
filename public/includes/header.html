@@ -1,19 +1,19 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-        <a href="/BooklandFrontend/public" class="logo d-flex align-items-center">
+        <a href="/" class="logo d-flex align-items-center">
             <img src="/assets/img/school_logo.png" alt="Bookland Schools Logo">
             <h1 class="sitename">Bookland <br>Schools</h1>
         </a>
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="/BooklandFrontend/public" data-page="home">Home</a></li>
-                <li><a href="/about" data-page="about">About Us</a></li>
-                <li><a href="/admissions" data-page="admissions">Admissions</a></li>
-                <li><a href="/fees" data-page="fees">Fees</a></li>
-                <li><a href="/alumni" data-page="alumni">Alumni</a></li>
-                <li><a href="/events" data-page="events">Events</a></li>
-                <li><a href="/contact" data-page="contact">Contact</a></li>
-                <li><a href="/faqs" data-page="faqs">FAQs</a></li>
+                <li><a href="/" data-page="home">Home</a></li>
+                <li><a href="/about.html" data-page="about">About Us</a></li>
+                <li><a href="/admissions.html" data-page="admissions">Admissions</a></li>
+                <li><a href="/fees.html" data-page="fees">Fees</a></li>
+                <li><a href="/alumni.html" data-page="alumni">Alumni</a></li>
+                <li><a href="/events.html" data-page="events">Events</a></li>
+                <li><a href="/contact.html" data-page="contact">Contact</a></li>
+                <li><a href="/faqs.html" data-page="faqs">FAQs</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -22,7 +22,7 @@
 
 <script>
     const currentPath = window.location.pathname.replace(/\/$/, '');
-    const currentPage = currentPath === "" ? "home" : currentPath.split("/").pop();
+    const currentPage = currentPath === "" ? "home" : currentPath.split("/").pop().replace('.html','');
     document.querySelectorAll("#navmenu a").forEach(link => {
         if (link.dataset.page === currentPage) {
             link.classList.add("active");

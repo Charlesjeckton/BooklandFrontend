@@ -8,38 +8,37 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    {% load static %}
     <!-- Favicons -->
-    <link href="{% static 'assets/img/school_logo.png' %}" rel="icon">
-    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+    <link href="/assets/img/school_logo.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <!-- Vendor CSS -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
-    <!-- Main CSS File -->
-    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet">
 
 </head>
 <body class="events-page">
 
-{% include 'includes/includes/header.html' %}
+<!-- Header -->
+<div id="header-placeholder"></div>
 
 <main class="main">
 
     <!-- Page Title -->
     <div class="page-title dark-background"
-         style="background-image: url({% static 'assets/img/education/showcase-1.webp' %});">
+         style="background-image: url('/assets/img/education/showcase-1.webp');">
         <div class="container position-relative">
             <h1>Events</h1>
             <p>We actively take part in academic, cultural, and sporting events organized
@@ -100,8 +99,8 @@
     
 </main>
 
-  <!-- Footer -->
- {% include 'includes/includes/footer.html' %}
+ <!-- Footer -->
+<div id="footer-placeholder"></div>
 
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
@@ -110,82 +109,19 @@
 <!-- Preloader -->
 <div id="preloader"></div>
 
-<!-- Vendor JS Files -->
-<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
-<script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<!-- Vendor JS -->
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/aos/aos.js"></script>
+<script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
 
-<!-- Main JS File -->
-<script src="{% static 'assets/js/main.js' %}"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Load events
-    fetch("{% url 'api_events' %}")
-        .then(res => res.json())
-        .then(events => {
-            const container = document.getElementById("events-list");
-            if (events.length === 0) {
-                container.innerHTML = "<p>No events at the moment.</p>";
-                return;
-            }
-            container.innerHTML = events.map(event => `
-                <div class="event-item" data-aos="fade-up">
-                    <div class="event-date">
-                        <span class="day">${event.day}</span>
-                        <span class="month">${event.month.slice(0,3).toUpperCase()}</span>
-                        <span class="year">${event.year}</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>${event.title}</h3>
-                        <div class="event-meta">
-                            <p><i class="bi bi-clock"></i> ${event.start_time} - ${event.end_time}</p>
-                            <p><i class="bi bi-geo-alt"></i> ${event.location}</p>
-                        </div>
-                        <p>${event.description}</p>
-                    </div>
-                </div>
-            `).join("");
-        });
-
-    // Load featured events
-    fetch("{% url 'api_featured_events' %}")
-        .then(res => res.json())
-        .then(featured => {
-            const container = document.getElementById("featured-events-container");
-            if (featured.length === 0) {
-                container.innerHTML = "<p>No featured events.</p>";
-                return;
-            }
-            container.innerHTML = featured.map(f => `
-                <div class="featured-event-content mb-4">
-                    <img src="${f.image}" alt="${f.title}" class="img-fluid mb-2">
-                    <h4>${f.title}</h4>
-                    <p><i class="bi bi-calendar-event"></i> ${f.date}</p>
-                    <p>${f.description}</p>
-                </div>
-            `).join("");
-        });
-
-    // Load event categories
-    fetch("{% url 'api_events' %}")
-        .then(res => res.json())
-        .then(events => {
-            const container = document.getElementById("event-categories");
-            const categoryCounts = {};
-            events.forEach(e => {
-                categoryCounts[e.category] = (categoryCounts[e.category] || 0) + 1;
-            });
-            container.innerHTML = Object.entries(categoryCounts).map(([cat, count]) => `
-                <li><a>${cat} <span>(${count})</span></a></li>
-            `).join("");
-        });
-});
-</script>
+<!-- Main JS -->
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/includes.js" defer></script>
+<script src="/assets/js/events.js" defer></script>
 
 </body>
 
