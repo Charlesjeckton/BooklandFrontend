@@ -7,13 +7,13 @@
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="/" data-page="home">Home</a></li>
-                <li><a href="/about.html" data-page="about">About Us</a></li>
-                <li><a href="/admissions.html" data-page="admissions">Admissions</a></li>
-                <li><a href="/fees.html" data-page="fees">Fees</a></li>
-                <li><a href="/alumni.html" data-page="alumni">Alumni</a></li>
-                <li><a href="/events.html" data-page="events">Events</a></li>
-                <li><a href="/contact.html" data-page="contact">Contact</a></li>
-                <li><a href="/faqs.html" data-page="faqs">FAQs</a></li>
+                <li><a href="/about" data-page="about">About Us</a></li>
+                <li><a href="/admissions" data-page="admissions">Admissions</a></li>
+                <li><a href="/fees" data-page="fees">Fees</a></li>
+                <li><a href="/alumni" data-page="alumni">Alumni</a></li>
+                <li><a href="/events" data-page="events">Events</a></li>
+                <li><a href="/contact" data-page="contact">Contact</a></li>
+                <li><a href="/faqs" data-page="faqs">FAQs</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -21,25 +21,28 @@
 </header>
 
 <script>
-  const path = window.location.pathname; // e.g., "/about.html" or "/"
+  // Determine the active page on Vercel
+  let path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
+  const pageMap = {
+    "": "home",
+    "index": "home",
+    "about": "about",
+    "admissions": "admissions",
+    "fees": "fees",
+    "alumni": "alumni",
+    "events": "events",
+    "contact": "contact",
+    "faqs": "faqs"
+  };
 
-  // Map pathname to data-page value
-  let currentPage = "home"; // default
-  if (path === "/" || path === "/index.html") {
-    currentPage = "home";
-  } else {
-    const page = path.split("/").pop().replace(".html", "");
-    currentPage = page || "home";
-  }
+  const lastSegment = path.split("/").pop();
+  const currentPage = pageMap[lastSegment] || "home";
 
   document.querySelectorAll("#navmenu a").forEach(link => {
-    const linkPage = link.dataset.page;
-    if (linkPage === currentPage) {
+    if (link.dataset.page === currentPage) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
     }
   });
 </script>
-
-
