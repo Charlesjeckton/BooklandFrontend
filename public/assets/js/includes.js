@@ -13,6 +13,5 @@ function loadInclude(id, file) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadInclude("header-placeholder", "/includes/header.html");
   loadInclude("footer-placeholder", "/includes/footer.html");
 });

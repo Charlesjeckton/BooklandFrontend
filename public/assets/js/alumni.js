@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="alumni-profile">
                         <div class="profile-header">
                             <div class="profile-img">
-                                <img src="${getFullImageUrl(alumni.image)}" alt="${alumni.name}" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
+                                <img src="${getFullImageUrl(alumni.image)}" alt="${alumni.name}" class="img-fluid" onerror="this.src='${FALLBACK_IMAGE}'">
                             </div>
                             <div class="profile-year">${alumni.year_of_completion}</div>
                         </div>
