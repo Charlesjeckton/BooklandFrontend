@@ -1,49 +1,115 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector(".contact-form");
-    if (!form) return;
+/* =====================================================
+   CONFIG
+===================================================== */
+const BACKEND_URL = "https://booklandbackend.onrender.com";
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+/* =====================================================
+   DYNAMIC MODAL (NO HTML REQUIRED)
+===================================================== */
+function showModal(type = "success", message = "") {
+    const modalId = "contactResponseModal";
 
-        const submitBtn = form.querySelector(".btn-submit");
-        submitBtn.disabled = true;
+    // Remove existing modal if present
+    const existing = document.getElementById(modalId);
+    if (existing) existing.remove();
 
-        const payload = {
-            name: form.name.value.trim(),
-            email: form.email.value.trim(),
-            subject: form.subject.value.trim(),
-            message: form.message.value.trim(),
-        };
+    const isSuccess = type === "success";
 
-        try {
-            const res = await fetch(
-                "https://booklandbackend.onrender.com/api/enquiries/",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(payload),
-                }
-            );
+    const modalHTML = `
+        <div class="modal fade" id="${modalId}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content ${isSuccess ? "bg-success" : "bg-danger"} text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            ${isSuccess ? "Message Sent" : "Submission Failed"}
+                        </h5>
+                        <button type="button"
+                                class="btn-close btn-close-white"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ${message}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 
-            if (!res.ok) {
-                throw new Error("Submission failed");
-            }
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-            form.reset();
+    const modalEl = document.getElementById(modalId);
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
 
-            // ✅ SUCCESS TOAST
-            showToast("Message sent successfully!", "success");
-
-        } catch (error) {
-            console.error("Contact form error:", error);
-
-            // ❌ ERROR TOAST
-            showToast("Failed to send message. Please try again.", "error");
-
-        } finally {
-            submitBtn.disabled = false;
-        }
+    modalEl.addEventListener("hidden.bs.modal", () => {
+        modalEl.remove();
     });
+}
+
+/* =====================================================
+   CONTACT FORM SUBMISSION
+===================================================== */
+async function handleContactFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const submitBtn = form.querySelector("button[type='submit']");
+
+    const payload = {
+        name: form.querySelector("#name")?.value.trim(),
+        email: form.querySelector("#email")?.value.trim(),
+        subject: form.querySelector("#subject")?.value.trim(),
+        message: form.querySelector("#message")?.value.trim(),
+    };
+
+    // Basic frontend safety check
+    if (!payload.name || !payload.email || !payload.subject || !payload.message) {
+        showModal("error", "Please fill in all required fields.");
+        return;
+    }
+
+    try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        const response = await fetch(`${BACKEND_URL}/api/enquiries/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            showModal(
+                "success",
+                "Your message has been sent successfully. We will get back to you shortly."
+            );
+            form.reset();
+        } else {
+            showModal(
+                "error",
+                data?.message || "Unable to send your message. Please try again."
+            );
+        }
+    } catch (error) {
+        console.error("Contact submission error:", error);
+        showModal(
+            "error",
+            "Unable to connect to the server. Please try again later."
+        );
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "SEND MESSAGE";
+    }
+}
+
+/* =====================================================
+   INIT
+===================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    const contactForm = document.querySelector(".contact-form");
+    if (contactForm) {
+        contactForm.addEventListener("submit", handleContactFormSubmit);
+    }
 });
