@@ -1,7 +1,8 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://booklandbackend.onrender.com";
+const BACKEND_URL = "https://booklandbackend.onrender.com"; // backend API URL
+const FALLBACK_TEXT = "N/A"; // fallback text for missing fields
 
 /* =====================================================
    HELPERS
@@ -11,8 +12,12 @@ function qs(id) {
 }
 
 function formatKES(amount) {
-    if (amount === null || amount === undefined) return "KES 0";
+    if (amount === null || amount === undefined || isNaN(amount)) return "KES 0";
     return "KES " + Number(amount).toLocaleString("en-KE");
+}
+
+function safeText(text) {
+    return text || FALLBACK_TEXT;
 }
 
 /* =====================================================
@@ -24,7 +29,7 @@ async function loadFeeStructure() {
 
     try {
         const res = await fetch(`${BACKEND_URL}/api/fees/`);
-        if (!res.ok) throw new Error("Failed to fetch fees");
+        if (!res.ok) throw new Error(`Failed to fetch fees: ${res.statusText}`);
 
         const data = await res.json();
         tableBody.innerHTML = "";
@@ -55,10 +60,10 @@ async function loadFeeStructure() {
                         Download PDF
                     </a>
                   `
-                : `<span class="text-muted">N/A</span>`;
+                : `<span class="text-muted">${FALLBACK_TEXT}</span>`;
 
             row.innerHTML = `
-                <td>${fee.level}</td>
+                <td>${safeText(fee.level)}</td>
                 <td>${formatKES(fee.tuition_per_term)}</td>
                 <td>${formatKES(fee.meals_fee)}</td>
                 <td>${formatKES(fee.transport_fee)}</td>
