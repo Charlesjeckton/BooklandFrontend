@@ -1,89 +1,116 @@
+/* =====================================================
+   CONFIG
+===================================================== */
 const BACKEND_URL = "https://booklandbackend.onrender.com"; // your backend
 const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // fallback image
 
+/* =====================================================
+   HELPERS
+===================================================== */
 function getFullImageUrl(path) {
     if (!path) return FALLBACK_IMAGE;
     if (path.startsWith("http://") || path.startsWith("https://")) return path;
-    return `${BACKEND_URL}/${encodeURI(path)}`;
+    return `${BACKEND_URL}${path.startsWith("/") ? "" : "/"}${encodeURI(path)}`;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    // -----------------------
-    // Load Events
-    // -----------------------
-    fetch(`${BACKEND_URL}/api/events/`)
-        .then(res => res.json())
-        .then(events => {
-            const container = document.getElementById("events-list");
-            if (!container) return;
+function formatEventDate(event) {
+    const month = event.month?.slice(0, 3).toUpperCase() || "";
+    const day = event.day || "";
+    const year = event.year || "";
+    return {day, month, year};
+}
 
-            if (events.length === 0) {
-                container.innerHTML = "<p>No events at the moment.</p>";
-                return;
-            }
+/* =====================================================
+   EVENTS
+===================================================== */
+async function loadEvents() {
+    const eventsContainer = document.getElementById("events-list");
+    const categoriesContainer = document.getElementById("event-categories");
+    if (!eventsContainer && !categoriesContainer) return;
 
-            container.innerHTML = events.map(event => `
-                <div class="event-item" data-aos="fade-up">
-                    <div class="event-date">
-                        <span class="day">${event.day}</span>
-                        <span class="month">${event.month.slice(0,3).toUpperCase()}</span>
-                        <span class="year">${event.year}</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>${event.title}</h3>
-                        <div class="event-meta">
-                            <p><i class="bi bi-clock"></i> ${event.start_time} - ${event.end_time}</p>
-                            <p><i class="bi bi-geo-alt"></i> ${event.location}</p>
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/events/`);
+        const events = await res.json();
+
+        // Populate Events List
+        if (eventsContainer) {
+            eventsContainer.innerHTML = events.length
+                ? events.map(event => {
+                    const {day, month, year} = formatEventDate(event);
+                    return `
+                        <div class="event-item" data-aos="fade-up">
+                            <div class="event-date">
+                                <span class="day">${day}</span>
+                                <span class="month">${month}</span>
+                                <span class="year">${year}</span>
+                            </div>
+                            <div class="event-content">
+                                <h3>${event.title}</h3>
+                                <div class="event-meta">
+                                    <p><i class="bi bi-clock"></i> ${event.start_time} - ${event.end_time}</p>
+                                    <p><i class="bi bi-geo-alt"></i> ${event.location}</p>
+                                </div>
+                                <p>${event.description}</p>
+                            </div>
                         </div>
-                        <p>${event.description}</p>
-                    </div>
-                </div>
-            `).join("");
-        })
-        .catch(err => console.error("Error loading events:", err));
+                      `;
+                }).join("")
+                : "<p>No events at the moment.</p>";
+        }
 
-    // -----------------------
-    // Load Featured Events
-    // -----------------------
-    fetch(`${BACKEND_URL}/api/featured_events/`)
-        .then(res => res.json())
-        .then(featured => {
-            const container = document.getElementById("featured-events-container");
-            if (!container) return;
+        // Populate Event Categories
+        if (categoriesContainer) {
+            const categoryCounts = {};
+            events.forEach(e => {
+                categoryCounts[e.category] = (categoryCounts[e.category] || 0) + 1;
+            });
 
-            if (featured.length === 0) {
-                container.innerHTML = "<p>No featured events.</p>";
-                return;
-            }
+            categoriesContainer.innerHTML = Object.entries(categoryCounts)
+                .map(([cat, count]) => `<li><a>${cat} <span>(${count})</span></a></li>`)
+                .join("");
+        }
 
-            container.innerHTML = featured.map(f => `
+        if (window.AOS) AOS.refresh();
+    } catch (err) {
+        console.error("Error loading events:", err);
+        if (eventsContainer) eventsContainer.innerHTML = "<p class='text-danger'>Failed to load events.</p>";
+        if (categoriesContainer) categoriesContainer.innerHTML = "<p class='text-danger'>Failed to load categories.</p>";
+    }
+}
+
+/* =====================================================
+   FEATURED EVENTS
+===================================================== */
+async function loadFeaturedEvents() {
+    const container = document.getElementById("featured-events-container");
+    if (!container) return;
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/featured_events/`);
+        const featured = await res.json();
+
+        container.innerHTML = featured.length
+            ? featured.map(f => `
                 <div class="featured-event-content mb-4" data-aos="fade-up">
                     <img src="${getFullImageUrl(f.image)}" alt="${f.title}" class="img-fluid mb-2" onerror="this.src='${FALLBACK_IMAGE}'">
                     <h4>${f.title}</h4>
                     <p><i class="bi bi-calendar-event"></i> ${f.date}</p>
                     <p>${f.description}</p>
                 </div>
-            `).join("");
-        })
-        .catch(err => console.error("Error loading featured events:", err));
+              `).join("")
+            : "<p>No featured events.</p>";
 
-    // -----------------------
-    // Load Event Categories
-    // -----------------------
-    fetch(`${BACKEND_URL}/api/events/`)
-        .then(res => res.json())
-        .then(events => {
-            const container = document.getElementById("event-categories");
-            if (!container) return;
+        if (window.AOS) AOS.refresh();
+    } catch (err) {
+        console.error("Error loading featured events:", err);
+        container.innerHTML = "<p class='text-danger'>Failed to load featured events.</p>";
+    }
+}
 
-            const categoryCounts = {};
-            events.forEach(e => {
-                categoryCounts[e.category] = (categoryCounts[e.category] || 0) + 1;
-            });
-
-            container.innerHTML = Object.entries(categoryCounts).map(([cat, count]) => `
-                <li><a>${cat} <span>(${count})</span></a></li>
-            `).join("");
-        })
-        .catch(err => console.error("Error loading event categories:", err));
+/* =====================================================
+   INIT
+===================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    loadEvents();
+    loadFeaturedEvents();
 });
