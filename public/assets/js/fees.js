@@ -100,11 +100,6 @@ function renderFees(data, tableBody) {
                </a>`
             : `<span class="text-muted">${FALLBACK_TEXT}</span>`;
 
-        const previewBtn = fee.fee_file_url
-            ? `<a href="${escapeHtml(fee.fee_file_url)}" target="_blank" class="btn btn-info btn-sm">
-                   <i class="bi bi-eye"></i> Preview
-               </a>`
-            : "";
 
         row.innerHTML = `
             <td class="align-middle"><strong>${escapeHtml(fee.level)}</strong></td>
@@ -112,7 +107,7 @@ function renderFees(data, tableBody) {
             <td class="align-middle">${formatKES(fee.meals_fee)}</td>
             <td class="align-middle">${formatKES(fee.transport_fee)}</td>
             <td class="align-middle"><span class="badge bg-success fs-6">${formatKES(fee.total_fee)}</span></td>
-            <td class="align-middle d-flex flex-wrap">${downloadBtn}${previewBtn}</td>
+            <td class="align-middle">${downloadBtn}</td>
         `;
 
         tableBody.appendChild(row);
