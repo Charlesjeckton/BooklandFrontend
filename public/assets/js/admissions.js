@@ -15,6 +15,17 @@ function formatDate(dateStr) {
     });
 }
 
+// Safe modal message helper
+function showModalMessage(modalId, message) {
+    const modalEl = document.getElementById(modalId);
+    if (!modalEl) return;
+
+    const body = modalEl.querySelector(".modal-body");
+    if (body) body.textContent = message;
+
+    new bootstrap.Modal(modalEl).show();
+}
+
 /* =====================================================
    LOAD ADMISSION DEADLINES
 ===================================================== */
@@ -23,7 +34,8 @@ async function loadAdmissionDeadlines() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${BACKEND_URL}/api/admissions-deadlines/`);
+        const res = await fetch(`${BACKEND_URL}/api/admission-deadlines/`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
         container.innerHTML = "";
@@ -56,14 +68,14 @@ async function handleRequestInfoForm(event) {
     const form = event.target;
 
     const formData = {
-        name: form.querySelector("#name").value,
-        email: form.querySelector("#email").value,
-        phone: form.querySelector("#phone").value,
-        message: form.querySelector("#message").value,
+        name: form.querySelector("#name")?.value || "",
+        email: form.querySelector("#email")?.value || "",
+        phone: form.querySelector("#phone")?.value || "",
+        message: form.querySelector("#message")?.value || "",
     };
 
     try {
-        const res = await fetch(`${BACKEND_URL}/api/request-info/`, {
+        const res = await fetch(`${BACKEND_URL}/api/admissions/submit/`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(formData),
@@ -72,17 +84,14 @@ async function handleRequestInfoForm(event) {
         const data = await res.json();
 
         if (data.success) {
-            document.getElementById("successMessage").textContent = data.message || "Request sent successfully!";
-            new bootstrap.Modal(document.getElementById("successModal")).show();
+            showModalMessage("successModal", data.message || "Request sent successfully!");
             form.reset();
         } else {
-            document.getElementById("errorMessage").textContent = data.error || "Something went wrong.";
-            new bootstrap.Modal(document.getElementById("errorModal")).show();
+            showModalMessage("errorModal", data.error || "Something went wrong.");
         }
     } catch (err) {
         console.error("Error submitting request info form:", err);
-        document.getElementById("errorMessage").textContent = "Error connecting to server.";
-        new bootstrap.Modal(document.getElementById("errorModal")).show();
+        showModalMessage("errorModal", "Error connecting to server.");
     }
 }
 
