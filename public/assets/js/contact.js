@@ -72,7 +72,7 @@ async function handleContactFormSubmit(event) {
         submitBtn.disabled = true;
         submitBtn.textContent = "Sending...";
 
-        const response = await fetch(`${BACKEND_URL}/api/enquiries/`, {
+        const response = await fetch(`${BACKEND_URL}/api/contact/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
