@@ -1,7 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://booklandbackend.onrender.com"; // change for production
+const BACKEND_URL = "https://booklandbackend.onrender.com"; // backend URL
 const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // fallback image
 
 /* =====================================================
@@ -11,11 +11,12 @@ function qs(id) {
   return document.getElementById(id);
 }
 
-function getFullImageUrl(path) {
-  if (!path) return FALLBACK_IMAGE;
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  // Encode URI to handle spaces/special characters
-  return `${BACKEND_URL}${encodeURI(path)}`;
+function getImageUrl(url) {
+  // If Cloudinary URL exists, use it; otherwise fallback
+  if (!url) return FALLBACK_IMAGE;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  // In case a relative path slips in
+  return `${BACKEND_URL}${encodeURI(url)}`;
 }
 
 /* =====================================================
@@ -36,7 +37,7 @@ async function loadTestimonials() {
           <div class="testimonial-item">
             <p>${t.testimonial}</p>
             <div class="testimonial-profile">
-              <img src="${getFullImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
+              <img src="${getImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
               <div>
                 <h3>${t.name}</h3>
                 <h4>${t.title}</h4>
