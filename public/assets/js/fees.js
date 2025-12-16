@@ -5,7 +5,7 @@ const BACKEND_URL = "https://booklandbackend.onrender.com";
 const FALLBACK_TEXT = "N/A";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 const PDF_PREVIEW_MODAL_ID = "pdfPreviewModal";
-let feesCache = { data: null, timestamp: 0 };
+let feesCache = {data: null, timestamp: 0};
 
 /* =====================================================
    HELPERS
@@ -23,13 +23,6 @@ function formatKES(amount) {
     return "KES " + Number(amount).toLocaleString("en-KE");
 }
 
-function formatFileSize(bytes) {
-    if (!bytes || typeof bytes !== 'number') return '';
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-}
-
 function safeText(text) {
     return text || FALLBACK_TEXT;
 }
@@ -41,20 +34,8 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
 /* =====================================================
-   FEES
+   FEES - FIXED FETCH REQUEST
 ===================================================== */
 async function loadFeeStructure() {
     const tableBody = qs("feesTableBody");
@@ -83,13 +64,10 @@ async function loadFeeStructure() {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000);
 
+        // FIXED: No custom headers to avoid CORS preflight
         const res = await fetch(`${BACKEND_URL}/api/fees/`, {
-            signal: controller.signal,
-            headers: {
-                'Accept': 'application/json',
-                'Cache-Control': 'no-cache'
-            },
-            cache: 'no-store'
+            signal: controller.signal
+            // No headers = no CORS preflight required
         });
 
         clearTimeout(timeoutId);
@@ -108,7 +86,7 @@ async function loadFeeStructure() {
         }
 
         // Cache the data
-        feesCache = { data: data, timestamp: Date.now() };
+        feesCache = {data: data, timestamp: Date.now()};
 
         // Render the data
         renderFees(data, tableBody);
@@ -165,35 +143,19 @@ function renderFees(data, tableBody) {
         row.setAttribute("data-aos-delay", index * 100);
         row.setAttribute("data-fee-id", fee.id || index);
 
-        // Create download button with enhanced features
+        // Create download button - SIMPLIFIED
         let downloadBtn = `<span class="text-muted">${FALLBACK_TEXT}</span>`;
 
         if (fee.file) {
-            const fileSizeDisplay = fee.file_size ?
-                `<small class="d-block text-muted mt-1">${formatFileSize(fee.file_size)}</small>` : '';
-
-            const previewButton = `
-                <button class="btn btn-outline-secondary btn-sm ms-2 preview-pdf"
-                        data-level="${escapeHtml(fee.level)}"
-                        data-file="${escapeHtml(fee.file)}"
-                        aria-label="Preview fee structure for ${escapeHtml(fee.level)}">
-                    <i class="bi bi-eye"></i>
-                </button>`;
-
             downloadBtn = `
-                <div class="d-flex align-items-center">
-                    <a href="${escapeHtml(fee.file)}"
-                       class="btn btn-primary btn-sm download-pdf"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       data-level="${escapeHtml(fee.level)}"
-                       aria-label="Download fee structure for ${escapeHtml(fee.level)}">
-                        <i class="bi bi-file-earmark-arrow-down"></i>
-                        Download
-                        ${fileSizeDisplay}
-                    </a>
-                    ${previewButton}
-                </div>`;
+                <a href="${escapeHtml(fee.file)}"
+                   class="btn btn-primary btn-sm"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Download fee structure for ${escapeHtml(fee.level)}">
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                    Download PDF
+                </a>`;
         }
 
         row.innerHTML = `
@@ -212,195 +174,56 @@ function renderFees(data, tableBody) {
         tableBody.appendChild(row);
     });
 
-    // Initialize event listeners after rendering
-    initializeFeeTableEvents();
-
-    // Refresh AOS animations
+    // Refresh AOS animations if available
     if (window.AOS) {
         AOS.refresh();
     }
 }
 
-function initializeFeeTableEvents() {
-    // PDF download tracking
-    qsa('.download-pdf').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const level = this.getAttribute('data-level');
-            trackPDFDownload(level);
+function showToast(message, type = 'info') {
+    // Simple console fallback
+    console.log(`${type.toUpperCase()}: ${message}`);
 
-            // Optional: Add download delay for better UX
-            setTimeout(() => {
-                showToast(`Downloading fee structure for ${level}`, 'success');
-            }, 100);
-        });
-    });
+    // If Bootstrap available, use toast
+    if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
+        const toastId = `toast-${Date.now()}`;
+        const toast = document.createElement('div');
+        toast.id = toastId;
+        toast.className = `toast align-items-center text-bg-${type} border-0`;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
 
-    // PDF preview functionality
-    qsa('.preview-pdf').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const level = this.getAttribute('data-level');
-            const fileUrl = this.getAttribute('data-file');
-            showPDFPreview(level, fileUrl);
-        });
-    });
-
-    // Row click for preview (optional)
-    qsa('.fee-row').forEach(row => {
-        row.addEventListener('click', function(e) {
-            // Only trigger if not clicking on a button
-            if (!e.target.closest('a') && !e.target.closest('button')) {
-                const level = this.querySelector('td:first-child strong').textContent;
-                const downloadBtn = this.querySelector('.download-pdf');
-                if (downloadBtn) {
-                    const fileUrl = downloadBtn.getAttribute('href');
-                    showPDFPreview(level, fileUrl);
-                }
-            }
-        });
-    });
-
-    // Responsive table adjustments
-    const table = qs("feesTableBody")?.closest('table');
-    if (table && window.innerWidth < 768) {
-        table.classList.add('table-responsive');
-    }
-}
-
-function showPDFPreview(level, fileUrl) {
-    // Create modal if it doesn't exist
-    let modal = qs(PDF_PREVIEW_MODAL_ID);
-
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = PDF_PREVIEW_MODAL_ID;
-        modal.className = 'modal fade';
-        modal.setAttribute('tabindex', '-1');
-        modal.setAttribute('aria-labelledby', 'pdfPreviewLabel');
-        modal.setAttribute('aria-hidden', 'true');
-
-        modal.innerHTML = `
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="pdfPreviewLabel"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-0">
-                        <iframe class="w-100" style="height: 70vh; min-height: 500px;" 
-                                frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-primary download-from-preview" download>
-                            <i class="bi bi-download"></i> Download PDF
-                        </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="bi bi-x-lg"></i> Close
-                        </button>
-                    </div>
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'warning' ? 'bi-exclamation-triangle' : 'bi-info-circle'} me-2"></i>
+                    ${escapeHtml(message)}
                 </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         `;
 
-        document.body.appendChild(modal);
-    }
+        let toastContainer = qs('toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toast-container';
+            toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
+            document.body.appendChild(toastContainer);
+        }
 
-    // Update modal content
-    const modalTitle = modal.querySelector('#pdfPreviewLabel');
-    const iframe = modal.querySelector('iframe');
-    const downloadLink = modal.querySelector('.download-from-preview');
+        toastContainer.appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, {delay: 3000});
+        bsToast.show();
 
-    modalTitle.textContent = `${level} - Fee Structure`;
-    iframe.src = fileUrl;
-    downloadLink.href = fileUrl;
-    downloadLink.setAttribute('download', `fee_structure_${level.replace(/\s+/g, '_')}.pdf`);
-
-    // Show modal
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.show();
-
-    // Track preview event
-    trackPDFPreview(level);
-}
-
-function trackPDFDownload(level) {
-    // Analytics integration
-    console.log(`PDF Download: ${level}`);
-
-    if (window.gtag) {
-        gtag('event', 'download', {
-            'event_category': 'Fee Structure',
-            'event_label': level,
-            'value': 1
+        toast.addEventListener('hidden.bs.toast', () => {
+            toast.remove();
         });
     }
-
-    if (window.fbq) {
-        fbq('track', 'Lead', { content_name: `Fee Structure - ${level}` });
-    }
-}
-
-function trackPDFPreview(level) {
-    console.log(`PDF Preview: ${level}`);
-
-    if (window.gtag) {
-        gtag('event', 'view_item', {
-            'event_category': 'Fee Structure',
-            'event_label': level
-        });
-    }
-}
-
-function showToast(message, type = 'info') {
-    // Check if Bootstrap Toast is available
-    if (typeof bootstrap === 'undefined' || !bootstrap.Toast) {
-        console.log(`${type.toUpperCase()}: ${message}`);
-        return;
-    }
-
-    const toastId = `toast-${Date.now()}`;
-    const toast = document.createElement('div');
-    toast.id = toastId;
-    toast.className = `toast align-items-center text-bg-${type} border-0`;
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-
-    toast.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body">
-                <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'warning' ? 'bi-exclamation-triangle' : 'bi-info-circle'} me-2"></i>
-                ${escapeHtml(message)}
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    `;
-
-    // Create toast container if it doesn't exist
-    let toastContainer = qs('toast-container');
-    if (!toastContainer) {
-        toastContainer = document.createElement('div');
-        toastContainer.id = 'toast-container';
-        toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
-        document.body.appendChild(toastContainer);
-    }
-
-    toastContainer.appendChild(toast);
-
-    const bsToast = new bootstrap.Toast(toast, {
-        delay: 4000,
-        autohide: true
-    });
-
-    bsToast.show();
-
-    // Remove toast from DOM after it's hidden
-    toast.addEventListener('hidden.bs.toast', () => {
-        toast.remove();
-    });
 }
 
 /* =====================================================
-   INIT & REFRESH
+   INIT
 ===================================================== */
 function initializeFeeStructure() {
     // Initial load
@@ -410,103 +233,21 @@ function initializeFeeStructure() {
     const refreshBtn = qs("refreshFeesBtn");
     if (refreshBtn) {
         refreshBtn.addEventListener("click", () => {
-            feesCache = { data: null, timestamp: 0 };
+            feesCache = {data: null, timestamp: 0};
             loadFeeStructure();
-            showToast('Refreshing fee structure...', 'info');
         });
     }
 
-    // Search functionality (if you add search input)
-    const searchInput = qs("feeSearchInput");
-    if (searchInput) {
-        const handleSearch = debounce(() => {
-            const searchTerm = searchInput.value.toLowerCase();
-            const rows = qsa('.fee-row');
-
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(searchTerm) ? '' : 'none';
-            });
-
-            if (searchTerm) {
-                showToast(`Found ${document.querySelectorAll('.fee-row[style=""]').length} matching records`, 'info');
-            }
-        }, 300);
-
-        searchInput.addEventListener('input', handleSearch);
-    }
-
-    // Auto-refresh with visibility check
-    let refreshInterval;
-
-    function setupAutoRefresh() {
-        clearInterval(refreshInterval);
-
-        refreshInterval = setInterval(() => {
-            // Only refresh if page is visible
-            if (!document.hidden) {
-                feesCache = { data: null, timestamp: 0 };
-                loadFeeStructure();
-            }
-        }, 30 * 60 * 1000); // 30 minutes
-    }
-
-    // Handle page visibility
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-            setupAutoRefresh();
-        } else {
-            clearInterval(refreshInterval);
-        }
-    });
-
-    setupAutoRefresh();
-
-    // Export functionality (optional)
-    const exportBtn = qs("exportFeesBtn");
-    if (exportBtn) {
-        exportBtn.addEventListener("click", exportFeesToCSV);
-    }
-}
-
-function exportFeesToCSV() {
-    if (!feesCache.data || !Array.isArray(feesCache.data)) {
-        showToast('No data available to export', 'warning');
-        return;
-    }
-
-    const csvContent = [
-        ['Level', 'Tuition per Term', 'Meals Fee', 'Transport Fee', 'Total Fee', 'PDF URL'],
-        ...feesCache.data.map(fee => [
-            fee.level,
-            fee.tuition_per_term,
-            fee.meals_fee,
-            fee.transport_fee,
-            fee.total_fee,
-            fee.file || ''
-        ])
-    ].map(row => row.join(',')).join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `fee_structure_${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-
-    showToast('Fee structure exported successfully', 'success');
+    // Auto-refresh every 30 minutes
+    setInterval(() => {
+        feesCache = {data: null, timestamp: 0};
+        loadFeeStructure();
+    }, 30 * 60 * 1000);
 }
 
 // Initialize when DOM is ready
-document.addEventListener("DOMContentLoaded", initializeFeeStructure);
-
-// Export functions for global access (optional)
-window.refreshFeeStructure = () => {
-    feesCache = { data: null, timestamp: 0 };
-    loadFeeStructure();
-};
-
-window.exportFeeStructure = exportFeesToCSV;
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeFeeStructure);
+} else {
+    initializeFeeStructure();
+}
