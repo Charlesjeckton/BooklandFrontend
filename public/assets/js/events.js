@@ -30,6 +30,7 @@ async function loadEvents() {
 
     try {
         const res = await fetch(`${BACKEND_URL}/api/events/`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const events = await res.json();
 
         // Populate Events List
@@ -53,7 +54,7 @@ async function loadEvents() {
                                 <p>${event.description}</p>
                             </div>
                         </div>
-                      `;
+                    `;
                 }).join("")
                 : "<p>No events at the moment.</p>";
         }
@@ -86,12 +87,14 @@ async function loadFeaturedEvents() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${BACKEND_URL}/api/featured_events/`);
+        // NOTE: Correct endpoint based on your Django URLs
+        const res = await fetch(`${BACKEND_URL}/api/featured-events/`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const featured = await res.json();
 
         container.innerHTML = featured.length
-            ? featured.map(f => `
-                <div class="featured-event-content mb-4" data-aos="fade-up">
+            ? featured.map((f, index) => `
+                <div class="featured-event-content mb-4" data-aos="fade-up" data-aos-delay="${index * 100}">
                     <img src="${getFullImageUrl(f.image)}" alt="${f.title}" class="img-fluid mb-2" onerror="this.src='${FALLBACK_IMAGE}'">
                     <h4>${f.title}</h4>
                     <p><i class="bi bi-calendar-event"></i> ${f.date}</p>
