@@ -3,23 +3,23 @@
 ===================================================== */
 const BACKEND_URL = "https://booklandbackend.onrender.com";
 const FALLBACK_TEXT = "N/A";
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 let feesCache = { data: null, timestamp: 0 };
 
 /* =====================================================
    HELPERS
 ===================================================== */
-const $ = id => document.getElementById(id);
+const qs = id => document.getElementById(id);
 
 const formatKES = amount => {
     if (amount === null || amount === undefined || isNaN(amount)) return "KES 0";
     return "KES " + Number(amount).toLocaleString("en-KE");
 };
 
-const escapeHtml = str => {
-    if (!str) return "";
+const escapeHtml = text => {
+    if (!text) return "";
     const div = document.createElement("div");
-    div.textContent = str;
+    div.textContent = text;
     return div.innerHTML;
 };
 
@@ -27,10 +27,9 @@ const escapeHtml = str => {
    FEES RENDERING
 ===================================================== */
 async function loadFeeStructure() {
-    const tableBody = $("feesTableBody");
+    const tableBody = qs("feesTableBody");
     if (!tableBody) return;
 
-    // Show loading state
     tableBody.innerHTML = `
         <tr>
             <td colspan="6" class="text-center py-4">
@@ -49,7 +48,7 @@ async function loadFeeStructure() {
             return;
         }
 
-        const res = await fetch(`${BACKEND_URL}/fees/`);
+        const res = await fetch(`${BACKEND_URL}/api/fees/`);
         if (!res.ok) throw new Error(`Failed to fetch fees: ${res.status}`);
         const data = await res.json();
 
@@ -58,14 +57,14 @@ async function loadFeeStructure() {
         feesCache = { data, timestamp: Date.now() };
         renderFees(data, tableBody);
 
-    } catch (err) {
-        console.error("Error loading fees:", err);
+    } catch (error) {
+        console.error("Error loading fees:", error);
         tableBody.innerHTML = `
             <tr>
                 <td colspan="6" class="text-center py-5">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" role="alert">
                         <strong>Failed to load fee structure</strong>
-                        <p class="mb-0 mt-2 small">${escapeHtml(err.message)}</p>
+                        <p class="mb-0 mt-2 small">${escapeHtml(error.message)}</p>
                         <button class="btn btn-sm btn-outline-danger mt-3" onclick="loadFeeStructure()">
                             Retry
                         </button>
@@ -76,10 +75,10 @@ async function loadFeeStructure() {
     }
 }
 
-function renderFees(fees, tableBody) {
+function renderFees(data, tableBody) {
     tableBody.innerHTML = "";
 
-    if (!fees.length) {
+    if (!data.length) {
         tableBody.innerHTML = `
             <tr>
                 <td colspan="6" class="text-center py-5">
@@ -92,7 +91,7 @@ function renderFees(fees, tableBody) {
         return;
     }
 
-    fees.forEach(fee => {
+    data.forEach(fee => {
         const row = document.createElement("tr");
 
         const downloadBtn = fee.file_url
