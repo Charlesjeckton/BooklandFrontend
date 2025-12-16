@@ -5,7 +5,7 @@ const BACKEND_URL = "https://booklandbackend.onrender.com";
 const FALLBACK_TEXT = "N/A";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 const PDF_PREVIEW_MODAL_ID = "pdfPreviewModal";
-let feesCache = {data: null, timestamp: 0};
+let feesCache = { data: null, timestamp: 0 };
 
 /* =====================================================
    HELPERS
@@ -86,7 +86,7 @@ async function loadFeeStructure() {
         }
 
         // Cache the data
-        feesCache = {data: data, timestamp: Date.now()};
+        feesCache = { data: data, timestamp: Date.now() };
 
         // Render the data
         renderFees(data, tableBody);
@@ -213,7 +213,7 @@ function showToast(message, type = 'info') {
         }
 
         toastContainer.appendChild(toast);
-        const bsToast = new bootstrap.Toast(toast, {delay: 3000});
+        const bsToast = new bootstrap.Toast(toast, { delay: 3000 });
         bsToast.show();
 
         toast.addEventListener('hidden.bs.toast', () => {
@@ -233,14 +233,14 @@ function initializeFeeStructure() {
     const refreshBtn = qs("refreshFeesBtn");
     if (refreshBtn) {
         refreshBtn.addEventListener("click", () => {
-            feesCache = {data: null, timestamp: 0};
+            feesCache = { data: null, timestamp: 0 };
             loadFeeStructure();
         });
     }
 
     // Auto-refresh every 30 minutes
     setInterval(() => {
-        feesCache = {data: null, timestamp: 0};
+        feesCache = { data: null, timestamp: 0 };
         loadFeeStructure();
     }, 30 * 60 * 1000);
 }
