@@ -1,8 +1,8 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://booklandbackend.onrender.com";
-const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // Local fallback for missing images
+const BACKEND_URL = "https://booklandbackend.onrender.com"; // change for production
+const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // fallback image
 
 /* =====================================================
    HELPERS
@@ -11,12 +11,10 @@ function qs(id) {
   return document.getElementById(id);
 }
 
-// Build full image URL with proper encoding and fallback
 function getFullImageUrl(path) {
   if (!path) return FALLBACK_IMAGE;
-  // Already absolute URL
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  // Ensure special characters in filename are encoded
+  // Encode URI to handle spaces/special characters
   return `${BACKEND_URL}${encodeURI(path)}`;
 }
 
@@ -32,15 +30,13 @@ async function loadTestimonials() {
     const data = await res.json();
 
     container.innerHTML = data.length
-      ? data
-          .map(
-            (t) => `
+      ? data.map(
+          t => `
         <div class="swiper-slide">
           <div class="testimonial-item">
             <p>${t.testimonial}</p>
             <div class="testimonial-profile">
-              <img src="${getFullImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle" 
-                   onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'">
+              <img src="${getFullImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
               <div>
                 <h3>${t.name}</h3>
                 <h4>${t.title}</h4>
@@ -49,11 +45,9 @@ async function loadTestimonials() {
           </div>
         </div>
       `
-          )
-          .join("")
+        ).join("")
       : `<div class="swiper-slide">No testimonials found.</div>`;
 
-    // Initialize Swiper
     if (window.Swiper) {
       new Swiper(".testimonials-slider", {
         loop: true,
@@ -80,7 +74,7 @@ async function loadTestimonials() {
 }
 
 /* =====================================================
-   EVENTS (unchanged)
+   EVENTS
 ===================================================== */
 async function fetchEvents(filters = {}) {
   const container = qs("eventsContainer");
@@ -142,13 +136,11 @@ async function loadEventFilters() {
     const res = await fetch(`${BACKEND_URL}/api/events/`);
     const data = await res.json();
 
-    // Populate unique months
-    [...new Set(data.map((e) => e.month))].forEach((month) => {
+    [...new Set(data.map(e => e.month))].forEach(month => {
       monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
     });
 
-    // Populate unique categories
-    [...new Set(data.map((e) => e.category))].forEach((category) => {
+    [...new Set(data.map(e => e.category))].forEach(category => {
       categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
     });
   } catch (err) {
@@ -166,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const filterForm = qs("eventFilterForm");
   if (filterForm) {
-    filterForm.addEventListener("submit", (e) => {
+    filterForm.addEventListener("submit", e => {
       e.preventDefault();
       fetchEvents({
         month: qs("monthSelect")?.value,
