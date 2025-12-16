@@ -62,7 +62,6 @@ async function handleContactFormSubmit(event) {
         message: form.querySelector("#message")?.value.trim(),
     };
 
-    // Basic frontend safety check
     if (!payload.name || !payload.email || !payload.subject || !payload.message) {
         showModal("error", "Please fill in all required fields.");
         return;
@@ -89,11 +88,11 @@ async function handleContactFormSubmit(event) {
         } else {
             showModal(
                 "error",
-                data?.message || "Unable to send your message. Please try again."
+                data?.message || "Failed to submit your message."
             );
         }
-    } catch (error) {
-        console.error("Contact submission error:", error);
+    } catch (err) {
+        console.error("Contact API error:", err);
         showModal(
             "error",
             "Unable to connect to the server. Please try again later."
