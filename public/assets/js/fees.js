@@ -1,7 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://booklandbackend.onrender.com";
+const BACKEND_URL = "https://booklandbackend.onrender.com/api"; // Ensure correct API prefix
 const FALLBACK_TEXT = "N/A";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 let feesCache = { data: null, timestamp: 0 };
@@ -48,7 +48,7 @@ async function loadFeeStructure() {
             return;
         }
 
-        const res = await fetch(`${BACKEND_URL}/api/fees/`);
+        const res = await fetch(`${BACKEND_URL}/fees/`);
         if (!res.ok) throw new Error(`Failed to fetch fees: ${res.status}`);
         const data = await res.json();
 
@@ -96,7 +96,7 @@ function renderFees(data, tableBody) {
 
         const downloadBtn = fee.file_url
             ? `<a href="${escapeHtml(fee.file_url)}" target="_blank" class="btn btn-primary btn-sm me-1">
-                   <i class="bi bi-file-earmark-arrow-down"></i> Download
+                   ⬇️ Download
                </a>`
             : `<span class="text-muted">${FALLBACK_TEXT}</span>`;
 
