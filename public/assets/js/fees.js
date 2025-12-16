@@ -9,24 +9,22 @@ let feesCache = { data: null, timestamp: 0 };
 /* =====================================================
    HELPERS
 ===================================================== */
-function qs(id) {
-    return document.getElementById(id);
-}
+const qs = id => document.getElementById(id);
 
-function formatKES(amount) {
+const formatKES = amount => {
     if (amount === null || amount === undefined || isNaN(amount)) return "KES 0";
     return "KES " + Number(amount).toLocaleString("en-KE");
-}
+};
 
-function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
+const escapeHtml = text => {
+    if (!text) return "";
+    const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
-}
+};
 
 /* =====================================================
-   FEES
+   FEES RENDERING
 ===================================================== */
 async function loadFeeStructure() {
     const tableBody = qs("feesTableBody");
@@ -93,14 +91,20 @@ function renderFees(data, tableBody) {
         return;
     }
 
-    data.forEach((fee, index) => {
+    data.forEach(fee => {
         const row = document.createElement("tr");
 
         const downloadBtn = fee.fee_file_url
-            ? `<a href="${escapeHtml(fee.fee_file_url)}" target="_blank" class="btn btn-primary btn-sm">
-                   <i class="bi bi-file-earmark-arrow-down"></i> Download PDF
+            ? `<a href="${escapeHtml(fee.fee_file_url)}" target="_blank" class="btn btn-primary btn-sm me-1">
+                   <i class="bi bi-file-earmark-arrow-down"></i> Download
                </a>`
             : `<span class="text-muted">${FALLBACK_TEXT}</span>`;
+
+        const previewBtn = fee.fee_file_url
+            ? `<a href="${escapeHtml(fee.fee_file_url)}" target="_blank" class="btn btn-info btn-sm">
+                   <i class="bi bi-eye"></i> Preview
+               </a>`
+            : "";
 
         row.innerHTML = `
             <td class="align-middle"><strong>${escapeHtml(fee.level)}</strong></td>
@@ -108,8 +112,9 @@ function renderFees(data, tableBody) {
             <td class="align-middle">${formatKES(fee.meals_fee)}</td>
             <td class="align-middle">${formatKES(fee.transport_fee)}</td>
             <td class="align-middle"><span class="badge bg-success fs-6">${formatKES(fee.total_fee)}</span></td>
-            <td class="align-middle">${downloadBtn}</td>
+            <td class="align-middle d-flex flex-wrap">${downloadBtn}${previewBtn}</td>
         `;
+
         tableBody.appendChild(row);
     });
 }
@@ -117,4 +122,4 @@ function renderFees(data, tableBody) {
 /* =====================================================
    INIT
 ===================================================== */
-document.addEventListener('DOMContentLoaded', loadFeeStructure);
+document.addEventListener("DOMContentLoaded", loadFeeStructure);
