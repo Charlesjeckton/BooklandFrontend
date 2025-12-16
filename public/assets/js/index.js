@@ -2,7 +2,7 @@
    CONFIG
 ===================================================== */
 const BACKEND_URL = "https://booklandbackend.onrender.com";
-const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // Set your fallback image here
+const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // Local fallback for missing images
 
 /* =====================================================
    HELPERS
@@ -11,13 +11,13 @@ function qs(id) {
   return document.getElementById(id);
 }
 
+// Build full image URL with proper encoding and fallback
 function getFullImageUrl(path) {
-  // Ensure image URL is valid, fallback if missing
   if (!path) return FALLBACK_IMAGE;
-  // If path already starts with http/https, return as-is
+  // Already absolute URL
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  // Otherwise prepend backend URL
-  return `${BACKEND_URL}${path}`;
+  // Ensure special characters in filename are encoded
+  return `${BACKEND_URL}${encodeURI(path)}`;
 }
 
 /* =====================================================
@@ -39,7 +39,8 @@ async function loadTestimonials() {
           <div class="testimonial-item">
             <p>${t.testimonial}</p>
             <div class="testimonial-profile">
-              <img src="${getFullImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle">
+              <img src="${getFullImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle" 
+                   onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'">
               <div>
                 <h3>${t.name}</h3>
                 <h4>${t.title}</h4>
@@ -79,7 +80,7 @@ async function loadTestimonials() {
 }
 
 /* =====================================================
-   EVENTS
+   EVENTS (unchanged)
 ===================================================== */
 async function fetchEvents(filters = {}) {
   const container = qs("eventsContainer");
