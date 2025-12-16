@@ -1,7 +1,17 @@
+const BACKEND_URL = "https://booklandbackend.onrender.com"; // your backend
+const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // fallback image
+
+function getFullImageUrl(path) {
+    if (!path) return FALLBACK_IMAGE;
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    return `${BACKEND_URL}/${encodeURI(path)}`;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("alumniContainer");
+    if (!container) return;
 
-    fetch("{% url 'api_alumni' %}")
+    fetch(`${BACKEND_URL}/api/alumni/`)
         .then(response => response.json())
         .then(data => {
             container.innerHTML = "";
@@ -21,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="alumni-profile">
                         <div class="profile-header">
                             <div class="profile-img">
-                                <img src="${alumni.image}" alt="${alumni.name}" class="img-fluid">
+                                <img src="${getFullImageUrl(alumni.image)}" alt="${alumni.name}" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
                             </div>
                             <div class="profile-year">${alumni.year_of_completion}</div>
                         </div>
