@@ -719,23 +719,6 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Section Title
---------------------------------------------------------------*/
-#about .section-title {
-  padding-bottom: 20px;
-}
-
-#about .section-title h2 {
-  margin-bottom: 10px;
-}
-
-#about .section-title p {
-  margin-bottom: 0;
-}
-
-
-
-/*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
@@ -1185,6 +1168,26 @@ section,
   margin-bottom: 0;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
 }
+/*--------------------------------------------------------------
+# About – Section Title (Tightened)
+--------------------------------------------------------------*/
+#about .section-title {
+  padding-bottom: 12px;   /* reduced from 20px */
+}
+
+#about .section-title h2 {
+  margin-bottom: 8px;     /* tighter heading spacing */
+}
+
+#about .section-title p {
+  margin-bottom: 0;
+}
+
+/* Remove extra gap before pillars */
+#about .mission-vision-row {
+  margin-top: 0;
+}
+
 
 
 /*--------------------------------------------------------------
