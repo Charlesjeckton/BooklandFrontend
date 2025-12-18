@@ -1640,7 +1640,7 @@ section + section {
   padding: 0.25rem 1rem;
 }
 }
-  
+
 @media (max-width: 992px) {
   .stats .stats-overview {
     margin-bottom: 3rem;
@@ -2200,6 +2200,8 @@ section + section {
     font-size: 2rem;
   }
 }
+
+
 /*--------------------------------------------------------------
 # Leadership Section
 --------------------------------------------------------------*/
@@ -2373,6 +2375,18 @@ section + section {
 
   .leadership .stat-item {
     margin-bottom: 15px;
+  }
+}
+/* --- Vertical Spacing for Leadership Sub-section --- */
+.leadership .section-title.text-center {
+  margin-top: 100px !important;
+  padding-top: 20px;
+}
+
+/* Adjust space for mobile screens */
+@media (max-width: 992px) {
+  .leadership .section-title.text-center {
+    margin-top: 60px !important;
   }
 }
 
