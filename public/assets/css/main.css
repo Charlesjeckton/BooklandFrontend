@@ -661,39 +661,55 @@ h6 {
   padding-right: 10px;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
 }
-
 /*--------------------------------------------------------------
-# Global Sections
+# Global Sections – Smart Vertical Spacing
 --------------------------------------------------------------*/
 section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
+  padding: 60px 0;           /* default top & bottom spacing */
   scroll-margin-top: 90px;
   overflow: clip;
+  position: relative;
 }
 
+/* Reduce vertical spacing on smaller screens */
 @media (max-width: 1199px) {
-
   section,
   .section {
     scroll-margin-top: 66px;
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  section,
+  .section {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  section,
+  .section {
+    padding: 30px 0;
   }
 }
 
 /*--------------------------------------------------------------
-# Global Section Titles
+# Global Section Titles – Balanced Spacing
 --------------------------------------------------------------*/
 .section-title {
   text-align: center;
-  padding-bottom: 60px;
+  padding-bottom: 20px;      /* tighter than before */
   position: relative;
 }
 
 .section-title h2 {
   font-size: 32px;
   font-weight: 700;
+  margin-bottom: 10px;       /* tighter spacing */
   position: relative;
 }
 
@@ -707,15 +723,39 @@ section,
 }
 
 .section-title h2:before {
-  margin: 0 15px 10px 0;
+  margin: 0 15px 8px 0;
 }
 
 .section-title h2:after {
-  margin: 0 0 10px 15px;
+  margin: 0 0 8px 15px;
 }
 
 .section-title p {
   margin-bottom: 0;
+  line-height: 1.5;          /* improves readability */
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*--------------------------------------------------------------
+# Smart Gap Between Sections
+--------------------------------------------------------------*/
+/* Optional: reduce stacked padding when two sections are adjacent */
+section + section {
+  padding-top: 40px;          /* less than default 60px */
+}
+
+@media (max-width: 1199px) {
+  section + section {
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  section + section {
+    padding-top: 20px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -1519,11 +1559,11 @@ section,
 # Spacing between Testimonials & Stats
 --------------------------------------------------------------*/
 #testimonials {
-  padding-bottom: 40px; /* reduce bottom padding */
+  padding-bottom: 20px; /* reduce bottom padding */
 }
 
 #stats {
-  padding-top: 40px;    /* reduce top padding */
+  padding-top: 20px;    /* reduce top padding */
 }
 
 
