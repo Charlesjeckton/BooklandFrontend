@@ -2221,9 +2221,15 @@ section + section {
 }
 
 .leadership .section-description {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem !important; /* Merged: Reduced space for API images */
   font-size: 1.1rem;
   line-height: 1.7;
+}
+
+/* Vertical Spacing for the second title (Hearts Behind Bookland) */
+.leadership .section-title.text-center {
+  margin-top: 100px !important;
+  padding-top: 20px;
 }
 
 .leadership .about-image {
@@ -2265,7 +2271,8 @@ section + section {
 }
 
 .leadership .leadership-team {
-  margin-top: 4rem;
+  margin-top: 1rem !important;    /* Merged: Reduced gap for API content */
+  margin-bottom: 0 !important;   /* Merged: Removed bottom margin */
 }
 
 .leadership .leadership-team .leader-card {
@@ -2353,6 +2360,16 @@ section + section {
   margin-bottom: 0;
 }
 
+/* Section-to-Section Gaps */
+#leadership.section {
+  padding-bottom: 20px !important;
+}
+
+#gallery.section {
+  padding-top: 20px !important;
+}
+
+/* --- Responsive Breakpoints --- */
 @media (max-width: 992px) {
   .leadership .section-heading {
     font-size: 2rem;
@@ -2363,8 +2380,8 @@ section + section {
     height: 400px;
   }
 
-  .leadership .leadership-team {
-    margin-top: 2rem;
+  .leadership .section-title.text-center {
+    margin-top: 60px !important;
   }
 }
 
@@ -2377,39 +2394,7 @@ section + section {
     margin-bottom: 15px;
   }
 }
-/* --- Vertical Spacing for Leadership Sub-section --- */
-.leadership .section-title.text-center {
-  margin-top: 100px !important;
-  padding-top: 20px;
-}
 
-/* Adjust space for mobile screens */
-@media (max-width: 992px) {
-  .leadership .section-title.text-center {
-    margin-top: 60px !important;
-  }
-}
-/* Reduce space between leadership heading and API images */
-.leadership .section-description {
-  margin-bottom: 1rem !important; /* Reduces space below the text */
-}
-
-.leadership .leadership-team {
-  margin-top: 1rem !important; /* Reduces the gap before the cards appear */
-}
-/* Reduce gap between Leadership and Gallery */
-#leadership.section {
-  padding-bottom: 20px !important; /* Reduces space at the bottom of leadership */
-}
-
-#gallery.section {
-  padding-top: 20px !important; /* Reduces space at the top of gallery */
-}
-
-/* Optional: If the "Loading leadership..." container has extra margin at the bottom */
-.leadership .leadership-team {
-  margin-bottom: 0 !important;
-}
 
 /*--------------------------------------------------------------
 # Gallery Section
