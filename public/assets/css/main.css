@@ -3944,5 +3944,5 @@ section + section,
 
 /* Support Card Shadow */
 .bg-primary.card {
-    background: linear-gradient(135deg, var(--accent-color) 0%, #2a52be 100%) !important;
+    background: linear-gradient(135deg, var(--accent-color) ) !important;
 }
