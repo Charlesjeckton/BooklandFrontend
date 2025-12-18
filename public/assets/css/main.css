@@ -2389,6 +2389,15 @@ section + section {
     margin-top: 60px !important;
   }
 }
+/* Reduce space between leadership heading and API images */
+.leadership .section-description {
+  margin-bottom: 1rem !important; /* Reduces space below the text */
+}
+
+.leadership .leadership-team {
+  margin-top: 1rem !important; /* Reduces the gap before the cards appear */
+}
+
 
 /*--------------------------------------------------------------
 # Gallery Section
