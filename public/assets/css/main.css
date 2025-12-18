@@ -661,101 +661,99 @@ h6 {
   padding-right: 10px;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
 }
+
 /*--------------------------------------------------------------
-# Global Sections – Smart Vertical Spacing
+# Global Sections – Professional Vertical Rhythm
 --------------------------------------------------------------*/
 section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;           /* default top & bottom spacing */
+  padding: 80px 0;           /* Increased for a more premium, modern feel */
   scroll-margin-top: 90px;
   overflow: clip;
   position: relative;
 }
 
-/* Reduce vertical spacing on smaller screens */
+/* SMART GAP: Prevents double-padding (160px) when sections are stacked */
+section + section,
+.section + .section {
+  padding-top: 20px;         /* Pulls the next section closer to the previous one */
+}
+
+/* Responsive Padding Adjustments */
 @media (max-width: 1199px) {
-  section,
-  .section {
+  section, .section {
+    padding: 60px 0;
     scroll-margin-top: 66px;
-    padding: 50px 0;
   }
 }
 
 @media (max-width: 768px) {
-  section,
-  .section {
-    padding: 40px 0;
-  }
+  section, .section { padding: 50px 0; }
+  section + section { padding-top: 15px; }
 }
 
 @media (max-width: 576px) {
-  section,
-  .section {
-    padding: 30px 0;
-  }
+  section, .section { padding: 40px 0; }
 }
 
 /*--------------------------------------------------------------
-# Global Section Titles – Balanced Spacing
+# Global Section Titles – Refined Hierarchy
 --------------------------------------------------------------*/
 .section-title {
   text-align: center;
-  padding-bottom: 20px;      /* tighter than before */
+  padding-bottom: 40px;      /* Standard space before content starts */
   position: relative;
 }
 
 .section-title h2 {
-  font-size: 32px;
+  font-size: 36px;           /* Slightly larger for prominence */
   font-weight: 700;
-  margin-bottom: 10px;       /* tighter spacing */
-  position: relative;
+  margin-bottom: 15px;
+  color: var(--heading-color);
+  display: flex;             /* Flex ensures alignment of lines */
+  align-items: center;
+  justify-content: center;
+  gap: 15px;                 /* Clean spacing for the accent lines */
 }
 
-.section-title h2:before,
-.section-title h2:after {
+/* Styled Accent Lines around Headings */
+.section-title h2::before,
+.section-title h2::after {
   content: "";
   width: 50px;
   height: 2px;
   background: var(--accent-color);
   display: inline-block;
-}
-
-.section-title h2:before {
-  margin: 0 15px 8px 0;
-}
-
-.section-title h2:after {
-  margin: 0 0 8px 15px;
+  opacity: 0.6;              /* Subtle look */
 }
 
 .section-title p {
-  margin-bottom: 0;
-  line-height: 1.5;          /* improves readability */
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  line-height: 1.6;
+  max-width: 750px;          /* Optimized for readability (60-75 characters per line) */
+  font-size: 1.1rem;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+}
+
+/* Mobile Title Adjustments */
+@media (max-width: 768px) {
+  .section-title { padding-bottom: 30px; }
+  .section-title h2 { font-size: 28px; }
+  .section-title h2::before,
+  .section-title h2::after { width: 30px; }
+  .section-title p { font-size: 1rem; padding: 0 15px; }
 }
 
 /*--------------------------------------------------------------
-# Smart Gap Between Sections
+# Inner Component Spacing (Tightening the gap to images/cards)
 --------------------------------------------------------------*/
-/* Optional: reduce stacked padding when two sections are adjacent */
-section + section {
-  padding-top: 40px;          /* less than default 60px */
-}
-
-@media (max-width: 1199px) {
-  section + section {
-    padding-top: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  section + section {
-    padding-top: 20px;
-  }
+/* Targets the specific gap between section text and the data/API content below */
+.section-title + .row,
+.section-title + .leadership-team,
+.section-title + .container {
+  margin-top: 10px !important;
 }
 
 /*--------------------------------------------------------------
