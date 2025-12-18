@@ -3736,3 +3736,49 @@ section + section,
 @keyframes fadeOut {
     to { opacity: 0; transform: translateX(30px); }
 }
+
+
+ /*--------------------------------------------
+ Fee Section
+ ---------------------------------------------- */
+.fees-notes-container {
+    border: 1px solid #eee;
+    background-color: #ffffff;
+}
+
+.fees-notes-container h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+.note-item h5 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--heading-color);
+}
+
+.note-item p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.note-item i {
+    font-size: 1.25rem;
+    color: var(--accent-color) !important;
+}
+
+/* Specific spacing for the sibling discount box */
+.note-item.p-3 {
+    margin-top: -10px; /* Slight alignment correction */
+}
+
+@media (max-width: 768px) {
+    .fees-notes-container {
+        padding: 25px !important;
+    }
+
+    .note-item {
+        margin-bottom: 10px;
+    }
+}
