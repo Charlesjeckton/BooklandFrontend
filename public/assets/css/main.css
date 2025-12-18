@@ -1923,53 +1923,22 @@ section + section,
   }
 }
 
-
-/*--------------------------------------------------------------
-# History Section
 /*--------------------------------------------------------------
 # History Section
 --------------------------------------------------------------*/
 
-/* --- Desktop Layout: Equal Height Logic --- */
-@media (min-width: 992px) {
-  .history .row.align-items-stretch {
-    display: flex;
-    align-items: stretch; /* Forces left and right columns to match */
-  }
-
-  .history .col-lg-6 {
-    display: flex;
-  }
-
-  .history .about-content,
-  .history .about-image {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Ensures the image fills the vertical gap to match the timeline */
-  .history .about-image .flex-grow-1 {
-    flex-grow: 1;
-    display: flex;
-  }
-
-  .history .about-image img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
+/* --- Section Layout & Responsive Gaps --- */
+.history .row.align-items-stretch {
+  display: flex;
+  align-items: stretch;
 }
 
-/* --- General Styles --- */
-.history .about-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  font-weight: 700;
-  color: var(--heading-color);
+/* Responsive gap between the top section and Core Values row */
+.history .row.mt-5 {
+  margin-top: clamp(3rem, 8vw, 6rem) !important; /* Dynamically scales from 48px to 96px */
 }
 
+/* --- Story Content Styles --- */
 .history .about-content h3 {
   color: var(--accent-color);
   font-weight: 600;
@@ -1977,170 +1946,191 @@ section + section,
   font-size: 1.1rem;
 }
 
+.history .about-content h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+
 .history .about-content p {
   margin-bottom: 30px;
+  color: var(--default-color);
 }
 
 /* --- Timeline Styles --- */
-.history .about-content .timeline {
+.history .timeline {
   position: relative;
   margin-top: 40px;
   padding-left: 30px;
 }
 
-.history .about-content .timeline:before {
+.history .timeline::before {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   width: 3px;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 70%);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
-.history .about-content .timeline .timeline-item {
+.history .timeline-item {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
-.history .about-content .timeline .timeline-item:last-child {
+.history .timeline-item:last-child {
   margin-bottom: 0;
 }
 
-.history .about-content .timeline .timeline-item .timeline-dot {
+.history .timeline-dot {
   position: absolute;
   left: -38px;
   top: 5px;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background-color: var(--accent-color);
+  border: 4px solid var(--background-color); /* Makes the dot "pop" over the line */
   z-index: 1;
 }
 
-.history .about-content .timeline .timeline-item .timeline-content h4 {
+.history .timeline-content h4 {
   font-weight: 700;
   font-size: 1.25rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: var(--heading-color);
 }
 
-/* --- Mission & Vision: Equal Height Logic --- */
+/* --- Mission & Vision Cards --- */
 .history .about-image .mission-vision {
   margin-top: 30px;
-  display: flex; /* Switched from grid to flex for better height stretching */
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.history .about-image .mission-vision .mission,
-.history .about-image .mission-vision .vision {
+.history .mission,
+.history .vision {
   background-color: var(--surface-color);
-  padding: 25px;
-  border-radius: 10px;
+  padding: 30px;
+  border-radius: 12px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Ensures internal color fills the space */
+  transition: 0.3s ease;
 }
 
-@media (min-width: 768px) {
-  .history .about-image .mission-vision {
-    flex-direction: row; /* Side by side on tablets and up */
-    align-items: stretch; /* Magic property for equal height */
-  }
-  .history .about-image .mission-vision .mission,
-  .history .about-image .mission-vision .vision {
-    flex: 1; /* Ensures equal width */
-  }
-}
-
-.history .about-image .mission-vision h3 {
+.history .mission-vision h3 {
   font-size: 1.3rem;
+  font-weight: 700;
   margin-bottom: 15px;
-  font-weight: 600;
-  position: relative;
-  padding-left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.history .about-image .mission-vision h3:before {
+.history .mission-vision h3::before {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 5px;
+  width: 4px;
   height: 20px;
   background-color: var(--accent-color);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
-/* --- Core Values: Equal Card Heights --- */
-.history .core-values .row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
+/* --- Core Values Section --- */
+.history .core-values h3.text-center {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem !important;
 }
 
-.history .core-values .col {
-  display: flex; /* Makes the column a flex container so the card can stretch */
-}
-
-.history .core-values .value-card {
-  background-color: var(--surface-color);
+.history .value-card {
+  background-color: var(--surface-color) !important; /* Overriding bg-light for consistency */
   padding: 40px 25px;
-  border-radius: 10px;
+  border-radius: 15px;
   text-align: center;
-  width: 100%; /* Force fill column width */
-  height: 100%; /* Force fill column height */
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 95%);
 }
 
-.history .core-values .value-card p {
-  flex-grow: 1; /* Pushes the card bottom even if text is short */
+.history .value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent-color);
 }
 
-.history .core-values .value-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-.history .core-values .value-card .value-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.history .value-icon {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 92%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
+  transition: 0.3s;
 }
 
-.history .core-values .value-card .value-icon i {
-  font-size: 32px;
-  color: var(--accent-color);
+.history .value-card:hover .value-icon {
+  background-color: var(--accent-color);
 }
 
-/* --- Responsive Breakpoints --- */
+.history .value-card:hover .value-icon i {
+  color: #fff !important;
+}
+
+/* --- Media Queries --- */
+
+/* Desktop Specific (Side-by-side equal heights) */
+@media (min-width: 992px) {
+  .history .col-lg-6 {
+    display: flex;
+  }
+
+  .history .about-image .flex-grow-1 img {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .history .mission-vision {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .history .mission, .history .vision {
+    flex: 1;
+  }
+}
+
+/* Tablet & Mobile Specific */
 @media (max-width: 991px) {
   .history .about-image {
-    margin-top: 40px;
+    margin-top: 50px;
   }
+
   .history .about-image img {
-    height: auto;
-    max-height: 500px;
+    max-height: 400px;
+    width: 100%;
+    object-fit: cover;
   }
 }
 
 @media (max-width: 768px) {
-  .history .about-content h2 {
-    font-size: 2rem;
+  .history .timeline {
+    margin-top: 30px;
+  }
+
+  .history .value-card {
+    padding: 30px 20px;
   }
 }
-
 
 /*--------------------------------------------------------------
 # Leadership Section
