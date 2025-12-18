@@ -1926,10 +1926,6 @@ section + section,
 /*--------------------------------------------------------------
 # History Section
 --------------------------------------------------------------*/
-.history .row.mt-5 {
-  margin-top: clamp(3rem, 8vw, 6rem) !important;
-}
-
 
 /* --- Section Layout & Responsive Gaps --- */
 .history .row.align-items-stretch {
@@ -1938,9 +1934,9 @@ section + section,
   gap: clamp(2rem, 4vw, 3rem); /* Responsive gap between columns */
 }
 
-/* Responsive gap between the top row (About/Story) and Core Values row */
-.history .row.align-items-stretch + .row {
-  margin-top: clamp(3rem, 8vw, 6rem); /* 48px to 96px dynamically */
+/* Responsive space between About/Story row and Core Values row */
+.history .row.mt-5 {
+  margin-top: clamp(3rem, 8vw, 6rem) !important; /* 48px to 96px dynamically */
 }
 
 /* --- Story Content Styles --- */
@@ -2136,7 +2132,6 @@ section + section,
     padding: 30px 20px;
   }
 }
-
 
 
 /*--------------------------------------------------------------
