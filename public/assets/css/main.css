@@ -1986,20 +1986,21 @@ section + section {
 
 /*--------------------------------------------------------------
 # History Section
+/*--------------------------------------------------------------
+# History Section
 --------------------------------------------------------------*/
 
 /* --- Desktop Layout: Equal Height Logic --- */
 @media (min-width: 992px) {
   .history .row.align-items-stretch {
     display: flex;
+    align-items: stretch; /* Forces left and right columns to match */
   }
 
-  /* Forces columns to be the same mathematical height */
   .history .col-lg-6 {
     display: flex;
   }
 
-  /* Makes the content container fill the column height */
   .history .about-content,
   .history .about-image {
     display: flex;
@@ -2008,7 +2009,7 @@ section + section {
     height: 100%;
   }
 
-  /* The magic: makes the image stretch to match the timeline height */
+  /* Ensures the image fills the vertical gap to match the timeline */
   .history .about-image .flex-grow-1 {
     flex-grow: 1;
     display: flex;
@@ -2017,7 +2018,7 @@ section + section {
   .history .about-image img {
     height: 100%;
     width: 100%;
-    object-fit: cover; /* Crops image to fill space without distortion */
+    object-fit: cover;
   }
 }
 
@@ -2084,21 +2085,11 @@ section + section {
   color: var(--heading-color);
 }
 
-/* --- Image & Mission/Vision Styles --- */
-.history .about-image {
-  position: relative;
-}
-
-.history .about-image img {
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
+/* --- Mission & Vision: Equal Height Logic --- */
 .history .about-image .mission-vision {
   margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex; /* Switched from grid to flex for better height stretching */
+  flex-direction: column;
   gap: 20px;
 }
 
@@ -2108,10 +2099,23 @@ section + section {
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures internal color fills the space */
 }
 
-.history .about-image .mission-vision .mission h3,
-.history .about-image .mission-vision .vision h3 {
+@media (min-width: 768px) {
+  .history .about-image .mission-vision {
+    flex-direction: row; /* Side by side on tablets and up */
+    align-items: stretch; /* Magic property for equal height */
+  }
+  .history .about-image .mission-vision .mission,
+  .history .about-image .mission-vision .vision {
+    flex: 1; /* Ensures equal width */
+  }
+}
+
+.history .about-image .mission-vision h3 {
   font-size: 1.3rem;
   margin-bottom: 15px;
   font-weight: 600;
@@ -2119,8 +2123,7 @@ section + section {
   padding-left: 15px;
 }
 
-.history .about-image .mission-vision .mission h3:before,
-.history .about-image .mission-vision .vision h3:before {
+.history .about-image .mission-vision h3:before {
   content: "";
   position: absolute;
   left: 0;
@@ -2131,14 +2134,15 @@ section + section {
   border-radius: 3px;
 }
 
-/* --- Core Values Section --- */
-.history .core-values {
-  margin-top: 50px;
+/* --- Core Values: Equal Card Heights --- */
+.history .core-values .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
-.history .core-values h3 {
-  font-size: 1.8rem;
-  font-weight: 700;
+.history .core-values .col {
+  display: flex; /* Makes the column a flex container so the card can stretch */
 }
 
 .history .core-values .value-card {
@@ -2146,12 +2150,17 @@ section + section {
   padding: 40px 25px;
   border-radius: 10px;
   text-align: center;
-  height: 100%; /* Ensures all cards in a row are same height */
+  width: 100%; /* Force fill column width */
+  height: 100%; /* Force fill column height */
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.history .core-values .value-card p {
+  flex-grow: 1; /* Pushes the card bottom even if text is short */
 }
 
 .history .core-values .value-card:hover {
@@ -2180,9 +2189,8 @@ section + section {
   .history .about-image {
     margin-top: 40px;
   }
-
   .history .about-image img {
-    height: auto; /* Natural height on mobile/tablet */
+    height: auto;
     max-height: 500px;
   }
 }
@@ -2191,12 +2199,7 @@ section + section {
   .history .about-content h2 {
     font-size: 2rem;
   }
-
-  .history .about-image .mission-vision {
-    grid-template-columns: 1fr;
-  }
 }
-
 /*--------------------------------------------------------------
 # Leadership Section
 --------------------------------------------------------------*/
