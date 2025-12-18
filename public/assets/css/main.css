@@ -2131,6 +2131,60 @@ section + section,
     padding: 30px 20px;
   }
 }
+/*--------------------------------------------------------------
+# History Section - Refined Fluid Spacing
+--------------------------------------------------------------*/
+
+/* Responsive gap between Story row and Core Values row */
+.history .row.mt-5 {
+  /* This ensures the gap is never larger than 80px and never smaller than 40px */
+  margin-top: clamp(40px, 8vw, 80px) !important;
+}
+
+/* Ensure the Core Values heading has a clean gap from its cards */
+.history .core-values h3.text-center {
+  margin-bottom: clamp(25px, 5vw, 45px) !important;
+  font-weight: 700;
+}
+
+/* Fix for the Timeline at 915px and below */
+@media (max-width: 991px) {
+  .history .about-image {
+    /* Prevents the image from crashing into the timeline text above it */
+    margin-top: 50px;
+  }
+}
+
+/* Specific Tweak for Tablets/Small Laptops (915px range) */
+@media (max-width: 915px) {
+  .history .about-content h2 {
+    font-size: 2.2rem;
+  }
+
+  /* Slightly reduce internal padding of cards to save horizontal space */
+  .history .mission,
+  .history .vision,
+  .history .value-card {
+    padding: 25px 20px;
+  }
+}
+
+/* Extra Tightening for Mobile Phones (Below 576px) */
+@media (max-width: 576px) {
+  .history .row.mt-5 {
+    margin-top: 35px !important; /* Minimal gap for small screens */
+  }
+
+  .history .timeline {
+    margin-top: 25px;
+    padding-left: 20px; /* Pulls text closer to the edge */
+  }
+
+  .history .about-content h2 {
+    font-size: 1.8rem;
+  }
+}
+
 
 /*--------------------------------------------------------------
 # Leadership Section
