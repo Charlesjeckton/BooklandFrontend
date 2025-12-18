@@ -1924,21 +1924,22 @@ section + section,
 }
 
 /*--------------------------------------------------------------
-# History Section
+# History Section - Consolidated & Fluid
 --------------------------------------------------------------*/
 
-/* --- Section Layout & Responsive Gaps --- */
+/* --- Base Layout & Spacing --- */
 .history .row.align-items-stretch {
   display: flex;
   align-items: stretch;
 }
 
-/* Responsive gap between the top section and Core Values row */
+/* Fluid gap between Story row and Core Values row */
 .history .row.mt-5 {
-  margin-top: clamp(3rem, 8vw, 6rem) !important; /* Dynamically scales from 48px to 96px */
+  /* Scales perfectly from 40px (mobile) to 80px (desktop) */
+  margin-top: clamp(40px, 8vw, 80px) !important;
 }
 
-/* --- Story Content Styles --- */
+/* --- Typography & Content --- */
 .history .about-content h3 {
   color: var(--accent-color);
   font-weight: 600;
@@ -1947,7 +1948,8 @@ section + section,
 }
 
 .history .about-content h2 {
-  font-size: clamp(2rem, 5vw, 2.5rem);
+  /* Fluid font size for headings */
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 20px;
   font-weight: 700;
   color: var(--heading-color);
@@ -1959,7 +1961,7 @@ section + section,
   color: var(--default-color);
 }
 
-/* --- Timeline Styles --- */
+/* --- Timeline Component --- */
 .history .timeline {
   position: relative;
   margin-top: 40px;
@@ -1993,7 +1995,7 @@ section + section,
   height: 18px;
   border-radius: 50%;
   background-color: var(--accent-color);
-  border: 4px solid var(--background-color); /* Makes the dot "pop" over the line */
+  border: 4px solid var(--background-color);
   z-index: 1;
 }
 
@@ -2019,6 +2021,7 @@ section + section,
   border-radius: 12px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease;
+  height: 100%;
 }
 
 .history .mission-vision h3 {
@@ -2040,13 +2043,13 @@ section + section,
 
 /* --- Core Values Section --- */
 .history .core-values h3.text-center {
+  margin-bottom: clamp(25px, 5vw, 45px) !important;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 2rem !important;
 }
 
 .history .value-card {
-  background-color: var(--surface-color) !important; /* Overriding bg-light for consistency */
+  background-color: var(--surface-color) !important;
   padding: 40px 25px;
   border-radius: 15px;
   text-align: center;
@@ -2085,106 +2088,65 @@ section + section,
   color: #fff !important;
 }
 
-/* --- Media Queries --- */
+/* --- Consolidated Media Queries --- */
 
-/* Desktop Specific (Side-by-side equal heights) */
+/* Laptops/Desktop (Full heights and side-by-side) */
 @media (min-width: 992px) {
   .history .col-lg-6 {
     display: flex;
   }
-
   .history .about-image .flex-grow-1 img {
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
   }
-
   .history .mission-vision {
     flex-direction: row;
     align-items: stretch;
   }
-
   .history .mission, .history .vision {
     flex: 1;
   }
 }
 
-/* Tablet & Mobile Specific */
+/* Tablet / Medium Screens (Includes the 915px range) */
 @media (max-width: 991px) {
   .history .about-image {
     margin-top: 50px;
   }
-
   .history .about-image img {
     max-height: 400px;
     width: 100%;
     object-fit: cover;
+    border-radius: 12px;
+  }
+  .history .about-content h2 {
+    font-size: 2.2rem;
   }
 }
 
+/* Fine-tuning for Tablets and Smartphones */
 @media (max-width: 768px) {
   .history .timeline {
     margin-top: 30px;
   }
-
-  .history .value-card {
-    padding: 30px 20px;
-  }
-}
-/*--------------------------------------------------------------
-# History Section - Refined Fluid Spacing
---------------------------------------------------------------*/
-
-/* Responsive gap between Story row and Core Values row */
-.history .row.mt-5 {
-  /* This ensures the gap is never larger than 80px and never smaller than 40px */
-  margin-top: clamp(40px, 8vw, 80px) !important;
-}
-
-/* Ensure the Core Values heading has a clean gap from its cards */
-.history .core-values h3.text-center {
-  margin-bottom: clamp(25px, 5vw, 45px) !important;
-  font-weight: 700;
-}
-
-/* Fix for the Timeline at 915px and below */
-@media (max-width: 991px) {
-  .history .about-image {
-    /* Prevents the image from crashing into the timeline text above it */
-    margin-top: 50px;
-  }
-}
-
-/* Specific Tweak for Tablets/Small Laptops (915px range) */
-@media (max-width: 915px) {
-  .history .about-content h2 {
-    font-size: 2.2rem;
-  }
-
-  /* Slightly reduce internal padding of cards to save horizontal space */
-  .history .mission,
-  .history .vision,
-  .history .value-card {
+  .history .mission, .history .vision, .history .value-card {
     padding: 25px 20px;
   }
 }
 
-/* Extra Tightening for Mobile Phones (Below 576px) */
+/* Small Mobile Phones */
 @media (max-width: 576px) {
   .history .row.mt-5 {
-    margin-top: 35px !important; /* Minimal gap for small screens */
+    margin-top: 35px !important;
   }
-
   .history .timeline {
-    margin-top: 25px;
-    padding-left: 20px; /* Pulls text closer to the edge */
+    padding-left: 20px;
   }
-
-  .history .about-content h2 {
-    font-size: 1.8rem;
+  .history .timeline-dot {
+    left: -28px;
   }
 }
-
 
 /*--------------------------------------------------------------
 # Leadership Section
