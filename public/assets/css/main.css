@@ -3742,10 +3742,46 @@ section + section,
 # Fees & Payment Section
 --------------------------------------------------------------*/
 
+/* --- Fee Structure Header --- */
+.fee-heading {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 800;
+    color: var(--heading-color);
+}
+
+.fee-heading::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color);
+    bottom: 0;
+    left: calc(50% - 30px);
+    border-radius: 2px;
+}
+
+.fee-heading::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1.5px;
+    left: calc(50% - 60px);
+}
+
+.description {
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
 /* --- Important Notes Section --- */
 .fees-notes-container {
-    border: 1px solid #eee;
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
     background-color: #ffffff;
+    border-radius: 15px;
 }
 
 .fees-notes-container h3 {
@@ -3757,12 +3793,7 @@ section + section,
 .note-item h5 {
     font-size: 1.1rem;
     margin-bottom: 5px;
-    color: var(--heading-color);
-}
-
-.note-item p {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-weight: 700;
 }
 
 .note-item i {
@@ -3770,15 +3801,15 @@ section + section,
     color: var(--accent-color) !important;
 }
 
-/* Sibling discount box logic */
 .note-item.p-3 {
     border-left: 4px solid var(--accent-color);
-    background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+    background-color: color-mix(in srgb, var(--accent-color), transparent 96%);
+    border-radius: 0 10px 10px 0;
 }
 
-/* --- Payment Instructions --- */
+/* --- Payment Instructions & Cards --- */
 .payment-instructions .card {
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     border-radius: 1rem;
 }
 
@@ -3794,7 +3825,7 @@ section + section,
     letter-spacing: 1px;
 }
 
-/* --- M-Pesa Branding & Layering --- */
+/* --- M-Pesa Branding --- */
 .bg-mpesa {
     background-color: #3ea33b !important; /* Official M-Pesa Green */
     color: #ffffff !important;
@@ -3809,7 +3840,7 @@ section + section,
     z-index: 1;
     pointer-events: none;
     color: #000;
-    opacity: 0.1; /* Keeps it very subtle */
+    opacity: 0.1;
     position: absolute;
     bottom: -20px;
     right: -10px;
@@ -3827,19 +3858,17 @@ section + section,
 }
 
 .tracking-wider {
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
 }
 
 /* --- Media Queries --- */
 
-/* Laptop & Tablet Fixes */
-@media (max-width: 1200px) {
-    .mpesa-bg-icon {
-        font-size: 8rem;
-    }
-}
-
+/* Tablet & Smaller Desktop */
 @media (max-width: 991px) {
+    .fee-heading {
+        font-size: 2.2rem;
+    }
+
     .mpesa-bg-icon {
         font-size: 7rem;
     }
@@ -3852,29 +3881,31 @@ section + section,
     }
 
     .note-item {
-        margin-bottom: 25px; /* Spacing when stacked */
+        margin-bottom: 25px;
     }
 
+    /* Prevent negative margin/overlap on mobile */
     .note-item.p-3 {
-        margin-top: 0;
+        margin-top: 0 !important;
     }
 
-    /* Stack Bank Details Table for Readability */
+    /* Bank Details Table stack for mobile */
     .payment-instructions .table td {
         display: block;
         text-align: left !important;
         width: 100%;
-        padding: 10px 0;
+        padding: 8px 0;
     }
 
     .payment-instructions .table td.text-end {
         padding-top: 0;
         padding-bottom: 15px;
-        font-size: 1.1rem;
+        font-weight: 700;
     }
 
     .payment-instructions .badge {
-        display: block;
-        text-align: center;
+        display: inline-block;
+        white-space: normal; /* Allows long reference text to wrap */
+        text-align: left;
     }
 }
