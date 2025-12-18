@@ -1355,6 +1355,38 @@ section,
 }
 
 /*--------------------------------------------------------------
+# Students Life – Section Title (Tightened)
+--------------------------------------------------------------*/
+#students-life-block .section-title {
+  padding-bottom: 12px; /* reduce from default 60px */
+}
+
+#students-life-block .section-title h2 {
+  margin-bottom: 8px;   /* tighter heading spacing */
+}
+
+#students-life-block .section-title p {
+  margin-bottom: 0;
+}
+
+/* Remove extra gap before activity items */
+#students-life-block .students-life-content .row {
+  margin-top: 0;
+}
+@media (max-width: 768px) {
+  #students-life-block .section-title {
+    padding-bottom: 8px;
+  }
+  #students-life-block .section-title h2 {
+    margin-bottom: 6px;
+  }
+  #students-life-block .students-life-content .row {
+    margin-top: 0;
+  }
+}
+
+
+/*--------------------------------------------------------------
 # Testimonials Section
 --------------------------------------------------------------*/
 .testimonials {
@@ -1456,6 +1488,44 @@ section,
     font-size: 24px;
   }
 }
+/*--------------------------------------------------------------
+# Testimonials – Section Title (Tightened)
+--------------------------------------------------------------*/
+#testimonials .section-title {
+  padding-bottom: 12px; /* reduce from default 60px */
+}
+
+#testimonials .section-title h2 {
+  margin-bottom: 8px;   /* tighter heading spacing */
+}
+
+#testimonials .section-title p {
+  margin-bottom: 0;
+}
+
+/* Remove extra gap before the slider */
+#testimonials .testimonials-container {
+  margin-top: 0;
+}
+@media (max-width: 768px) {
+  #testimonials .section-title {
+    padding-bottom: 8px;
+  }
+  #testimonials .section-title h2 {
+    margin-bottom: 6px;
+  }
+}
+/*--------------------------------------------------------------
+# Spacing between Testimonials & Stats
+--------------------------------------------------------------*/
+#testimonials {
+  padding-bottom: 40px; /* reduce bottom padding */
+}
+
+#stats {
+  padding-top: 40px;    /* reduce top padding */
+}
+
 
 
 
@@ -1843,6 +1913,36 @@ section,
     flex-direction: column;
   }
 }
+
+/*--------------------------------------------------------------
+# Events – Section Title (Tightened)
+--------------------------------------------------------------*/
+#events .section-title {
+  padding-bottom: 12px; /* reduce from default 60px */
+}
+
+#events .section-title h2 {
+  margin-bottom: 8px;   /* tighter heading spacing */
+}
+
+#events .section-title p {
+  margin-bottom: 0;
+}
+
+/* Remove extra gap before filters and events container */
+#events .event-filters,
+#events #eventsContainer {
+  margin-top: 0;
+}
+@media (max-width: 768px) {
+  #events .section-title {
+    padding-bottom: 8px;
+  }
+  #events .section-title h2 {
+    margin-bottom: 6px;
+  }
+}
+
 
 /*--------------------------------------------------------------
 # History Section
