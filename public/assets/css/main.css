@@ -1451,148 +1451,94 @@ section + section,
 # Testimonials Section
 --------------------------------------------------------------*/
 .testimonials {
-  padding: 40px 0;
+  padding: 80px 0 40px 0; /* Balanced top space, tighter bottom to bridge to Stats */
   overflow: hidden;
 }
 
-.testimonials .testimonials-container {
-  margin-bottom: 20px;
+.testimonials .section-title {
+  padding-bottom: 30px;
 }
 
 .testimonials .testimonials-container .swiper-wrapper {
   height: auto !important;
-  padding-bottom: 20px;
+  padding-bottom: 40px; /* Space for pagination dots */
 }
 
-.testimonials .testimonials-container .testimonial-item {
+.testimonials .testimonial-item {
   background-color: var(--surface-color);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   height: 100%;
   border-top: 3px solid var(--accent-color);
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
 }
 
-.testimonials .testimonials-container .testimonial-item p {
+.testimonials .testimonial-item p {
   font-size: 15px;
   font-style: italic;
   margin-bottom: 20px;
   color: var(--default-color);
   line-height: 1.6;
+  flex-grow: 1;
 }
 
-.testimonials .testimonials-container .testimonial-item .testimonial-profile {
+.testimonials .testimonial-profile {
   display: flex;
   align-items: center;
+  margin-top: auto;
 }
 
-.testimonials .testimonials-container .testimonial-item .testimonial-profile img {
+.testimonials .testimonial-profile img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 4px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  border: 3px solid color-mix(in srgb, var(--accent-color), transparent 85%);
   margin-right: 15px;
+  object-fit: cover;
 }
 
-.testimonials .testimonials-container .testimonial-item .testimonial-profile div h3 {
+.testimonials .testimonial-profile h3 {
   font-size: 16px;
   font-weight: 600;
-  margin: 0 0 5px;
+  margin: 0 0 3px;
   color: var(--heading-color);
 }
 
-.testimonials .testimonials-container .testimonial-item .testimonial-profile div h4 {
+.testimonials .testimonial-profile h4 {
   font-size: 14px;
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
   margin: 0;
-  font-weight: normal;
+  font-weight: 400;
 }
 
-.testimonials .testimonials-container .swiper-pagination {
-  margin-top: 20px;
+.testimonials .swiper-pagination {
   position: relative;
+  margin-top: 10px;
 }
 
-.testimonials .testimonials-container .swiper-pagination .swiper-pagination-bullet {
+.testimonials .swiper-pagination .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
   background-color: color-mix(in srgb, var(--accent-color), transparent 70%);
   opacity: 1;
 }
 
-.testimonials .testimonials-container .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.testimonials .swiper-pagination .swiper-pagination-bullet-active {
   background-color: var(--accent-color);
-  width: 20px;
-  border-radius: 10px;
+  width: 24px;
+  border-radius: 5px;
 }
-
-@media (max-width: 992px) {
-  .testimonials .section-header h2 {
-    font-size: 28px;
-  }
-
-  .testimonials .critic-reviews .critic-review {
-    margin-bottom: 30px;
-  }
-
-  .testimonials .testimonials-container .testimonial-item {
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  .testimonials {
-    padding: 60px 0;
-  }
-
-  .testimonials .section-header h2 {
-    font-size: 24px;
-  }
-}
-/*--------------------------------------------------------------
-# Testimonials – Section Title (Tightened)
---------------------------------------------------------------*/
-#testimonials .section-title {
-  padding-bottom: 12px; /* reduce from default 60px */
-}
-
-#testimonials .section-title h2 {
-  margin-bottom: 8px;   /* tighter heading spacing */
-}
-
-#testimonials .section-title p {
-  margin-bottom: 12px;
-}
-
-/* Remove extra gap before the slider */
-#testimonials .testimonials-container {
-  margin-top: 0;
-}
-@media (max-width: 768px) {
-  #testimonials .section-title {
-    padding-bottom: 8px;
-  }
-  #testimonials .section-title h2 {
-    margin-bottom: 6px;
-  }
-}
-/*--------------------------------------------------------------
-# Spacing between Testimonials & Stats
---------------------------------------------------------------*/
-#testimonials {
-  padding-bottom: 20px; /* reduce bottom padding */
-}
-
-#stats {
-  padding-top: 20px;    /* reduce top padding */
-}
-
-
-
 
 /*--------------------------------------------------------------
 # Stats Section
 --------------------------------------------------------------*/
+.stats {
+  padding: 40px 0 80px 0; /* Tighter top to stay close to Testimonials */
+}
+
 .stats .stats-overview {
   height: 100%;
   display: flex;
@@ -1600,157 +1546,122 @@ section + section,
   justify-content: center;
 }
 
-.stats .stats-overview .stats-title {
+.stats .stats-title {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
+  line-height: 1.2;
 }
 
-.stats .stats-overview .stats-description {
-  margin-bottom: 1.5rem;
+.stats .stats-description {
+  margin-bottom: 2rem;
   font-size: 1.1rem;
-  line-height: 1.8;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
 }
 
-.stats .stats-overview .stats-cta {
-  margin-top: 1rem;
-  justify-content: center;
+.stats .stats-cta {
   display: flex;
   gap: 1rem;
 }
 
-.stats .stats-overview .stats-cta .btn-primary {
+.stats .btn-primary {
   background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  border: 2px solid var(--accent-color);
   color: var(--contrast-color);
-  padding: 0.75rem 12rem;
+  padding: 0.8rem 2.5rem; /* Standardized button size */
   font-weight: 600;
-  transition: all 0.3s ease;
+  border-radius: 5px;
+  transition: 0.3s;
 }
 
-.stats .stats-overview .stats-cta .btn-primary:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 15%);
-  border-color: color-mix(in srgb, var(--accent-color), transparent 15%);
-}
-
-.stats .stats-overview .stats-cta .btn-outline {
-  border: 2px solid var(--heading-color);
-  color: var(--heading-color);
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
+.stats .btn-primary:hover {
   background-color: transparent;
-  transition: all 0.3s ease;
-}
-
-.stats .stats-overview .stats-cta .btn-outline:hover {
-  border-color: var(--accent-color);
   color: var(--accent-color);
-}
-@media (max-width: 507px){
-.stats .stats-overview .stats-cta .btn-primary {
-  padding: 0.75rem 5rem;
-}
-}
-@media (max-width: 283px){
-.stats .stats-overview .stats-cta .btn-primary {
-  padding: 0.75rem 1.5rem;
-}
-}
-@media (max-width: 171px){
-.stats .stats-overview .stats-cta .btn-primary {
-  padding: 0.25rem 1rem;
-}
-}
-
-@media (max-width: 992px) {
-  .stats .stats-overview {
-    margin-bottom: 3rem;
-  }
+  transform: translateY(-2px);
 }
 
 .stats .stats-card {
   background-color: var(--surface-color);
-  border-radius: 1rem;
-  padding: 2rem 1.5rem;
+  border-radius: 15px;
+  padding: 30px 20px;
   text-align: center;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.3s ease;
+  transition: 0.3s;
+  border-bottom: 3px solid transparent;
 }
 
 .stats .stats-card:hover {
   transform: translateY(-10px);
+  border-bottom-color: var(--accent-color);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.stats .stats-card .stats-icon {
-  margin-bottom: 1rem;
+.stats .stats-icon {
+  margin-bottom: 15px;
   font-size: 2.5rem;
   color: var(--accent-color);
 }
 
-.stats .stats-card .stats-number {
-  font-size: 2.5rem;
+.stats .stats-number {
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--heading-color);
-  margin-bottom: 0.5rem;
-  font-family: var(--heading-font), sans-serif;
+  margin-bottom: 5px;
   line-height: 1;
 }
 
-.stats .stats-card .stats-label {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--default-color);
+.stats .stats-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
 }
 
-.stats .achievements-gallery {
-  margin-top: 2rem;
+/*--------------------------------------------------------------
+# Responsive Adjustments (Mobile & Tablet)
+--------------------------------------------------------------*/
+@media (max-width: 992px) {
+  .testimonials, .stats {
+    padding: 60px 0;
+  }
+
+  .stats .stats-overview {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .stats .stats-cta {
+    justify-content: center;
+  }
+
+  .stats .stats-title {
+    font-size: 2rem;
+  }
 }
 
-.stats .achievements-gallery .achievement-item {
-  position: relative;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  height: 100%;
-}
+@media (max-width: 768px) {
+  .testimonials, .stats {
+    padding: 40px 0;
+  }
 
-.stats .achievements-gallery .achievement-item img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  transition: all 0.5s ease;
-}
+  /* Tightens the specific gap between the two sections */
+  #testimonials { padding-bottom: 20px; }
+  #stats { padding-top: 20px; }
 
-.stats .achievements-gallery .achievement-item .achievement-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1.5rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-}
+  .testimonials .section-title h2 {
+    font-size: 24px;
+  }
 
-.stats .achievements-gallery .achievement-item .achievement-content h4 {
-  color: var(--contrast-color);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
+  .stats .stats-card {
+    padding: 20px 15px;
+  }
 
-.stats .achievements-gallery .achievement-item .achievement-content p {
-  color: color-mix(in srgb, var(--contrast-color), transparent 20%);
-  margin-bottom: 0;
-  font-size: 0.9rem;
+  .stats .btn-primary {
+    width: 100%; /* Full width button on small mobile */
+    max-width: 300px;
+  }
 }
-
-.stats .achievements-gallery .achievement-item:hover img {
-  transform: scale(1.1);
-}
-
 
 /*--------------------------------------------------------------
 # Events Section
