@@ -1435,7 +1435,7 @@ section + section {
 }
 
 .testimonials .testimonials-container {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .testimonials .testimonials-container .swiper-wrapper {
@@ -1540,7 +1540,7 @@ section + section {
 }
 
 #testimonials .section-title p {
-  margin-bottom: 0;
+  margin-bottom: 12px;
 }
 
 /* Remove extra gap before the slider */
@@ -2200,9 +2200,12 @@ section + section {
     font-size: 2rem;
   }
 }
+
 /*--------------------------------------------------------------
 # Leadership Section
 --------------------------------------------------------------*/
+
+/* Existing Subtitle & Heading styles */
 .leadership .section-subtitle {
   color: var(--accent-color);
   font-size: 1.1rem;
@@ -2224,6 +2227,28 @@ section + section {
   line-height: 1.7;
 }
 
+/* --- Added Spacing for the second Section Title --- */
+/* This targets the "Hearts Behind Bookland" div specifically */
+.leadership .section-title {
+  margin-top: 100px; /* Large space to separate from the admin row */
+  margin-bottom: 60px; /* Space before the API cards load */
+  position: relative;
+  padding-top: 40px;
+}
+
+/* Optional: Add a subtle divider line between the two sections */
+.leadership .section-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 70%);
+}
+
+/* --- Image & Stats --- */
 .leadership .about-image {
   position: relative;
   border-radius: 8px;
@@ -2244,11 +2269,6 @@ section + section {
   padding: 20px;
 }
 
-.leadership .stats-container .stat-item {
-  text-align: center;
-  padding: 15px 0;
-}
-
 .leadership .stats-container .stat-item h3 {
   color: var(--heading-color);
   font-size: 2rem;
@@ -2256,102 +2276,35 @@ section + section {
   margin-bottom: 5px;
 }
 
-.leadership .stats-container .stat-item p {
-  color: var(--default-color);
-  font-size: 0.9rem;
-  margin: 0;
-}
-
+/* --- API Loaded Team Section --- */
 .leadership .leadership-team {
-  margin-top: 4rem;
+  margin-top: 2rem; /* Reduced from 4rem since the title now has margin */
 }
 
+/* Leader Card Styles (Keep your existing styles below) */
 .leadership .leadership-team .leader-card {
   background-color: var(--surface-color);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  height: 100%;
+  height: 100%; /* Ensures cards are equal height if bios differ */
+  display: flex;
+  flex-direction: column;
   transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.leadership .leadership-team .leader-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.leadership .leadership-team .leader-card:hover .social-links {
-  opacity: 1;
-}
-
-.leadership .leadership-team .leader-card .leader-image {
-  position: relative;
-  overflow: hidden;
 }
 
 .leadership .leadership-team .leader-card .leader-image img {
   width: 100%;
-  height: 300px;
+  height: 320px; /* Fixed height for consistent look */
   object-fit: cover;
-  transition: transform 0.5s;
 }
 
-.leadership .leadership-team .leader-card .leader-image .social-links {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  padding: 15px 0 10px;
-  display: flex;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.leadership .leadership-team .leader-card .leader-image .social-links a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  margin: 0 5px;
-  color: var(--contrast-color);
-  font-size: 1rem;
-  transition: background-color 0.3s;
-}
-
-.leadership .leadership-team .leader-card .leader-image .social-links a:hover {
-  background-color: var(--accent-color);
-}
-
-.leadership .leadership-team .leader-card .leader-info {
-  padding: 20px;
-  text-align: center;
-}
-
-.leadership .leadership-team .leader-card .leader-info h4 {
-  font-weight: 700;
-  margin-bottom: 5px;
-  font-size: 1.25rem;
-}
-
-.leadership .leadership-team .leader-card .leader-info .position {
-  color: var(--accent-color);
-  font-weight: 600;
-  margin-bottom: 15px;
-  font-size: 0.95rem;
-}
-
-.leadership .leadership-team .leader-card .leader-info .bio {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
+/* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
+  .leadership .section-title {
+    margin-top: 60px; /* Reduce space on tablets */
+  }
+
   .leadership .section-heading {
     font-size: 2rem;
   }
@@ -2360,19 +2313,12 @@ section + section {
     margin-top: 2rem;
     height: 400px;
   }
-
-  .leadership .leadership-team {
-    margin-top: 2rem;
-  }
 }
 
 @media (max-width: 768px) {
-  .leadership .about-image {
-    height: 300px;
-  }
-
-  .leadership .stat-item {
-    margin-bottom: 15px;
+  .leadership .section-title {
+    margin-top: 50px;
+    padding-top: 30px;
   }
 }
 
