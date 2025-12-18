@@ -3800,17 +3800,27 @@ section + section,
     letter-spacing: 1px;
 }
 
-/* Paybill UI specifics */
-.tracking-wider {
-    letter-spacing: 0.1em;
+
+/* Custom M-Pesa Layering */
+.mpesa-bg-icon {
+    font-size: 10rem;
+    z-index: 1;
+    pointer-events: none;
+    color: #000; /* Dark icon with low opacity looks better on green */
+}
+
+.mpesa-inner-box {
+    z-index: 2;
+    /* Deeper shadow so the white box "floats" over the green */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 .fw-black {
     font-weight: 900;
 }
 
-@media (max-width: 991.98px) {
-    .payment-instructions .display-6 {
-        font-size: 2rem;
-    }
+/* Ensure the text is readable on the green background */
+.tracking-wider {
+    letter-spacing: 0.08em;
 }
