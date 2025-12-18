@@ -1536,7 +1536,7 @@ section + section,
 # Stats Section
 --------------------------------------------------------------*/
 .stats {
-  padding: 40px 0 80px 0; /* Tighter top to stay close to Testimonials */
+  padding: 40px 0 80px 0; /* Tight top to connect with Testimonials */
 }
 
 .stats .stats-overview {
@@ -1560,27 +1560,36 @@ section + section,
   color: color-mix(in srgb, var(--default-color), transparent 15%);
 }
 
+/* CTA Button Logic - Full Column Width */
 .stats .stats-cta {
   display: flex;
-  gap: 1rem;
+  width: 100%;
 }
 
 .stats .btn-primary {
   background-color: var(--accent-color);
   border: 2px solid var(--accent-color);
   color: var(--contrast-color);
-  padding: 0.8rem 2.5rem; /* Standardized button size */
+  padding: 0.8rem 1.5rem;
   font-weight: 600;
   border-radius: 5px;
   transition: 0.3s;
+
+  /* Fill Logic */
+  width: 100%;
+  max-width: 450px; /* Limits width on ultra-wide screens for better UX */
+  display: block;
+  text-align: center;
 }
 
 .stats .btn-primary:hover {
   background-color: transparent;
   color: var(--accent-color);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Stats Cards */
 .stats .stats-card {
   background-color: var(--surface-color);
   border-radius: 15px;
@@ -1590,6 +1599,10 @@ section + section,
   height: 100%;
   transition: 0.3s;
   border-bottom: 3px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .stats .stats-card:hover {
@@ -1619,10 +1632,10 @@ section + section,
 }
 
 /*--------------------------------------------------------------
-# Responsive Adjustments (Mobile & Tablet)
+# Responsive Adjustments
 --------------------------------------------------------------*/
 @media (max-width: 992px) {
-  .testimonials, .stats {
+  .stats {
     padding: 60px 0;
   }
 
@@ -1632,7 +1645,7 @@ section + section,
   }
 
   .stats .stats-cta {
-    justify-content: center;
+    justify-content: center; /* Centers the button when columns stack */
   }
 
   .stats .stats-title {
@@ -1641,16 +1654,13 @@ section + section,
 }
 
 @media (max-width: 768px) {
-  .testimonials, .stats {
+  .stats {
     padding: 40px 0;
   }
 
-  /* Tightens the specific gap between the two sections */
-  #testimonials { padding-bottom: 20px; }
-  #stats { padding-top: 20px; }
-
-  .testimonials .section-title h2 {
-    font-size: 24px;
+  /* Bridging the gap specifically for mobile flow */
+  #stats {
+    padding-top: 20px;
   }
 
   .stats .stats-card {
@@ -1658,11 +1668,9 @@ section + section,
   }
 
   .stats .btn-primary {
-    width: 100%; /* Full width button on small mobile */
-    max-width: 300px;
+    max-width: 100%; /* Allows full width on mobile screens */
   }
 }
-
 /*--------------------------------------------------------------
 # Events Section
 --------------------------------------------------------------*/
