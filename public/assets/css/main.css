@@ -542,35 +542,32 @@ h6 {
   overflow: hidden;
   background: var(--background-color);
   transition: all 0.6s ease-out;
+  /* Use flexbox on the parent for guaranteed centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #preloader:before {
   content: "";
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* Removed top/left 50% here to use Flexbox instead */
   border-width: 6px;
   border-style: solid;
   border-color: var(--accent-color) transparent var(--accent-color) transparent;
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  animation: animate-preloader 1.5s linear infinite;
-  will-change: transform;
+  animation: animate-preloader 1.2s linear infinite;
 }
-
 
 @keyframes animate-preloader {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
 }
-
 /*--------------------------------------------------------------
 # Scroll Top Button
 --------------------------------------------------------------*/
