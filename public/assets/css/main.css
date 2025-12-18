@@ -1987,10 +1987,46 @@ section + section {
 /*--------------------------------------------------------------
 # History Section
 --------------------------------------------------------------*/
+
+/* --- Desktop Layout: Equal Height Logic --- */
+@media (min-width: 992px) {
+  .history .row.align-items-stretch {
+    display: flex;
+  }
+
+  /* Forces columns to be the same mathematical height */
+  .history .col-lg-6 {
+    display: flex;
+  }
+
+  /* Makes the content container fill the column height */
+  .history .about-content,
+  .history .about-image {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* The magic: makes the image stretch to match the timeline height */
+  .history .about-image .flex-grow-1 {
+    flex-grow: 1;
+    display: flex;
+  }
+
+  .history .about-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Crops image to fill space without distortion */
+  }
+}
+
+/* --- General Styles --- */
 .history .about-content h2 {
   font-size: 2.5rem;
   margin-bottom: 20px;
   font-weight: 700;
+  color: var(--heading-color);
 }
 
 .history .about-content h3 {
@@ -2004,6 +2040,7 @@ section + section {
   margin-bottom: 30px;
 }
 
+/* --- Timeline Styles --- */
 .history .about-content .timeline {
   position: relative;
   margin-top: 40px;
@@ -2031,12 +2068,13 @@ section + section {
 
 .history .about-content .timeline .timeline-item .timeline-dot {
   position: absolute;
-  left: -35px;
+  left: -38px;
   top: 5px;
   width: 16px;
   height: 16px;
   border-radius: 50%;
   background-color: var(--accent-color);
+  z-index: 1;
 }
 
 .history .about-content .timeline .timeline-item .timeline-content h4 {
@@ -2046,10 +2084,7 @@ section + section {
   color: var(--heading-color);
 }
 
-.history .about-content .timeline .timeline-item .timeline-content p {
-  margin-bottom: 0;
-}
-
+/* --- Image & Mission/Vision Styles --- */
 .history .about-image {
   position: relative;
 }
@@ -2057,6 +2092,7 @@ section + section {
 .history .about-image img {
   width: 100%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
 .history .about-image .mission-vision {
@@ -2064,12 +2100,6 @@ section + section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-}
-
-@media (max-width: 768px) {
-  .history .about-image .mission-vision {
-    grid-template-columns: 1fr;
-  }
 }
 
 .history .about-image .mission-vision .mission,
@@ -2101,14 +2131,9 @@ section + section {
   border-radius: 3px;
 }
 
-.history .about-image .mission-vision .mission p,
-.history .about-image .mission-vision .vision p {
-  margin-bottom: 0;
-  font-size: 0.95rem;
-}
-
+/* --- Core Values Section --- */
 .history .core-values {
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .history .core-values h3 {
@@ -2118,12 +2143,15 @@ section + section {
 
 .history .core-values .value-card {
   background-color: var(--surface-color);
-  padding: 30px 20px;
+  padding: 40px 25px;
   border-radius: 10px;
   text-align: center;
-  height: 100%;
+  height: 100%; /* Ensures all cards in a row are same height */
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .history .core-values .value-card:hover {
@@ -2147,15 +2175,26 @@ section + section {
   color: var(--accent-color);
 }
 
-.history .core-values .value-card h4 {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  font-weight: 600;
+/* --- Responsive Breakpoints --- */
+@media (max-width: 991px) {
+  .history .about-image {
+    margin-top: 40px;
+  }
+
+  .history .about-image img {
+    height: auto; /* Natural height on mobile/tablet */
+    max-height: 500px;
+  }
 }
 
-.history .core-values .value-card p {
-  font-size: 0.95rem;
-  margin-bottom: 0;
+@media (max-width: 768px) {
+  .history .about-content h2 {
+    font-size: 2rem;
+  }
+
+  .history .about-image .mission-vision {
+    grid-template-columns: 1fr;
+  }
 }
 
 /*--------------------------------------------------------------
