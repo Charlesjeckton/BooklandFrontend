@@ -663,97 +663,120 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Global Sections – Professional Vertical Rhythm
+# Global Sections – Responsive Spacing Logic
 --------------------------------------------------------------*/
 section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 80px 0;           /* Increased for a more premium, modern feel */
+  /* Desktop: 80px | Tablet: 60px | Mobile: 40px */
+  padding: 80px 0;
   scroll-margin-top: 90px;
   overflow: clip;
   position: relative;
 }
 
-/* SMART GAP: Prevents double-padding (160px) when sections are stacked */
+/* SMART STACKING: Prevents excessive white space between adjacent sections */
 section + section,
 .section + .section {
-  padding-top: 20px;         /* Pulls the next section closer to the previous one */
+  padding-top: 20px;
 }
 
-/* Responsive Padding Adjustments */
-@media (max-width: 1199px) {
+/* --- Small Screen Adjustments (Tablets & Phones) --- */
+@media (max-width: 992px) {
   section, .section {
     padding: 60px 0;
-    scroll-margin-top: 66px;
   }
 }
 
 @media (max-width: 768px) {
-  section, .section { padding: 50px 0; }
-  section + section { padding-top: 15px; }
-}
-
-@media (max-width: 576px) {
-  section, .section { padding: 40px 0; }
+  section, .section {
+    padding: 40px 0; /* Tighter padding for mobile */
+  }
+  section + section, .section + .section {
+    padding-top: 10px; /* Bring sections even closer on small screens */
+  }
 }
 
 /*--------------------------------------------------------------
-# Global Section Titles – Refined Hierarchy
+# Global Section Titles – Mobile Optimized
 --------------------------------------------------------------*/
 .section-title {
   text-align: center;
-  padding-bottom: 40px;      /* Standard space before content starts */
+  padding-bottom: 30px; /* Space between title and the images/cards below */
   position: relative;
 }
 
 .section-title h2 {
-  font-size: 36px;           /* Slightly larger for prominence */
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 15px;
-  color: var(--heading-color);
-  display: flex;             /* Flex ensures alignment of lines */
+  margin-bottom: 12px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;                 /* Clean spacing for the accent lines */
+  gap: 15px;
 }
 
-/* Styled Accent Lines around Headings */
+/* Accent lines - Hidden or shortened on very small screens to save space */
 .section-title h2::before,
 .section-title h2::after {
   content: "";
-  width: 50px;
+  width: 40px;
   height: 2px;
   background: var(--accent-color);
   display: inline-block;
-  opacity: 0.6;              /* Subtle look */
 }
 
 .section-title p {
   margin: 0 auto;
   line-height: 1.6;
-  max-width: 750px;          /* Optimized for readability (60-75 characters per line) */
+  max-width: 700px;
   font-size: 1.1rem;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
 }
 
-/* Mobile Title Adjustments */
+/* --- Mobile Specific Title Tweaks --- */
 @media (max-width: 768px) {
-  .section-title { padding-bottom: 30px; }
-  .section-title h2 { font-size: 28px; }
+  .section-title {
+    padding-bottom: 20px;
+  }
+  .section-title h2 {
+    font-size: 24px; /* Smaller heading for mobile */
+    gap: 10px;
+  }
   .section-title h2::before,
-  .section-title h2::after { width: 30px; }
-  .section-title p { font-size: 1rem; padding: 0 15px; }
+  .section-title h2::after {
+    width: 20px; /* Shortened lines so they don't push text off-screen */
+  }
+  .section-title p {
+    font-size: 0.95rem; /* Slightly smaller text for better fit */
+    padding: 0 10px;
+  }
+}
+
+/* Extra small screens (Phones in portrait) */
+@media (max-width: 480px) {
+  .section-title h2::before,
+  .section-title h2::after {
+    display: none; /* Remove lines on tiny screens to keep heading on one line */
+  }
 }
 
 /*--------------------------------------------------------------
-# Inner Component Spacing (Tightening the gap to images/cards)
+# Inner Component Spacing (The "Gaps" between divs)
 --------------------------------------------------------------*/
-/* Targets the specific gap between section text and the data/API content below */
-.section-title + .row,
-.section-title + .leadership-team,
-.section-title + .container {
+/* Tightens the gap between the header and the content (cards/images) */
+.leadership-team,
+#leadership-team,
+#gallery-images,
+.mission-vision-row {
   margin-top: 10px !important;
+}
+
+/* Ensure rows don't have too much bottom margin on mobile */
+@media (max-width: 768px) {
+  .row.mb-5 {
+    margin-bottom: 2rem !important;
+  }
 }
 
 /*--------------------------------------------------------------
