@@ -1926,6 +1926,10 @@ section + section,
 /*--------------------------------------------------------------
 # History Section
 --------------------------------------------------------------*/
+.history .row.mt-5 {
+  margin-top: clamp(3rem, 8vw, 6rem) !important;
+}
+
 
 /* --- Section Layout & Responsive Gaps --- */
 .history .row.align-items-stretch {
