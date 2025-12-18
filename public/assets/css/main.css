@@ -3348,109 +3348,119 @@ section + section,
 }
 
 /*--------------------------------------------------------------
-# Alumni Section Refinements
+# Alumni Section
 --------------------------------------------------------------*/
 
 .alumni .section-header {
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
 }
 
 .alumni .section-header h3 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--heading-color);
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
   position: relative;
-  padding-bottom: 15px;
+  display: inline-block;
+  font-weight: 700;
 }
 
-/* Accent Line */
 .alumni .section-header h3:after {
   content: "";
-  width: 60px;
+  width: 70px;
   height: 4px;
   background: var(--accent-color);
   position: absolute;
-  bottom: 0;
+  bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2px;
 }
 
-/* Profile Card Enhancements */
-.alumni .alumni-profile {
-  background: var(--surface-color);
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+.alumni .section-header p {
+  font-size: 1.15rem;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+}
+
+.alumni .notable-alumni {
+  padding: 0.25rem;
+  background-color: color-mix(in srgb, var(--default-color), transparent 96%);
   border-radius: 20px;
+  margin: 0.25rem 0;''
+}
+
+.alumni .notable-alumni .alumni-profile {
+  background-color: var(--surface-color);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  height: 100%;
-}
-
-.alumni .alumni-profile:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  border-color: var(--accent-color);
-}
-
-.alumni .profile-img {
-  height: 280px;
+  margin-bottom: 30px;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+.alumni .notable-alumni .alumni-profile:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.alumni .notable-alumni .alumni-profile .profile-header {
+  position: relative;
+}
+
+.alumni .notable-alumni .alumni-profile .profile-header .profile-img {
+  height: 260px;
   overflow: hidden;
 }
 
-.alumni .profile-img img {
+.alumni .notable-alumni .alumni-profile .profile-header .profile-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(20%);
-  transition: 0.5s ease;
+  transition: all 0.5s ease;
 }
 
-.alumni .alumni-profile:hover .profile-img img {
-  filter: grayscale(0%);
-  transform: scale(1.05);
+.alumni .notable-alumni .alumni-profile .profile-header .profile-img img:hover {
+  transform: scale(1.1);
 }
 
-.alumni .profile-body {
-  padding: 2rem;
-  position: relative;
-}
-
-/* Quote Icon Decoration */
-.alumni .profile-body::before {
-  content: "\f66d"; /* Bootstrap Icon quote */
-  font-family: "bootstrap-icons";
+.alumni .notable-alumni .alumni-profile .profile-header .profile-year {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 2rem;
-  color: color-mix(in srgb, var(--accent-color), transparent 85%);
+  top: 20px;
+  left: 20px;
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
-.alumni .profile-title {
-  display: inline-block;
-  background: color-mix(in srgb, var(--accent-color), transparent 90%);
-  color: var(--accent-color);
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+.alumni .notable-alumni .alumni-profile .profile-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-/* Loading State Style */
-.alumni-loader {
-  padding: 50px;
-  border: 2px dashed #ddd;
-  border-radius: 20px;
-  background: #fdfdfd;
+.alumni .notable-alumni .alumni-profile .profile-body h4 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
-.alumni-loader i {
-  font-size: 3rem;
-  color: var(--accent-color);
-  margin-bottom: 15px;
+.alumni .notable-alumni .alumni-profile .profile-body .profile-title {
   display: block;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.alumni .notable-alumni .alumni-profile .profile-body p {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
 }
 
 
