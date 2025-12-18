@@ -3908,3 +3908,41 @@ section + section,
         text-align: left;
     }
 }
+
+/* --- FAQ Custom Design --- */
+.faq-item {
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0 !important;
+}
+
+.faq-item:hover {
+    border-color: var(--accent-color) !important;
+    transform: translateX(5px);
+}
+
+.faq-item .accordion-button {
+    background-color: #fff;
+    color: var(--heading-color);
+    box-shadow: none !important;
+}
+
+.faq-item .accordion-button:not(.collapsed) {
+    background-color: #fff;
+    color: var(--accent-color);
+}
+
+.faq-item .accordion-button::after {
+    background-size: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+/* Leading relaxed for the answers */
+.leading-relaxed {
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+/* Support Card Shadow */
+.bg-primary.card {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #2a52be 100%) !important;
+}
