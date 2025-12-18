@@ -3738,9 +3738,11 @@ section + section,
 }
 
 
- /*--------------------------------------------
- Fee Section
- ---------------------------------------------- */
+/*--------------------------------------------------------------
+# Fees & Payment Section
+--------------------------------------------------------------*/
+
+/* --- Important Notes Section --- */
 .fees-notes-container {
     border: 1px solid #eee;
     background-color: #ffffff;
@@ -3768,25 +3770,13 @@ section + section,
     color: var(--accent-color) !important;
 }
 
-/* Specific spacing for the sibling discount box */
+/* Sibling discount box logic */
 .note-item.p-3 {
-    margin-top: -10px; /* Slight alignment correction */
+    border-left: 4px solid var(--accent-color);
+    background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
 }
 
-@media (max-width: 768px) {
-    .fees-notes-container {
-        padding: 25px !important;
-    }
-
-    .note-item {
-        margin-bottom: 10px;
-    }
-}
-/* Payment Instruction Enhancements */
-.bg-danger-soft {
-    background-color: rgba(220, 53, 69, 0.1);
-}
-
+/* --- Payment Instructions --- */
 .payment-instructions .card {
     transition: transform 0.3s ease;
     border-radius: 1rem;
@@ -3796,31 +3786,95 @@ section + section,
     transform: translateY(-5px);
 }
 
+.bg-danger-soft {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
 .font-monospace {
     letter-spacing: 1px;
 }
 
+/* --- M-Pesa Branding & Layering --- */
+.bg-mpesa {
+    background-color: #3ea33b !important; /* Official M-Pesa Green */
+    color: #ffffff !important;
+}
 
-/* Custom M-Pesa Layering */
+.text-mpesa {
+    color: #3ea33b !important;
+}
+
 .mpesa-bg-icon {
     font-size: 10rem;
     z-index: 1;
     pointer-events: none;
-    color: #000; /* Dark icon with low opacity looks better on green */
+    color: #000;
+    opacity: 0.1; /* Keeps it very subtle */
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
 }
 
 .mpesa-inner-box {
     z-index: 2;
-    /* Deeper shadow so the white box "floats" over the green */
+    background-color: #ffffff;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .fw-black {
     font-weight: 900;
 }
 
-/* Ensure the text is readable on the green background */
 .tracking-wider {
     letter-spacing: 0.08em;
+}
+
+/* --- Media Queries --- */
+
+/* Laptop & Tablet Fixes */
+@media (max-width: 1200px) {
+    .mpesa-bg-icon {
+        font-size: 8rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .mpesa-bg-icon {
+        font-size: 7rem;
+    }
+}
+
+/* Mobile Specific Fixes */
+@media (max-width: 768px) {
+    .fees-notes-container {
+        padding: 25px !important;
+    }
+
+    .note-item {
+        margin-bottom: 25px; /* Spacing when stacked */
+    }
+
+    .note-item.p-3 {
+        margin-top: 0;
+    }
+
+    /* Stack Bank Details Table for Readability */
+    .payment-instructions .table td {
+        display: block;
+        text-align: left !important;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .payment-instructions .table td.text-end {
+        padding-top: 0;
+        padding-bottom: 15px;
+        font-size: 1.1rem;
+    }
+
+    .payment-instructions .badge {
+        display: block;
+        text-align: center;
+    }
 }
