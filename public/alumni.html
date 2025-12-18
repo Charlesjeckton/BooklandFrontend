@@ -77,23 +77,30 @@
     </div><!-- End Page Title -->
 
 <!-- Alumni Section -->
-<section id="alumni" class="alumni section">
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="notable-alumni">
-            <div class="section-header text-center" data-aos="fade-up" data-aos-delay="200">
-                <h3>Notable Alumni Spotlights</h3>
-                <p>
-                    From the classroom to the world stage. We celebrate the journey of our former students
-                    who are now trailblazing in medicine, engineering, the arts, and social leadership.
-                    Explore the stories of those who once walked these halls.
-                </p>
-            </div>
+<section id="alumni" class="alumni section py-5">
+    <div class="container" data-aos="fade-up">
 
-            <div class="row" id="alumniContainer">
-                <!-- Alumni profiles will be loaded here via API -->
-                <p class="text-center">Loading alumni...</p>
+        <div class="section-header text-center">
+            <h3 data-aos="fade-up">Notable Alumni Spotlights</h3>
+            <p data-aos="fade-up" data-aos-delay="100">
+                From the classroom to the world stage. We celebrate the journey of our former students
+                who are now trailblazing in medicine, engineering, the arts, and social leadership.
+            </p>
+        </div>
+
+        <div class="row gy-4" id="alumniContainer">
+            <div class="col-12 text-center" data-aos="zoom-in">
+                <div class="alumni-loader">
+                    <i class="bi bi-person-badge-fill animate__animated animate__pulse animate__infinite"></i>
+                    <h4 class="fw-bold">Discovering Our Trailblazers</h4>
+                    <p class="text-muted">We are currently retrieving our alumni success stories from the database. <br>Please check back in a moment.</p>
+                    <div class="spinner-border text-primary mt-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </section>
 <!-- Alumni Section -->
