@@ -3782,3 +3782,35 @@ section + section,
         margin-bottom: 10px;
     }
 }
+/* Payment Instruction Enhancements */
+.bg-danger-soft {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.payment-instructions .card {
+    transition: transform 0.3s ease;
+    border-radius: 1rem;
+}
+
+.payment-instructions .card:hover {
+    transform: translateY(-5px);
+}
+
+.font-monospace {
+    letter-spacing: 1px;
+}
+
+/* Paybill UI specifics */
+.tracking-wider {
+    letter-spacing: 0.1em;
+}
+
+.fw-black {
+    font-weight: 900;
+}
+
+@media (max-width: 991.98px) {
+    .payment-instructions .display-6 {
+        font-size: 2rem;
+    }
+}
