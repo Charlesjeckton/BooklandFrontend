@@ -2397,7 +2397,19 @@ section + section {
 .leadership .leadership-team {
   margin-top: 1rem !important; /* Reduces the gap before the cards appear */
 }
+/* Reduce gap between Leadership and Gallery */
+#leadership.section {
+  padding-bottom: 20px !important; /* Reduces space at the bottom of leadership */
+}
 
+#gallery.section {
+  padding-top: 20px !important; /* Reduces space at the top of gallery */
+}
+
+/* Optional: If the "Loading leadership..." container has extra margin at the bottom */
+.leadership .leadership-team {
+  margin-bottom: 0 !important;
+}
 
 /*--------------------------------------------------------------
 # Gallery Section
