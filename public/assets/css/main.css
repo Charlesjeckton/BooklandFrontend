@@ -3472,7 +3472,7 @@ section + section,
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   align-items: flex-start;
-  gap: 15px;
+  gap: 10px;
 }
 
 .contact .contact-info-box:hover {
@@ -3505,7 +3505,7 @@ section + section,
 .contact .contact-info-box .info-content p {
   margin-bottom: 5px;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
-  font-size: 15px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
