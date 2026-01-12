@@ -36,7 +36,7 @@ async function loadTestimonials() {
             ? data.map(t => `
         <div class="swiper-slide">
           <div class="testimonial-item">
-            <p>${t.testimonial}</p>
+            <p>“${t.testimonial}”</p>
             <div class="testimonial-profile">
               <img src="${getImageUrl(t.image)}" alt="${t.name}" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
               <div>
