@@ -48,7 +48,7 @@ async function loadAlumni() {
                     <div class="profile-body">
                         <h4>${alumni.name}</h4>
                         <span class="profile-title">${alumni.title}</span>
-                        <p><i>${alumni.message}</i></p>
+                        <p><i>" ${alumni.message} "</i></p>
                     </div>
                 </div>
             `;
