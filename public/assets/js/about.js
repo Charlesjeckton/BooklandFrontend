@@ -53,7 +53,7 @@ async function loadLeadershipTeam() {
                     <div class="leader-info">
                         <h4>${leader.salutation}. ${leader.name}</h4>
                         <p class="position">${leader.designation}</p>
-                        <p class="bio"><i>${leader.message}</i></p>
+                        <p class="bio"><i>" ${leader.message} "</i></p>
                     </div>
                 </div>
             `;
