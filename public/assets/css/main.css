@@ -3505,7 +3505,7 @@ section + section,
 .contact .contact-info-box .info-content p {
   margin-bottom: 5px;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
