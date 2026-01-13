@@ -23,7 +23,7 @@ function formatDateISO(dateStr, options = {}) {
 
 /*======================================================
     Safe Fetch
-=======================================================*/ 
+=======================================================*/
 async function safeFetch(url, retries = 2, delay = 1500) {
   try {
     const controller = new AbortController();
@@ -41,7 +41,6 @@ async function safeFetch(url, retries = 2, delay = 1500) {
     throw err;
   }
 }
-
 
 /* =====================================================
    TESTIMONIALS
@@ -66,7 +65,7 @@ async function loadTestimonials() {
             }" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
               <div>
                 <h3>${t.name}</h3>
-                <h4>${t.title}</h4>
+                <h4><b>${t.title}</b></h4>
               </div>
             </div>
           </div>
