@@ -12,6 +12,26 @@ function getFullImageUrl(path) {
     if (path.startsWith("http://") || path.startsWith("https://")) return path;
     return `${BACKEND_URL}${path.startsWith("/") ? "" : "/"}${encodeURI(path)}`;
 }
+/*======================================================
+    Safe Fetch
+=======================================================*/ 
+async function safeFetch(url, retries = 2, delay = 1500) {
+  try {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+    return await res.json();
+  } catch (err) {
+    if (retries > 0) {
+      await new Promise((r) => setTimeout(r, delay));
+      return safeFetch(url, retries - 1, delay);
+    }
+    throw err;
+  }
+}
 
 /* =====================================================
    LOAD ALUMNI
