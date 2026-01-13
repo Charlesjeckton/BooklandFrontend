@@ -83,17 +83,18 @@ async function handleRequestInfoForm(event) {
 
         const data = await res.json();
 
-        if (data.success) {
-            showModalMessage("successModal", data.message || "Request sent successfully!");
+        if (res.ok && data.success) {
+            showModalMessage("successModal", data.success);
             form.reset();
         } else {
-            showModalMessage("errorModal", data.error || "Something went wrong.");
+            showModalMessage("errorModal", data.success || "Something went wrong.");
         }
     } catch (err) {
         console.error("Error submitting request info form:", err);
         showModalMessage("errorModal", "Error connecting to server.");
     }
 }
+
 
 /* =====================================================
    INIT

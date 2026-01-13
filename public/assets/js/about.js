@@ -29,8 +29,7 @@ async function loadLeadershipTeam() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${BACKEND_URL}/api/leadership/`);
-        const data = await res.json();
+        const data = await safeFetch(`${BACKEND_URL}/api/leadership/`);
 
         container.innerHTML = "";
 
@@ -75,8 +74,7 @@ async function loadGalleryImages() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${BACKEND_URL}/api/gallery/`);
-        const data = await res.json();
+        const data = await safeFetch(`${BACKEND_URL}/api/gallery/`);
 
         container.innerHTML = "";
 

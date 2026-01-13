@@ -21,8 +21,8 @@ async function loadAlumni() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${BACKEND_URL}/api/alumni/`);
-        const data = await res.json();
+        const data = await safeFetch(`${BACKEND_URL}/api/alumni/`);
+
 
         container.innerHTML = "";
 
@@ -66,4 +66,6 @@ async function loadAlumni() {
 /* =====================================================
    INIT
 ===================================================== */
-document.addEventListener("DOMContentLoaded", loadAlumni);
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadAlumni();
+});
