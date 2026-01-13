@@ -1,7 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://booklandbackend.onrender.com";
+const BACKEND_URL = "https://bookland-backend-onku.onrender.com";
 
 /* =====================================================
    DYNAMIC MODAL (NO HTML REQUIRED)

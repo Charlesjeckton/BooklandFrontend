@@ -2,7 +2,7 @@
   "use strict";
 
   // Wake Render backend early
-  fetch("https://booklandbackend.onrender.com/api/").catch(() => {});
+  fetch("https://https://bookland-backend-onku.onrender.com/api/").catch(() => {});
 
   // ✅ Safe fetch with retry + timeout (handles Render cold starts)
   async function safeFetch(url, retries = 2, delay = 1500) {
