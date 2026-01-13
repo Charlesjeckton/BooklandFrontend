@@ -66,7 +66,7 @@ async function loadLeadershipTeam() {
 
     data.forEach((leader, index) => {
       const col = document.createElement("div");
-      col.className = "col-lg-3 col-md-6 mb-4";
+      col.className = "col-lg-4 col-md-6 mb-4";
       col.setAttribute("data-aos", "fade-up");
       col.setAttribute("data-aos-delay", 100 + index * 100);
 
