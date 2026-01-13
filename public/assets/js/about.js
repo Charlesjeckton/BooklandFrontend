@@ -42,23 +42,6 @@ async function safeFetch(url, retries = 2, delay = 1500) {
   }
 }
 
-// Lower number = higher rank
-const designationRank = {
-  CEO: 1,
-  "Managing Director": 2,
-  "Deputy Director": 3,
-  "Head of Department": 4,
-  Manager: 5,
-  Staff: 6,
-};
-
-// Sort using this map
-data.sort(
-  (a, b) =>
-    (designationRank[a.designation] || 999) -
-    (designationRank[b.designation] || 999)
-);
-
 /* =====================================================
    Load Leadership Team
 ===================================================== */
@@ -67,6 +50,7 @@ async function loadLeadershipTeam() {
   if (!container) return;
 
   try {
+    // Fetch leadership data
     let data = await safeFetch(`${BACKEND_URL}/api/leadership/`);
 
     container.innerHTML = "";
@@ -77,20 +61,8 @@ async function loadLeadershipTeam() {
       return;
     }
 
-    const designationRank = {
-      CEO: 1,
-      "Managing Director": 2,
-      "Deputy Director": 3,
-      "Head of Department": 4,
-      Manager: 5,
-      Staff: 6,
-    };
-
-    data.sort(
-      (a, b) =>
-        (designationRank[a.designation] || 999) -
-        (designationRank[b.designation] || 999)
-    );
+    // Sort by rank descending (highest rank first)
+    data.sort((a, b) => (b.rank || 0) - (a.rank || 0));
 
     data.forEach((leader, index) => {
       const col = document.createElement("div");
@@ -119,7 +91,8 @@ async function loadLeadershipTeam() {
       container.appendChild(col);
     });
 
-    AOS.refresh();
+    // Refresh AOS for animations
+    if (window.AOS) AOS.refresh();
   } catch (err) {
     console.error("Error loading leadership team:", err);
     container.innerHTML =
