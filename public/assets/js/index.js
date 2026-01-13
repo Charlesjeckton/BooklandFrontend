@@ -21,6 +21,28 @@ function formatDateISO(dateStr, options = {}) {
   return date.toLocaleDateString("en-US", options);
 }
 
+/*======================================================
+    Safe Fetch
+=======================================================*/ 
+async function safeFetch(url, retries = 2, delay = 1500) {
+  try {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+    return await res.json();
+  } catch (err) {
+    if (retries > 0) {
+      await new Promise((r) => setTimeout(r, delay));
+      return safeFetch(url, retries - 1, delay);
+    }
+    throw err;
+  }
+}
+
+
 /* =====================================================
    TESTIMONIALS
 ===================================================== */
@@ -69,7 +91,7 @@ async function loadTestimonials() {
     if (window.AOS) AOS.refresh();
   } catch (err) {
     console.error(err);
-    container.innerHTML = `<div class="swiper-slide">Failed to load testimonials.</div>`;
+    container.innerHTML = `<div class="swiper-slide text-center text-danger" >Failed to load testimonials.</div>`;
   }
 }
 
