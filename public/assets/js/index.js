@@ -1,7 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://booklandbackend.onrender.com"; // backend URL
+const BACKEND_URL = "https://bookland-backend-wueo.onrender.com/"; // backend URL
 const FALLBACK_IMAGE = "/static/images/default-fallback.jpg"; // fallback image
 
 /* =====================================================
