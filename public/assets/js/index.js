@@ -65,7 +65,7 @@ async function loadTestimonials() {
             }" class="img-fluid rounded-circle" onerror="this.src='${FALLBACK_IMAGE}'">
               <div>
                 <h3>${t.name}</h3>
-                <h4><b>${t.title}</b></h4>
+                <h4><strong>${t.title}</strong></h4>
               </div>
             </div>
           </div>
