@@ -1,7 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://bookland-backend-onku.onrender.com/api"; // Ensure correct API prefix
+const BACKEND_URL = "https://api.booklandschools.co.ke";
 const FALLBACK_TEXT = "N/A";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 let feesCache = { data: null, timestamp: 0 };

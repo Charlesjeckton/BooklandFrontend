@@ -2,7 +2,7 @@
   "use strict";
 
   // Wake Render backend early
-  fetch("https://https://bookland-backend-onku.onrender.com/api/").catch(() => {});
+  fetch("https://api.booklandschools.co.ke/api/").catch(() => {});
 
   // ✅ Safe fetch with retry + timeout (handles Render cold starts)
   async function safeFetch(url, retries = 2, delay = 1500) {
@@ -148,7 +148,7 @@
           layoutMode: layout,
           filter: filter,
           sortBy: sort,
-        }
+        },
       );
     });
 
@@ -169,7 +169,7 @@
               aosInit();
             }
           },
-          false
+          false,
         );
       });
   });
@@ -180,7 +180,7 @@
   function initSwiper() {
     document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
+        swiperElement.querySelector(".swiper-config").innerHTML.trim(),
       );
 
       if (swiperElement.classList.contains("swiper-tab")) {

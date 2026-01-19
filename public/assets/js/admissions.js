@@ -1,7 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const BACKEND_URL = "https://bookland-backend-onku.onrender.com";
+const BACKEND_URL = "https://api.booklandschools.co.ke";
 
 /* =====================================================
    HELPERS
