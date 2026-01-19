@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
   <url>
     <loc>https://www.booklandschools.co.ke/</loc>
     <priority>1.0</priority>
   </url>
+
   <url>
-    <loc>https://www.booklandschools.co.ke/about</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.booklandschools.co.ke/admissions</loc>
+    <loc>https://www.booklandschools.co.ke/index.html</loc>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://www.booklandschools.co.ke/contact</loc>
+    <loc>https://www.booklandschools.co.ke/about.html</loc>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://www.booklandschools.co.ke/admissions.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.booklandschools.co.ke/fees.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.booklandschools.co.ke/alumni.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.booklandschools.co.ke/events.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.booklandschools.co.ke/contact.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.booklandschools.co.ke/faqs.html</loc>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
