@@ -69,7 +69,7 @@ async function loadFeeStructure() {
             return;
         }
 
-        const res = await fetch(`${BACKEND_URL}/fees/`);
+        const res = await fetch(`${BACKEND_URL}/api/fees/`);
         if (!res.ok) throw new Error(`Failed to fetch fees: ${res.status}`);
         const data = await res.json();
 
