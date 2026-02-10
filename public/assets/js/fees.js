@@ -123,9 +123,9 @@ function renderFees(data, tableBody) {
 
         row.innerHTML = `
             <td class="align-middle"><strong>${escapeHtml(fee.level)}</strong></td>
-            <td class="align-middle">${formatKES(fee.tuition_fee_term1)}</td>
-            <td class="align-middle">${formatKES(fee.tuition_fee_term2)}</td>
-            <td class="align-middle">${formatKES(fee.tuition_fee_term3)}</td>
+            <td class="align-middle">${formatKES(fee.tuition_fee_term_One)}</td>
+            <td class="align-middle">${formatKES(fee.tuition_fee_term_Two)}</td>
+            <td class="align-middle">${formatKES(fee.tuition_fee_term_Three)}</td>
             <td class="align-middle"><span class="badge bg-success fs-6">${formatKES(fee.total_tuition_fee)}</span></td>
             <td class="align-middle">${downloadBtn}</td>
         `;
