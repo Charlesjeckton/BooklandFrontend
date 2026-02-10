@@ -4,7 +4,7 @@
 const BACKEND_URL = "https://api.booklandschools.co.ke";
 const FALLBACK_TEXT = "N/A";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
-let feesCache = {data: null, timestamp: 0};
+let feesCache = { data: null, timestamp: 0 };
 
 /* =====================================================
    HELPERS
@@ -27,21 +27,21 @@ const escapeHtml = text => {
     Safe Fetch
 =======================================================*/
 async function safeFetch(url, retries = 2, delay = 1500) {
-    try {
-        const controller = new AbortController();
-        setTimeout(() => controller.abort(), 8000); // 8s timeout
+  try {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 8000); // 8s timeout
 
-        const res = await fetch(url, {signal: controller.signal});
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-        return await res.json();
-    } catch (err) {
-        if (retries > 0) {
-            await new Promise((r) => setTimeout(r, delay));
-            return safeFetch(url, retries - 1, delay);
-        }
-        throw err;
+    return await res.json();
+  } catch (err) {
+    if (retries > 0) {
+      await new Promise((r) => setTimeout(r, delay));
+      return safeFetch(url, retries - 1, delay);
     }
+    throw err;
+  }
 }
 
 /* =====================================================
@@ -75,7 +75,7 @@ async function loadFeeStructure() {
 
         if (!Array.isArray(data)) throw new Error("Invalid data format received");
 
-        feesCache = {data, timestamp: Date.now()};
+        feesCache = { data, timestamp: Date.now() };
         renderFees(data, tableBody);
 
     } catch (error) {
@@ -123,9 +123,9 @@ function renderFees(data, tableBody) {
 
         row.innerHTML = `
             <td class="align-middle"><strong>${escapeHtml(fee.level)}</strong></td>
-            <td class="align-middle">${formatKES(fee.tuition_term_One)}</td>
-            <td class="align-middle">${formatKES(fee.tuition_term_Two)}</td>
-            <td class="align-middle">${formatKES(fee.tuition_term_Three)}</td>
+            <td class="align-middle">${formatKES(fee.tuition_per_term)}</td>
+            <td class="align-middle">${formatKES(fee.meals_fee)}</td>
+            <td class="align-middle">${formatKES(fee.transport_fee)}</td>
             <td class="align-middle"><span class="badge bg-success fs-6">${formatKES(fee.total_fee)}</span></td>
             <td class="align-middle">${downloadBtn}</td>
         `;
