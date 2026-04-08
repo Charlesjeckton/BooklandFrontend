@@ -12,22 +12,23 @@ function getFullImageUrl(path) {
     if (path.startsWith("http://") || path.startsWith("https://")) return path;
     return `${BACKEND_URL}${path.startsWith("/") ? "" : "/"}${encodeURI(path)}`;
 }
+
 /*======================================================
-    Safe Fetch
+    Safe Fetch with extended retry for cold starts
 =======================================================*/ 
-async function safeFetch(url, retries = 2, delay = 1500) {
+async function safeFetch(url, retries = 3, delay = 2000, timeout = 15000) {
   try {
     const controller = new AbortController();
-    setTimeout(() => controller.abort(), 8000); // 8s timeout
+    setTimeout(() => controller.abort(), timeout); // 15s timeout
 
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await fetch(url, { signal: controller.signal, cache: "no-cache" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
     return await res.json();
   } catch (err) {
     if (retries > 0) {
       await new Promise((r) => setTimeout(r, delay));
-      return safeFetch(url, retries - 1, delay);
+      return safeFetch(url, retries - 1, delay, timeout);
     }
     throw err;
   }
@@ -42,7 +43,6 @@ async function loadAlumni() {
 
     try {
         const data = await safeFetch(`${BACKEND_URL}/api/alumni/`);
-
 
         container.innerHTML = "";
 
@@ -79,7 +79,7 @@ async function loadAlumni() {
         if (window.AOS) AOS.refresh();
     } catch (error) {
         console.error("Error loading alumni:", error);
-        container.innerHTML = '<p class="text-danger text-center">Failed to load alumni.</p>';
+        container.innerHTML = '<p class="text-danger text-center">Failed to load alumni. Please try again.</p>';
     }
 }
 
@@ -87,5 +87,13 @@ async function loadAlumni() {
    INIT
 ===================================================== */
 document.addEventListener("DOMContentLoaded", async () => {
+    // Warm-up backend to reduce cold start issues
+    try {
+        await fetch(`${BACKEND_URL}/health/`, { method: "GET", cache: "no-cache" });
+    } catch (err) {
+        console.warn("Backend warm-up failed:", err);
+    }
+
+    // Load alumni after warm-up
     await loadAlumni();
 });
